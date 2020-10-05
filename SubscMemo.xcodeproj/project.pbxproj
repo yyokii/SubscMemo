@@ -3,82 +3,219 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F59AAAB2252B772700A0F4AF /* SubscMemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59AAAB1252B772700A0F4AF /* SubscMemoApp.swift */; };
-		F59AAAB4252B772700A0F4AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59AAAB3252B772700A0F4AF /* ContentView.swift */; };
-		F59AAAB6252B772B00A0F4AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F59AAAB5252B772B00A0F4AF /* Assets.xcassets */; };
-		F59AAAB9252B772B00A0F4AF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F59AAAB8252B772B00A0F4AF /* Preview Assets.xcassets */; };
+		18CDF08EB668D8D13A27EDF9 /* SubscMemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8F8F9671290A039A6D4819 /* SubscMemoApp.swift */; };
+		781738F894A4CB318F50FDEB /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646C3EDA15F0678904B21BF /* R.generated.swift */; };
+		85302A44DC0159AC1D5C8821 /* SubscMemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C7227AA2C7DDD4F2E64BB0 /* SubscMemoUITests.swift */; };
+		8968FE7F7C5593CAA38EA250 /* Pods_SubscMemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFCA4FAD1E048C9734FDE01 /* Pods_SubscMemo.framework */; };
+		9A4BD03659BC8F249DE960E7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5958BBE2821473C70C3C47E5 /* ContentView.swift */; };
+		9D60DDE0CE5E8FFFD6CD7459 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B98B1F659087E0228430279 /* Preview Assets.xcassets */; };
+		D7AA39954536709F3FCA8CFD /* SubscMemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183784EDA457C70CC6BBE8C9 /* SubscMemoTests.swift */; };
+		F3D1EB4FDAE61A0E869132CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B4C42D24BA5C52A78D944F8 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		38176E347A9721A6321012E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D886BA096EF5B26F9DDC6306 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96DC29CB21BE7E694E9BD1E2;
+			remoteInfo = SubscMemo;
+		};
+		78F6E6D577BABC4B341690B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D886BA096EF5B26F9DDC6306 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96DC29CB21BE7E694E9BD1E2;
+			remoteInfo = SubscMemo;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		F59AAAAE252B772700A0F4AF /* SubscMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SubscMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F59AAAB1252B772700A0F4AF /* SubscMemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscMemoApp.swift; sourceTree = "<group>"; };
-		F59AAAB3252B772700A0F4AF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		F59AAAB5252B772B00A0F4AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F59AAAB8252B772B00A0F4AF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		F59AAABA252B772B00A0F4AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		183784EDA457C70CC6BBE8C9 /* SubscMemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscMemoTests.swift; sourceTree = "<group>"; };
+		1F8D5F58B66E2943308E07BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		23C7227AA2C7DDD4F2E64BB0 /* SubscMemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscMemoUITests.swift; sourceTree = "<group>"; };
+		32A40F096CDC74531D9E3B5A /* Pods-SubscMemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SubscMemo.release.xcconfig"; path = "Target Support Files/Pods-SubscMemo/Pods-SubscMemo.release.xcconfig"; sourceTree = "<group>"; };
+		44E3F74CEB5595FF5293883C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4B4C42D24BA5C52A78D944F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5646C3EDA15F0678904B21BF /* R.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		5958BBE2821473C70C3C47E5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		718FEAF13C0CC55A120A929B /* Pods-SubscMemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SubscMemo.debug.xcconfig"; path = "Target Support Files/Pods-SubscMemo/Pods-SubscMemo.debug.xcconfig"; sourceTree = "<group>"; };
+		7BFCA4FAD1E048C9734FDE01 /* Pods_SubscMemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SubscMemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FEFEA54092F38B34E7639B6 /* SubscMemoUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SubscMemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B98B1F659087E0228430279 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		95B917233FC15E2FC0A1F075 /* SubscMemoTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SubscMemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A40E7667389E0FF3318ACFDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B29C3919579381AA57E97EBC /* SubscMemo.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SubscMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA8F8F9671290A039A6D4819 /* SubscMemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscMemoApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		F59AAAAB252B772700A0F4AF /* Frameworks */ = {
+		36A49E1D62EF9F43CD4FE415 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A269B75CA03130E52ED930F5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB78E2509A3C0A54DDFB081A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8968FE7F7C5593CAA38EA250 /* Pods_SubscMemo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F59AAAA5252B772700A0F4AF = {
+		148CD06301F19C984C2B9210 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
-				F59AAAB0252B772700A0F4AF /* SubscMemo */,
-				F59AAAAF252B772700A0F4AF /* Products */,
+				5646C3EDA15F0678904B21BF /* R.generated.swift */,
+			);
+			name = Generated;
+			path = SubscMemo/Generated;
+			sourceTree = "<group>";
+		};
+		481597C4F749B1718DF0317E = {
+			isa = PBXGroup;
+			children = (
+				148CD06301F19C984C2B9210 /* Generated */,
+				63C04EEC02EE134C97698FB0 /* SubscMemo */,
+				8EF4385FB56A36080E8610CB /* SubscMemoTests */,
+				AE959AFE269C5436002731CE /* SubscMemoUITests */,
+				FF491F5680211C833F2AB6BE /* Products */,
+				EBCD4B2A6C7D9D7E4EE46598 /* Pods */,
+				7988060368FF15B276310226 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		F59AAAAF252B772700A0F4AF /* Products */ = {
+		63C04EEC02EE134C97698FB0 /* SubscMemo */ = {
 			isa = PBXGroup;
 			children = (
-				F59AAAAE252B772700A0F4AF /* SubscMemo.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		F59AAAB0252B772700A0F4AF /* SubscMemo */ = {
-			isa = PBXGroup;
-			children = (
-				F59AAAB1252B772700A0F4AF /* SubscMemoApp.swift */,
-				F59AAAB3252B772700A0F4AF /* ContentView.swift */,
-				F59AAAB5252B772B00A0F4AF /* Assets.xcassets */,
-				F59AAABA252B772B00A0F4AF /* Info.plist */,
-				F59AAAB7252B772B00A0F4AF /* Preview Content */,
+				4B4C42D24BA5C52A78D944F8 /* Assets.xcassets */,
+				5958BBE2821473C70C3C47E5 /* ContentView.swift */,
+				1F8D5F58B66E2943308E07BF /* Info.plist */,
+				FA8F8F9671290A039A6D4819 /* SubscMemoApp.swift */,
+				640F7251CF6A7CA8A35B74E8 /* Preview Content */,
 			);
 			path = SubscMemo;
 			sourceTree = "<group>";
 		};
-		F59AAAB7252B772B00A0F4AF /* Preview Content */ = {
+		640F7251CF6A7CA8A35B74E8 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				F59AAAB8252B772B00A0F4AF /* Preview Assets.xcassets */,
+				8B98B1F659087E0228430279 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		7988060368FF15B276310226 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7BFCA4FAD1E048C9734FDE01 /* Pods_SubscMemo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8EF4385FB56A36080E8610CB /* SubscMemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				44E3F74CEB5595FF5293883C /* Info.plist */,
+				183784EDA457C70CC6BBE8C9 /* SubscMemoTests.swift */,
+			);
+			path = SubscMemoTests;
+			sourceTree = "<group>";
+		};
+		AE959AFE269C5436002731CE /* SubscMemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A40E7667389E0FF3318ACFDF /* Info.plist */,
+				23C7227AA2C7DDD4F2E64BB0 /* SubscMemoUITests.swift */,
+			);
+			path = SubscMemoUITests;
+			sourceTree = "<group>";
+		};
+		EBCD4B2A6C7D9D7E4EE46598 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				718FEAF13C0CC55A120A929B /* Pods-SubscMemo.debug.xcconfig */,
+				32A40F096CDC74531D9E3B5A /* Pods-SubscMemo.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		FF491F5680211C833F2AB6BE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B29C3919579381AA57E97EBC /* SubscMemo.app */,
+				95B917233FC15E2FC0A1F075 /* SubscMemoTests.xctest */,
+				7FEFEA54092F38B34E7639B6 /* SubscMemoUITests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F59AAAAD252B772700A0F4AF /* SubscMemo */ = {
+		831307A69B414FE7F1507EF3 /* SubscMemoTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F59AAABD252B772B00A0F4AF /* Build configuration list for PBXNativeTarget "SubscMemo" */;
+			buildConfigurationList = BD44643DBDDE468C64DD27ED /* Build configuration list for PBXNativeTarget "SubscMemoTests" */;
 			buildPhases = (
-				F59AAAAA252B772700A0F4AF /* Sources */,
-				F59AAAAB252B772700A0F4AF /* Frameworks */,
-				F59AAAAC252B772700A0F4AF /* Resources */,
+				49C293DA6DA55170C4469482 /* Sources */,
+				36A49E1D62EF9F43CD4FE415 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6B074E4C28E30A4C4609EF7A /* PBXTargetDependency */,
+			);
+			name = SubscMemoTests;
+			productName = SubscMemoTests;
+			productReference = 95B917233FC15E2FC0A1F075 /* SubscMemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		856570F0B6B7B743B8155C19 /* SubscMemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2276C42397174CFF49443EDC /* Build configuration list for PBXNativeTarget "SubscMemoUITests" */;
+			buildPhases = (
+				A81B3CF6361B980401A0D5D1 /* Sources */,
+				A269B75CA03130E52ED930F5 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				681810641358E407374C8CF0 /* PBXTargetDependency */,
+			);
+			name = SubscMemoUITests;
+			productName = SubscMemoUITests;
+			productReference = 7FEFEA54092F38B34E7639B6 /* SubscMemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		96DC29CB21BE7E694E9BD1E2 /* SubscMemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2EFA7706185DF5CD8D04BC05 /* Build configuration list for PBXNativeTarget "SubscMemo" */;
+			buildPhases = (
+				D2902979B2D5BCFF4A3AC2D6 /* [CP] Check Pods Manifest.lock */,
+				5229D5EDDFEF554DA4EDAEFE /* Generate Resources with R.swift */,
+				254DA4C245DDA5CE116C27B6 /* Run Swiftformat */,
+				A808F611EAFBB78AC5D2B7BD /* Sources */,
+				A5B077290F85A9EEFA5A4788 /* Run SwiftLint */,
+				0D010552C47E3E0F9C2DAC29 /* Resources */,
+				CB78E2509A3C0A54DDFB081A /* Frameworks */,
+				D714F7876B662DED45743D50 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -86,67 +223,266 @@
 			);
 			name = SubscMemo;
 			productName = SubscMemo;
-			productReference = F59AAAAE252B772700A0F4AF /* SubscMemo.app */;
+			productReference = B29C3919579381AA57E97EBC /* SubscMemo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		F59AAAA6252B772700A0F4AF /* Project object */ = {
+		D886BA096EF5B26F9DDC6306 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1200;
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
-					F59AAAAD252B772700A0F4AF = {
-						CreatedOnToolsVersion = 12.0;
+					856570F0B6B7B743B8155C19 = {
+						TestTargetID = 96DC29CB21BE7E694E9BD1E2;
 					};
 				};
 			};
-			buildConfigurationList = F59AAAA9252B772700A0F4AF /* Build configuration list for PBXProject "SubscMemo" */;
-			compatibilityVersion = "Xcode 9.3";
+			buildConfigurationList = 51C586B30E781608B15AAB9B /* Build configuration list for PBXProject "SubscMemo" */;
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 			);
-			mainGroup = F59AAAA5252B772700A0F4AF;
-			productRefGroup = F59AAAAF252B772700A0F4AF /* Products */;
+			mainGroup = 481597C4F749B1718DF0317E;
+			productRefGroup = FF491F5680211C833F2AB6BE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F59AAAAD252B772700A0F4AF /* SubscMemo */,
+				96DC29CB21BE7E694E9BD1E2 /* SubscMemo */,
+				831307A69B414FE7F1507EF3 /* SubscMemoTests */,
+				856570F0B6B7B743B8155C19 /* SubscMemoUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		F59AAAAC252B772700A0F4AF /* Resources */ = {
+		0D010552C47E3E0F9C2DAC29 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F59AAAB9252B772B00A0F4AF /* Preview Assets.xcassets in Resources */,
-				F59AAAB6252B772B00A0F4AF /* Assets.xcassets in Resources */,
+				F3D1EB4FDAE61A0E869132CD /* Assets.xcassets in Resources */,
+				9D60DDE0CE5E8FFFD6CD7459 /* Preview Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		254DA4C245DDA5CE116C27B6 /* Run Swiftformat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Swiftformat";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "mint run swiftformat\n";
+		};
+		5229D5EDDFEF554DA4EDAEFE /* Generate Resources with R.swift */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$TEMP_DIR/rswift-lastrun",
+			);
+			name = "Generate Resources with R.swift";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$SRCROOT/$TARGET_NAME/Generated/R.generated.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if mint list | grep -q 'R.swift'; then\n  mint run R.swift rswift generate \"$SRCROOT/$TARGET_NAME/Generated/R.generated.swift\"\nelse\n  echo \"error: R.swift not installed; run 'mint bootstrap' to install\"\n  return -1\nfi\n";
+		};
+		A5B077290F85A9EEFA5A4788 /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which mint >/dev/null; then\n  mint run swiftlint swiftlint autocorrect --format\n  mint run swiftlint swiftlint\nelse\n  echo \"warning: Mint not installed, download from https://github.com/yonaskolb/Mint\"\nfi\n";
+		};
+		D2902979B2D5BCFF4A3AC2D6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SubscMemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D714F7876B662DED45743D50 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SubscMemo/Pods-SubscMemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SubscMemo/Pods-SubscMemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SubscMemo/Pods-SubscMemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		F59AAAAA252B772700A0F4AF /* Sources */ = {
+		49C293DA6DA55170C4469482 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F59AAAB4252B772700A0F4AF /* ContentView.swift in Sources */,
-				F59AAAB2252B772700A0F4AF /* SubscMemoApp.swift in Sources */,
+				D7AA39954536709F3FCA8CFD /* SubscMemoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A808F611EAFBB78AC5D2B7BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A4BD03659BC8F249DE960E7 /* ContentView.swift in Sources */,
+				781738F894A4CB318F50FDEB /* R.generated.swift in Sources */,
+				18CDF08EB668D8D13A27EDF9 /* SubscMemoApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A81B3CF6361B980401A0D5D1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85302A44DC0159AC1D5C8821 /* SubscMemoUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		681810641358E407374C8CF0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96DC29CB21BE7E694E9BD1E2 /* SubscMemo */;
+			targetProxy = 38176E347A9721A6321012E9 /* PBXContainerItemProxy */;
+		};
+		6B074E4C28E30A4C4609EF7A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96DC29CB21BE7E694E9BD1E2 /* SubscMemo */;
+			targetProxy = 78F6E6D577BABC4B341690B6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
-		F59AAABB252B772B00A0F4AF /* Debug */ = {
+		539AE038EEB27C0C6024EE41 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = SubscMemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yyokii.SubscMemoUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SubscMemo;
+			};
+			name = Release;
+		};
+		8E38BD7B5BCE08F0C6E656F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = SubscMemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yyokii.SubscMemoUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SubscMemo;
+			};
+			name = Debug;
+		};
+		C4B7FF4A691567E491AA2820 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 32A40F096CDC74531D9E3B5A /* Pods-SubscMemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SubscMemo/SubscMemo.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = SubscMemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yyokii.SubscMemo;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CB5D1BF64481C830DD7CB8D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = SubscMemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yyokii.SubscMemoTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SubscMemo.app/SubscMemo";
+			};
+			name = Debug;
+		};
+		CCC062AF93D430325455524A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -156,7 +492,6 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -172,7 +507,6 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -188,8 +522,8 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
+					"DEBUG=1",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -197,17 +531,18 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
-		F59AAABC252B772B00A0F4AF /* Release */ = {
+		E0FFF2F9FC5E3CBE16853F52 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -217,7 +552,6 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -233,7 +567,6 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -252,82 +585,92 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		F59AAABE252B772B00A0F4AF /* Debug */ = {
+		E9331A75B5B9F364C3B1B3F7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = SubscMemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yyokii.SubscMemoTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SubscMemo.app/SubscMemo";
+			};
+			name = Release;
+		};
+		FA49FA56A8C6973C104A91A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 718FEAF13C0CC55A120A929B /* Pods-SubscMemo.debug.xcconfig */;
+			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"SubscMemo/Preview Content\"";
-				DEVELOPMENT_TEAM = EAZT2D654U;
-				ENABLE_PREVIEWS = YES;
+				CODE_SIGN_ENTITLEMENTS = SubscMemo/SubscMemo.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = SubscMemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yyokii.SubscMemo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		F59AAABF252B772B00A0F4AF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"SubscMemo/Preview Content\"";
-				DEVELOPMENT_TEAM = EAZT2D654U;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = SubscMemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yyokii.SubscMemo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F59AAAA9252B772700A0F4AF /* Build configuration list for PBXProject "SubscMemo" */ = {
+		2276C42397174CFF49443EDC /* Build configuration list for PBXNativeTarget "SubscMemoUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F59AAABB252B772B00A0F4AF /* Debug */,
-				F59AAABC252B772B00A0F4AF /* Release */,
+				8E38BD7B5BCE08F0C6E656F8 /* Debug */,
+				539AE038EEB27C0C6024EE41 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
-		F59AAABD252B772B00A0F4AF /* Build configuration list for PBXNativeTarget "SubscMemo" */ = {
+		2EFA7706185DF5CD8D04BC05 /* Build configuration list for PBXNativeTarget "SubscMemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F59AAABE252B772B00A0F4AF /* Debug */,
-				F59AAABF252B772B00A0F4AF /* Release */,
+				FA49FA56A8C6973C104A91A5 /* Debug */,
+				C4B7FF4A691567E491AA2820 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
+		};
+		51C586B30E781608B15AAB9B /* Build configuration list for PBXProject "SubscMemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCC062AF93D430325455524A /* Debug */,
+				E0FFF2F9FC5E3CBE16853F52 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BD44643DBDDE468C64DD27ED /* Build configuration list for PBXNativeTarget "SubscMemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB5D1BF64481C830DD7CB8D4 /* Debug */,
+				E9331A75B5B9F364C3B1B3F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = F59AAAA6252B772700A0F4AF /* Project object */;
+	rootObject = D886BA096EF5B26F9DDC6306 /* Project object */;
 }

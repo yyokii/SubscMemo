@@ -1,0 +1,15 @@
+excluded:
+- Pods/
+- Carthage/
+- {Project Name}/Generated/
+
+disabled_rules:
+- trailing_whitespace
+
+identifier_name:
+  min_length: 2
+
+nesting:
+  type_level: 3
+
+line_length: 200

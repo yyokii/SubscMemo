@@ -7,5 +7,8 @@ target 'SubscMemo' do
 
   # Pods for SubscMemo
   pod 'Ballcap'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Firestore'
 
 end

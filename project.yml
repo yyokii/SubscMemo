@@ -9,6 +9,11 @@ options:
   # findCarthageFrameworks: true # 余計なフレームワークまで追加されてしまうためコメントアウト
   carthageExecutablePath: mint run Carthage/Carthage carthage
 
+packages:
+  Rswift:
+    url: https://github.com/mac-cain13/R.swift.Library
+    version: 5.2.0
+
 targets:
   SubscMemo:
     type: application
@@ -25,6 +30,8 @@ targets:
         CODE_SIGN_ENTITLEMENTS: SubscMemo/SubscMemo.entitlements
         MARKETING_VERSION: 1.0.0 
         CURRENT_PROJECT_VERSION: 1
+    dependencies:
+      - package: Rswift
     preBuildScripts:
       - script: |
                 if mint list | grep -q 'R.swift'; then

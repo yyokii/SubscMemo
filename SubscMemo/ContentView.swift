@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  SubscMemo
 //
-//  Created by 東原与生 on 2020/10/06.
+//  Created by 東原与生 on 2020/10/10.
 //
 
 import SwiftUI

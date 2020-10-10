@@ -1,7 +1,7 @@
 excluded:
 - Pods/
 - Carthage/
-- {Project Name}/Generated/
+- SubscMemo/Generated/
 
 disabled_rules:
 - trailing_whitespace

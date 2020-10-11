@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  SubscItemListView.swift
 //  SubscMemo
 //
 //  Created by 東原与生 on 2020/10/10.
@@ -25,6 +25,7 @@ struct SubscItemListView: View {
 
     @State var presentation: Presentation?
 
+    @State var user: AppUser?
     @State var items: [SubscItem] = []
 
     let dataSource: DataSource<SubscItem> = SubscItem

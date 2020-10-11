@@ -18,10 +18,10 @@ final class SubscItem: Object, DataRepresentable, DataListenable, ObservableObje
 
         var title: String = ""
         var price: Int = 0
-        var firstBill: Timestamp!
+        var cycle: String = ""
+        var payAt: Timestamp!
         var plan: String?
         var category: String?
-        var cycle: String!
         var url: String?
         var description: String?
         var createdAt: ServerTimestamp?

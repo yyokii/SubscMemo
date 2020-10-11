@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import SubscMemo
+// @testable import SubscMemo
 
 class SubscMemoTests: XCTestCase {
 

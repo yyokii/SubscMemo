@@ -10,6 +10,7 @@ target 'SubscMemo' do
   pod 'Firebase/Auth'
   pod 'Firebase/Analytics'
   pod 'Firebase/Firestore'
+  por 'FirebaseFirestoreSwift'
 
 end
 

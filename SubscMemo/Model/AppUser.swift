@@ -10,32 +10,31 @@ import FirebaseFirestore
 import FirebaseAuth
 
 final class AppUser: Object, DataRepresentable, DataListenable, HierarchicalStructurable, ObservableObject, Identifiable {
-    
+
     typealias ID = String
-    
+
     override class var name: String { "users" }
-    
-    
+
     struct Model: Codable, Modelable {
-        
+
         var name: String = ""
         // これいる？
         // var status: UserStatus?
     }
-    
+
     @Published var data: AppUser.Model?
-    
+
     enum CollectionKeys: String {
         case subscItems
     }
-    
+
     var listener: ListenerRegistration?
-    
+
     func signIn() {
         if Auth.auth().currentUser == nil {
-            
+
             Auth.auth().signInAnonymously { (authResult, error) in
-                
+
                 if let error = error {
                     // completion(.failure(.serverError(error)))
                 } else {

@@ -1,5 +1,5 @@
 //
-//  SubscItemListView.swift
+//  SubscListView.swift
 //  SubscMemo
 //
 //  Created by 東原与生 on 2020/10/10.
@@ -9,7 +9,7 @@ import SwiftUI
 
 import Ballcap
 
-struct SubscItemListView: View {
+struct SubscListView: View {
 
     enum Presentation: View, Hashable, Identifiable {
         var id: Self { self }
@@ -66,5 +66,11 @@ struct SubscItemListView: View {
             })
             .sheet(item: self.$presentation) { $0 }
         }
+    }
+}
+
+struct SubscItemListView_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
 }

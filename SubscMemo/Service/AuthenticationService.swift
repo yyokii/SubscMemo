@@ -9,10 +9,10 @@ import SwiftUI
 import FirebaseAuth
 
 final class AuthenticationService {
-  
-  func signIn() {
-    if Auth.auth().currentUser == nil {
-      Auth.auth().signInAnonymously()
+
+    func signIn() {
+        if Auth.auth().currentUser == nil {
+            Auth.auth().signInAnonymously()
+        }
     }
-  }
 }

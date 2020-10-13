@@ -353,6 +353,7 @@ DEPENDENCIES:
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Firestore
+  - FirebaseFirestoreSwift
 
 SPEC REPOS:
   trunk:
@@ -403,6 +404,6 @@ SPEC CHECKSUMS:
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
 
-PODFILE CHECKSUM: 3189763fc5a402209f561db6126990c5cbb9e33b
+PODFILE CHECKSUM: 122e0e1a8f7738ece4f7f9893f934931db916e16
 
 COCOAPODS: 1.9.3

@@ -9,14 +9,17 @@ import UIKit
 
 import Firebase
 import FirebaseAuth
+import Resolver
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    @LazyInjected var authenticationService: AuthenticationService
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         FirebaseApp.configure()
-        Auth.auth().signInAnonymously()
+        authenticationService.signIn()
         return true
     }
 

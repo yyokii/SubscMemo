@@ -6,11 +6,11 @@ target 'SubscMemo' do
   use_frameworks!
 
   # Pods for SubscMemo
-  pod 'Ballcap'
   pod 'Firebase/Auth'
   pod 'Firebase/Analytics'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
+  pod "Resolver"
 
 end
 

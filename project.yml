@@ -13,9 +13,10 @@ packages:
   Rswift:
     url: https://github.com/mac-cain13/R.swift.Library
     version: 5.2.0
-  Resolver:
-    url: https://github.com/hmlongco/Resolver.git
-    version: 1.1.4
+  # import 効かないのでpodでやる
+  # Resolver:
+  #   url: https://github.com/hmlongco/Resolver.git
+  #   version: 1.1.2
 
 targets:
   SubscMemo:

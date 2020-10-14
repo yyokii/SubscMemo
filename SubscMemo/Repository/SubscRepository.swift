@@ -10,6 +10,7 @@ import Combine
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import Resolver
 
 class BaseSubscRepository {
     @Published var items = [SubscItem]()
@@ -25,7 +26,7 @@ final class FirestoreSubscRepository: BaseSubscRepository, SubscRepository, Obse
 
     var db: Firestore = Firestore.firestore()
 
-    //  @Injected var authenticationService: AuthenticationService
+    @Injected var authenticationService: AuthenticationService
 
     var itemsPath: String = "subscItems"
     var userId: String = "unknown"
@@ -36,12 +37,25 @@ final class FirestoreSubscRepository: BaseSubscRepository, SubscRepository, Obse
     override init() {
         super.init()
 
-        loadData()
+        authenticationService.$user
+            .compactMap { user in
+                user?.id
+            }
+            .assign(to: \.userId, on: self)
+            .store(in: &cancellables)
+
+        // (re)load data if user changes
+        authenticationService.$user
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.loadData()
+            }
+            .store(in: &cancellables)
+
+        // loadData()
     }
 
     private func loadData() {
-        userId = Auth.auth().currentUser?.uid ?? "unknown"
-
         db.collection(itemsPath)
             .whereField("userId", isEqualTo: self.userId)
             .order(by: "createdTime")

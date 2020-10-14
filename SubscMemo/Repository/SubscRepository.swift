@@ -28,7 +28,8 @@ final class FirestoreSubscRepository: BaseSubscRepository, SubscRepository, Obse
 
     @Injected var authenticationService: AuthenticationService
 
-    var itemsPath: String = "subscItems"
+    let usersPath: String = "users"
+    let itemsPath: String = "subscItems"
     var userId: String = "unknown"
 
     // private var listenerRegistration: ListenerRegistration?
@@ -56,8 +57,10 @@ final class FirestoreSubscRepository: BaseSubscRepository, SubscRepository, Obse
     }
 
     private func loadData() {
-        db.collection(itemsPath)
-            .whereField("userId", isEqualTo: self.userId)
+
+        db.collection(usersPath)
+            .document(userId)
+            .collection(itemsPath)
             .order(by: "createdTime")
             .addSnapshotListener { (querySnapshot, _) in
                 if let querySnapshot = querySnapshot {
@@ -72,7 +75,10 @@ final class FirestoreSubscRepository: BaseSubscRepository, SubscRepository, Obse
         do {
             var item = item
             item.userId = self.userId
-            _ = try db.collection(itemsPath).addDocument(from: item)
+            _ = try db.collection(usersPath)
+                .document(userId)
+                .collection(itemsPath)
+                .addDocument(from: item)
         } catch {
             fatalError("Unable to encode task: \(error.localizedDescription).")
         }
@@ -80,18 +86,24 @@ final class FirestoreSubscRepository: BaseSubscRepository, SubscRepository, Obse
 
     func removeItem(_ item: SubscItem) {
         if let itemID = item.id {
-            db.collection(itemsPath).document(itemID).delete { (error) in
-                if let error = error {
-                    print("Unable to remove document: \(error.localizedDescription)")
+            db.collection(usersPath)
+                .document(userId)
+                .collection(itemsPath)
+                .document(itemID).delete { (error) in
+                    if let error = error {
+                        print("Unable to remove document: \(error.localizedDescription)")
+                    }
                 }
-            }
         }
     }
 
     func updateItem(_ item: SubscItem) {
         if let itemID = item.id {
             do {
-                try db.collection(itemsPath).document(itemID).setData(from: item)
+                try db.collection(usersPath)
+                    .document(userId)
+                    .collection(itemsPath)
+                    .document(itemID).setData(from: item)
             } catch {
                 fatalError("Unable to encode task: \(error.localizedDescription).")
             }

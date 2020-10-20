@@ -73,8 +73,6 @@ final class FirestoreSubscRepository: BaseSubscRepository, SubscRepository, Obse
 
     func addItem(_ item: SubscItem) {
         do {
-            var item = item
-            item.userId = self.userId
             _ = try db.collection(usersPath)
                 .document(userId)
                 .collection(itemsPath)

@@ -27,4 +27,8 @@ final class EditSubscViewModel: ObservableObject {
     func addItem(item: SubscItem) {
         subscRepository.addItem(item)
     }
+
+    func deleteItem(item: SubscItem) {
+        subscRepository.deleteItem(item)
+    }
 }

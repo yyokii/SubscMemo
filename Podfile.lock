@@ -218,6 +218,16 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.7):
     - BoringSSL-GRPC/Interface (= 0.0.7)
   - BoringSSL-GRPC/Interface (0.0.7)
+  - CombineFirebase/Auth (0.2.6):
+    - CombineFirebaseAuthentication (~> 0.2)
+  - CombineFirebase/Firestore (0.2.6):
+    - CombineFirebaseFirestore (~> 0.2)
+  - CombineFirebaseAuthentication (0.2.3):
+    - Firebase/Auth
+    - FirebaseCore
+  - CombineFirebaseFirestore (0.2.5):
+    - Firebase/Firestore
+    - FirebaseFirestoreSwift
   - Firebase/Analytics (6.27.0):
     - Firebase/Core
   - Firebase/Auth (6.27.0):
@@ -337,6 +347,8 @@ PODS:
   - Resolver (1.1.4)
 
 DEPENDENCIES:
+  - CombineFirebase/Auth
+  - CombineFirebase/Firestore
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Firestore
@@ -347,6 +359,9 @@ SPEC REPOS:
   trunk:
     - abseil
     - BoringSSL-GRPC
+    - CombineFirebase
+    - CombineFirebaseAuthentication
+    - CombineFirebaseFirestore
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -370,6 +385,9 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
+  CombineFirebase: 47ec2888bb08460cfcb12a4b1e4bb85ede2dc613
+  CombineFirebaseAuthentication: 9a0682aae46832126538ec6ff38683b5983c56c4
+  CombineFirebaseFirestore: a3bbe46c3ccd4cc924a53862e9d2f1dc2e20918b
   Firebase: fc4cbf6f1592636431821ef9a3c557e4dfd9f268
   FirebaseAnalytics: 0ea640473474f036cabbc2576e20c2d63671c92f
   FirebaseAuth: b85c064e0ac60f82486728d50a4803f235687302
@@ -390,6 +408,6 @@ SPEC CHECKSUMS:
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   Resolver: 1f4c046255cbadfa97094692e16e940d4329779f
 
-PODFILE CHECKSUM: 8ebfac9ef3f3589705500227f73d932d66485b5b
+PODFILE CHECKSUM: 0bdd87c7f08bce0d56f8b51331ee6e21037e1855
 
 COCOAPODS: 1.9.3

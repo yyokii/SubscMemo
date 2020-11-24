@@ -11,13 +11,17 @@ struct EditSubscView: View {
 
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-    @ObservedObject var editSubscVM = EditSubscViewModel()
-    @State private var item: SubscItem = SubscItem.makeNewItem()
+    @ObservedObject var editSubscVM: EditSubscViewModel = EditSubscViewModel()
+    @State var item: SubscItem
 
     var body: some View {
 
         ScrollView {
             VStack {
+                Image(systemName: "trash")
+                    .resizable()
+                    .frame(width: 20, height: 20)
+
                 VStack(alignment: .leading) {
                     LabelTextField(title: "Title", placeHolder: "Fill in the title", label: $item.title)
 
@@ -68,6 +72,6 @@ struct LabelTextField: View {
 
 struct AddNewSubscView_Previews: PreviewProvider {
     static var previews: some View {
-        EditSubscView()
+        EditSubscView(item: SubscItem.makeNewItem())
     }
 }

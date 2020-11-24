@@ -5,41 +5,45 @@
 //  Created by 東原与生 on 2020/10/10.
 //
 
-enum Presentation: View, Hashable, Identifiable {
-    var id: Self { self }
-
-    case new
-    var body: some View {
-        switch self {
-        case .new: return  AnyView(EditSubscView())
-        }
-    }
-}
-
 import SwiftUI
 
 struct SubscListView: View {
     @ObservedObject var subscListVM = SubscListViewModel()
 
-    @State var presentation: Presentation?
+    //    enum Presentation: View, Hashable, Identifiable {
+    //
+    //        case new
+    //        case edit(item: SubscItem)
+    //
+    //        var body: some View {
+    //            switch self {
+    //            case .new: return AnyView(EditSubscView(item: SubscItem.makeNewItem()))
+    //            case .edit(let item): return AnyView(EditSubscView(item: item))
+    //            }
+    //        }
+    //    }
+    //    @State var presentation: Presentation?
+
+    @State var isPresented: Bool = false
 
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                List {
-                    ForEach(subscListVM.subscCellViewModels) { subscCellVM in
-                        SubscCell(subscCellVM: subscCellVM)
-                    }
+                List(subscListVM.subscCellViewModels) { model in
+
+                    NavigationLink(destination: EditSubscView(item: model.item), label: {
+                        SubscCell(subscCellVM: model)
+                    })
                 }
 
                 Button(action: {
-                    self.presentation = .new
+                    isPresented.toggle()
                 }, label: {
                     HStack {
                         Image(systemName: "plus.circle.fill")
                             .resizable()
                             .frame(width: 20, height: 20)
-                        Text("New Task")
+                        Text("New Item")
                     }
                 })
 
@@ -47,7 +51,9 @@ struct SubscListView: View {
                 .accentColor(Color(UIColor.systemRed))
             }
             .navigationBarTitle("Tasks")
-            .sheet(item: self.$presentation) { $0 }
+            .sheet(isPresented: $isPresented, content: {
+                EditSubscView(item: SubscItem.makeNewItem())
+            })
         }
     }
 }
@@ -67,15 +73,8 @@ struct SubscCell: View {
     var onCommit: (Result<SubscItem, InputError>) -> Void = { _ in }
 
     var body: some View {
-        HStack {
-            TextField("Enter item title", text: $subscCellVM.item.title,
-                      onCommit: {
-                        if !self.subscCellVM.item.title.isEmpty {
-                            self.onCommit(.success(self.subscCellVM.item))
-                        } else {
-                            self.onCommit(.failure(.empty))
-                        }
-                      }).id(subscCellVM.id)
+        VStack {
+            Text(subscCellVM.item.title)
         }
     }
 }

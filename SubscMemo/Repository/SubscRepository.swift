@@ -18,7 +18,7 @@ class BaseSubscRepository {
 
 protocol SubscRepository: BaseSubscRepository {
     func addItem(_ item: SubscItem)
-    func removeItem(_ item: SubscItem)
+    func deleteItem(_ item: SubscItem)
     func updateItem(_ item: SubscItem)
 }
 
@@ -82,7 +82,7 @@ final class FirestoreSubscRepository: BaseSubscRepository, SubscRepository, Obse
         }
     }
 
-    func removeItem(_ item: SubscItem) {
+    func deleteItem(_ item: SubscItem) {
         if let itemID = item.id {
             db.collection(usersPath)
                 .document(userId)

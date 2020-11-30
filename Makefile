@@ -12,30 +12,21 @@ TEST_DESTINATION := 'platform=${TEST_PLATFORM},name=${TEST_DEVICE},OS=${TEST_OS}
 
 .PHONY: start
 start:
-	make bootstrap
-	make install-bundler
+	make install
 	make create-project
 	make open
 
-.PHONY: bootstrap
-bootstrap:
-	brew update
-	brew install mint
-	mint bootstrap
-
-.PHONY: install-bundler
-install-bundler:
-	bundle config path vendor/bundle
-	bundle install --jobs 4 --retry 3
-
-.PHONY: install-cocoapods
-install-cocoapods:
-	bundle exec pod install
+.PHONY: intall
+install: install-mint install-gems
+install-mint:
+	sh Scripts/Mint/mint-install.sh 
+install-gems:
+	sh Scripts/Ruby/bundle-install.sh	
 
 .PHONY: create-project
 create-project:
 	mint run yonaskolb/XcodeGen xcodegen generate
-	make install-cocoapods
+	sh Scripts/Cocoapods/pod-install.sh
 
 .PHONY: open
 open:

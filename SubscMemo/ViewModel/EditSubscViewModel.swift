@@ -12,17 +12,17 @@ final class EditSubscViewModel: ObservableObject {
     // injectでよくね？
     @Published var subscRepository: SubscRepository = FirestoreSubscRepository()
 
-    //    @Published var item: SubscItem!
+    @Published var item: SubscItem!
 
     private var cancellables = Set<AnyCancellable>()
 
-    //    init(item: SubscItem) {
-    //        self.item = item
-    //    }
+    init(item: SubscItem) {
+        self.item = item
+    }
 
-    //    static func newItem() -> EditSubscViewModel {
-    //        EditSubscViewModel(item: SubscItem.makeNewItem())
-    //    }
+    static func newItem() -> EditSubscViewModel {
+        EditSubscViewModel(item: SubscItem.makeNewItem())
+    }
 
     func addItem(item: SubscItem) {
         subscRepository.addItem(item)

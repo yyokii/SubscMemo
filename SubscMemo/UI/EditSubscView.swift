@@ -9,10 +9,7 @@ import SwiftUI
 
 struct EditSubscView: View {
 
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
-    @ObservedObject var editSubscVM: EditSubscViewModel = EditSubscViewModel()
-    @State var item: SubscItem
+    @ObservedObject var editSubscVM = EditSubscViewModel.newItem()
 
     var body: some View {
 
@@ -23,19 +20,19 @@ struct EditSubscView: View {
                     .frame(width: 20, height: 20)
 
                 VStack(alignment: .leading) {
-                    LabelTextField(title: "Title", placeHolder: "Fill in the title", label: $item.title)
+                    LabelTextField(title: "Title", placeHolder: "Fill in the title", label: $editSubscVM.item.title)
 
-                    LabelTextField(title: "Price", placeHolder: "Fill in the price", label: $item.price.intToString(0))
+                    LabelTextField(title: "Price", placeHolder: "Fill in the price", label: $editSubscVM.item.price.intToString(0))
 
-                    LabelTextField(title: "Cycle", placeHolder: "", label: $item.cycle)
+                    LabelTextField(title: "Cycle", placeHolder: "", label: $editSubscVM.item.cycle)
 
-                    LabelTextField(title: "Category", placeHolder: "", label: $item.category)
+                    LabelTextField(title: "Category", placeHolder: "", label: $editSubscVM.item.category)
 
-                    LabelTextField(title: "Description", placeHolder: "", label: $item.description)
+                    LabelTextField(title: "Description", placeHolder: "", label: $editSubscVM.item.description)
                 }
 
                 Button(action: {
-                    editSubscVM.addItem(item: item)
+                    editSubscVM.addItem(item: editSubscVM.item)
                 }, label: {
                     HStack {
                         Image(systemName: "plus.circle.fill")
@@ -72,6 +69,6 @@ struct LabelTextField: View {
 
 struct AddNewSubscView_Previews: PreviewProvider {
     static var previews: some View {
-        EditSubscView(item: SubscItem.makeNewItem())
+        EditSubscView(editSubscVM: EditSubscViewModel.newItem())
     }
 }

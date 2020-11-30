@@ -31,7 +31,7 @@ struct SubscListView: View {
             VStack(alignment: .leading) {
                 List(subscListVM.subscCellViewModels) { model in
 
-                    NavigationLink(destination: EditSubscView(item: model.item), label: {
+                    NavigationLink(destination: EditSubscView(editSubscVM: EditSubscViewModel(item: model.item)), label: {
                         SubscCell(subscCellVM: model)
                     })
                 }
@@ -52,7 +52,7 @@ struct SubscListView: View {
             }
             .navigationBarTitle("Tasks")
             .sheet(isPresented: $isPresented, content: {
-                EditSubscView(item: SubscItem.makeNewItem())
+                EditSubscView(editSubscVM: EditSubscViewModel.newItem())
             })
         }
     }

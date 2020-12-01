@@ -15,9 +15,6 @@ struct EditSubscView: View {
 
         ScrollView {
             VStack {
-                Image(systemName: "trash")
-                    .resizable()
-                    .frame(width: 20, height: 20)
 
                 VStack(alignment: .leading) {
                     LabelTextField(title: "Title", placeHolder: "Fill in the title", label: $editSubscVM.item.title)
@@ -32,6 +29,17 @@ struct EditSubscView: View {
                 }
 
                 Button(action: {
+                    editSubscVM.deleteItem(item: editSubscVM.item)
+                }, label: {
+                    HStack {
+                        Image(systemName: "trash")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                        Text("Delete")
+                    }
+                }).padding()
+
+                Button(action: {
                     editSubscVM.addItem(item: editSubscVM.item)
                 }, label: {
                     HStack {
@@ -40,7 +48,7 @@ struct EditSubscView: View {
                             .frame(width: 20, height: 20)
                         Text("New Item")
                     }
-                })
+                }).padding()
             }
             .padding()
         }

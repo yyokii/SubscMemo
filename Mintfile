@@ -1,4 +1,4 @@
 mac-cain13/R.swift
-realm/SwiftLint
-nicklockwood/SwiftFormat
+realm/SwiftLint@0.41.0
+nicklockwood/SwiftFormat@0.47.5
 yonaskolb/xcodegen@2.17.0

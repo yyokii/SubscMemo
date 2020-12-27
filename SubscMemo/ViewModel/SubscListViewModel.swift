@@ -5,7 +5,6 @@
 //  Created by 東原与生 on 2020/10/11.
 //
 
-import SwiftUI
 import Combine
 
 final class SubscListViewModel: ObservableObject {
@@ -29,3 +28,14 @@ final class SubscListViewModel: ObservableObject {
         subscRepository.addItem(item)
     }
 }
+
+#if DEBUG
+
+var demoSubscListVM: SubscListViewModel {
+
+    let vm = SubscListViewModel()
+    vm.subscCellViewModels = demoSubscCellVM
+    return vm
+}
+
+#endif

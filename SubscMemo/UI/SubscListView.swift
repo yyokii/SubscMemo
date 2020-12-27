@@ -58,12 +58,6 @@ struct SubscListView: View {
     }
 }
 
-struct TaskListView_Previews: PreviewProvider {
-    static var previews: some View {
-        SubscListView()
-    }
-}
-
 enum InputError: Error {
     case empty
 }
@@ -78,3 +72,14 @@ struct SubscCell: View {
         }
     }
 }
+
+#if DEBUG
+
+struct TaskListView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        return SubscListView(subscListVM: demoSubscListVM, isPresented: false)
+    }
+}
+
+#endif

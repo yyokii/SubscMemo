@@ -5,14 +5,13 @@
 //  Created by 東原与生 on 2020/10/11.
 //
 
-import SwiftUI
+import Foundation
 import Combine
 
 final class SubscCellViewModel: ObservableObject, Identifiable {
     var subscRepository: SubscRepository = FirestoreSubscRepository()
 
     @Published var item: SubscItem
-    @Published var completionStateIconName = ""
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -32,3 +31,12 @@ final class SubscCellViewModel: ObservableObject, Identifiable {
             .store(in: &cancellables)
     }
 }
+
+#if DEBUG
+
+let demoSubscCellVM = [
+    SubscCellViewModel(item: testDataTasks[0]),
+    SubscCellViewModel(item: testDataTasks[1])
+]
+
+#endif

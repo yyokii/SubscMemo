@@ -105,10 +105,22 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.color` struct is generated, and contains static references to 1 colors.
+  /// This `R.color` struct is generated, and contains static references to 7 colors.
   struct color {
     /// Color `AccentColor`.
     static let accentColor = Rswift.ColorResource(bundle: R.hostingBundle, name: "AccentColor")
+    /// Color `accentShadow`.
+    static let accentShadow = Rswift.ColorResource(bundle: R.hostingBundle, name: "accentShadow")
+    /// Color `accent`.
+    static let accent = Rswift.ColorResource(bundle: R.hostingBundle, name: "accent")
+    /// Color `background`.
+    static let background = Rswift.ColorResource(bundle: R.hostingBundle, name: "background")
+    /// Color `icons`.
+    static let icons = Rswift.ColorResource(bundle: R.hostingBundle, name: "icons")
+    /// Color `primary`.
+    static let primary = Rswift.ColorResource(bundle: R.hostingBundle, name: "primary")
+    /// Color `secondary`.
+    static let secondary = Rswift.ColorResource(bundle: R.hostingBundle, name: "secondary")
 
     #if os(iOS) || os(tvOS)
     /// `UIColor(named: "AccentColor", bundle: ..., traitCollection: ...)`
@@ -116,6 +128,116 @@ struct R: Rswift.Validatable {
     @available(iOS 11.0, *)
     static func accentColor(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
       return UIKit.UIColor(resource: R.color.accentColor, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "accent", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func accent(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.accent, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "accentShadow", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func accentShadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.accentShadow, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "background", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func background(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.background, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "icons", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func icons(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.icons, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "primary", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func primary(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.primary, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "secondary", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func secondary(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.secondary, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "AccentColor", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func accentColor(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.accentColor.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "accent", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func accent(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.accent.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "accentShadow", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func accentShadow(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.accentShadow.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "background", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func background(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.background.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "icons", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func icons(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.icons.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "primary", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func primary(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.primary.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "secondary", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func secondary(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.secondary.name)
     }
     #endif
 

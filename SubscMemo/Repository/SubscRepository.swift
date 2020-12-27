@@ -52,8 +52,6 @@ final class FirestoreSubscRepository: BaseSubscRepository, SubscRepository, Obse
                 self?.loadData()
             }
             .store(in: &cancellables)
-
-        // loadData()
     }
 
     private func loadData() {

@@ -29,6 +29,11 @@ struct SubscListView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
+
+                PaymentSummaryView()
+
+                ExploreSubscRowView()
+
                 List(subscListVM.subscCellViewModels) { model in
 
                     NavigationLink(destination: EditSubscView(editSubscVM: EditSubscViewModel(item: model.item)), label: {
@@ -50,7 +55,7 @@ struct SubscListView: View {
                 .padding()
                 .accentColor(Color(UIColor.systemRed))
             }
-            .navigationBarTitle("Tasks")
+            .navigationBarTitle("Items")
             .sheet(isPresented: $isPresented, content: {
                 EditSubscView(editSubscVM: EditSubscViewModel.newItem())
             })

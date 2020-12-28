@@ -31,14 +31,6 @@ struct ExploreSubscRowView: View {
     }
 }
 
-#if DEBUG
-struct ExploreSubscRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExploreSubscRowView(exploreSubscRowVM: demoExploreSubscRowVM)
-    }
-}
-#endif
-
 struct ExploreSubscItemView: View {
 
     @ObservedObject var exploreSubscItemVM: ExploreSubscItemViewModel
@@ -69,9 +61,17 @@ struct ExploreSubscItemView: View {
             //                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
             //                .offset(y: 50)
         }
-        .frame(width: 340, height: 220)
+        .frame(width: 150, height: 80)
         .background(Color.black)
         .cornerRadius(10)
         .shadow(radius: 10)
     }
 }
+
+#if DEBUG
+struct ExploreSubscRowView_Previews: PreviewProvider {
+    static var previews: some View {
+        ExploreSubscRowView(exploreSubscRowVM: demoExploreSubscRowVM)
+    }
+}
+#endif

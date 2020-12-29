@@ -4,7 +4,7 @@ options:
   # プリフィクスを指定すると、各ターゲットのバンドルIDが自動で「{プリフィクス}.{ターゲット名}」に設定される
   bundleIdPrefix: com.yyokii
   deploymentTarget:
-    iOS: 13.0
+    iOS: 14.0
   xcodeVersion: "12.0"
   # findCarthageFrameworks: true # 余計なフレームワークまで追加されてしまうためコメントアウト
   carthageExecutablePath: mint run Carthage/Carthage carthage

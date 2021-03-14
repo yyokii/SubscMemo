@@ -38,7 +38,7 @@ extension AppUser {
         } else {
             // ログイン済
             id = firebaseUser!.uid
-            name = ""
+            name = firebaseUser?.displayName ?? ""
             status = .authenticated
         }
     }

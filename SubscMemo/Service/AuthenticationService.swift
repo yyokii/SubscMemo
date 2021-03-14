@@ -7,26 +7,75 @@
 
 import FirebaseAuth
 
-final class AuthenticationService {
+protocol BaseAuthenticationService {
+    func signInAnonymously()
+    func signInWithEmail(email: String, pass: String)
+    func signOut()
+}
+
+final class AuthenticationService: BaseAuthenticationService {
 
     @Published var user: AppUser!
 
-    func signIn() {
+    private var handle: AuthStateDidChangeListenerHandle?
+
+    init() {
+        registerStateListener()
+    }
+
+    func signInAnonymously() {
 
         let user: User? = Auth.auth().currentUser
         let appUser = AppUser(from: user)
 
         switch appUser.status {
         case .uninitialized:
-            Auth.auth().signInAnonymously { (result, error) in
-                if error == nil {
-                    self.user = AppUser(from: result?.user)
-                } else {
+            Auth.auth().signInAnonymously { (_, error) in
+
+                if let error = error {
                     #warning("エラー処理")
                 }
             }
         case .authenticatedAnonymously, .authenticated:
-            self.user = appUser
+            break
         }
     }
+
+    func signInWithEmail(email: String, pass: String) {
+        Auth.auth().signIn(withEmail: email, password: pass) { (_, error) in
+
+            if let error = error {
+                #warning("エラー処理")
+            }
+        }
+    }
+
+    func signOut() {
+        do {
+            try Auth.auth().signOut()
+        } catch let signOutError as NSError {
+            #warning("エラー処理")
+        }
+    }
+
+    private func registerStateListener() {
+
+        if let handle = handle {
+            Auth.auth().removeStateDidChangeListener(handle)
+        }
+
+        self.handle = Auth.auth().addStateDidChangeListener { [weak self] (_, user) in
+
+            self?.user = AppUser(from: user)
+
+            if let user = user {
+                let anonymous = user.isAnonymous ? "anonymously " : ""
+                print("User signed in \(anonymous)with user ID \(user.uid). Email: \(user.email ?? "(empty)"), display name: [\(user.displayName ?? "(empty)")]")
+            } else {
+                print("User signed out.")
+                self?.signInAnonymously()
+            }
+        }
+    }
+
 }

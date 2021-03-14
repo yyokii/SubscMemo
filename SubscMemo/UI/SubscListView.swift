@@ -10,25 +10,13 @@ import SwiftUI
 struct SubscListView: View {
     @ObservedObject var subscListVM = SubscListViewModel()
 
-    //    enum Presentation: View, Hashable, Identifiable {
-    //
-    //        case new
-    //        case edit(item: SubscItem)
-    //
-    //        var body: some View {
-    //            switch self {
-    //            case .new: return AnyView(EditSubscView(item: SubscItem.makeNewItem()))
-    //            case .edit(let item): return AnyView(EditSubscView(item: item))
-    //            }
-    //        }
-    //    }
-    //    @State var presentation: Presentation?
-
     @State var isPresented: Bool = false
 
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
+
+                UserProfileView()
 
                 PaymentSummaryView()
 
@@ -51,11 +39,10 @@ struct SubscListView: View {
                         Text("New Item")
                     }
                 })
-
+                .navigationBarTitle("Home")
                 .padding()
                 .accentColor(Color(UIColor.systemRed))
             }
-            .navigationBarTitle("Items")
             .sheet(isPresented: $isPresented, content: {
                 EditSubscView(editSubscVM: EditSubscViewModel.newItem())
             })
@@ -84,9 +71,6 @@ struct TaskListView_Previews: PreviewProvider {
 
     static var previews: some View {
         return Group {
-            SubscListView(subscListVM: demoSubscListVM, isPresented: false)
-            SubscListView(subscListVM: demoSubscListVM, isPresented: false)
-            SubscListView(subscListVM: demoSubscListVM, isPresented: false)
             SubscListView(subscListVM: demoSubscListVM, isPresented: false)
         }
     }

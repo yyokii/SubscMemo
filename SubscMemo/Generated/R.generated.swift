@@ -105,7 +105,7 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.color` struct is generated, and contains static references to 7 colors.
+  /// This `R.color` struct is generated, and contains static references to 9 colors.
   struct color {
     /// Color `AccentColor`.
     static let accentColor = Rswift.ColorResource(bundle: R.hostingBundle, name: "AccentColor")
@@ -115,6 +115,10 @@ struct R: Rswift.Validatable {
     static let accent = Rswift.ColorResource(bundle: R.hostingBundle, name: "accent")
     /// Color `background`.
     static let background = Rswift.ColorResource(bundle: R.hostingBundle, name: "background")
+    /// Color `color1`.
+    static let color1 = Rswift.ColorResource(bundle: R.hostingBundle, name: "color1")
+    /// Color `color2`.
+    static let color2 = Rswift.ColorResource(bundle: R.hostingBundle, name: "color2")
     /// Color `icons`.
     static let icons = Rswift.ColorResource(bundle: R.hostingBundle, name: "icons")
     /// Color `primary`.
@@ -155,6 +159,24 @@ struct R: Rswift.Validatable {
     @available(iOS 11.0, *)
     static func background(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
       return UIKit.UIColor(resource: R.color.background, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "color1", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func color1(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.color1, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "color2", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func color2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.color2, compatibleWith: traitCollection)
     }
     #endif
 
@@ -218,6 +240,22 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(watchOS)
+    /// `UIColor(named: "color1", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func color1(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.color1.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "color2", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func color2(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.color2.name)
+    }
+    #endif
+
+    #if os(watchOS)
     /// `UIColor(named: "icons", bundle: ..., traitCollection: ...)`
     @available(watchOSApplicationExtension 4.0, *)
     static func icons(_: Void = ()) -> UIKit.UIColor? {
@@ -254,6 +292,48 @@ struct R: Rswift.Validatable {
       let fileResource = R.file.googleServiceInfoPlist
       return fileResource.bundle.url(forResource: fileResource)
     }
+
+    fileprivate init() {}
+  }
+
+  /// This `R.image` struct is generated, and contains static references to 4 images.
+  struct image {
+    /// Image `bell`.
+    static let bell = Rswift.ImageResource(bundle: R.hostingBundle, name: "bell")
+    /// Image `box`.
+    static let box = Rswift.ImageResource(bundle: R.hostingBundle, name: "box")
+    /// Image `home`.
+    static let home = Rswift.ImageResource(bundle: R.hostingBundle, name: "home")
+    /// Image `message`.
+    static let message = Rswift.ImageResource(bundle: R.hostingBundle, name: "message")
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bell", bundle: ..., traitCollection: ...)`
+    static func bell(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bell, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "box", bundle: ..., traitCollection: ...)`
+    static func box(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.box, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "home", bundle: ..., traitCollection: ...)`
+    static func home(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.home, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "message", bundle: ..., traitCollection: ...)`
+    static func message(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.message, compatibleWith: traitCollection)
+    }
+    #endif
 
     fileprivate init() {}
   }

@@ -1,6 +1,7 @@
 excluded:
-- Pods/
 - Carthage/
+- Pods/
+- Scripts/
 - SubscMemo/Generated/
 
 disabled_rules:

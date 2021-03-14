@@ -83,7 +83,12 @@ struct SubscCell: View {
 struct TaskListView_Previews: PreviewProvider {
 
     static var previews: some View {
-        return SubscListView(subscListVM: demoSubscListVM, isPresented: false)
+        return Group {
+            SubscListView(subscListVM: demoSubscListVM, isPresented: false)
+            SubscListView(subscListVM: demoSubscListVM, isPresented: false)
+            SubscListView(subscListVM: demoSubscListVM, isPresented: false)
+            SubscListView(subscListVM: demoSubscListVM, isPresented: false)
+        }
     }
 }
 

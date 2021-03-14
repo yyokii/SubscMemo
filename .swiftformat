@@ -33,4 +33,4 @@
 --wrapcollections before-first
     
 # file options
---exclude Pods,Carthage
+--exclude Carthage,Scripts,Pods,SubscMemo/Generated

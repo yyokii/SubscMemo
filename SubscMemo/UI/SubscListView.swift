@@ -10,13 +10,17 @@ import SwiftUI
 struct SubscListView: View {
     @ObservedObject var subscListVM = SubscListViewModel()
 
-    @State var isPresented: Bool = false
+    @State var presentContent: PresentContent?
 
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
 
                 UserProfileView()
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        presentContent = .loginAndSignUp
+                    }
 
                 PaymentSummaryView()
 
@@ -30,7 +34,7 @@ struct SubscListView: View {
                 }
 
                 Button(action: {
-                    isPresented.toggle()
+                    presentContent = .createSubscItem
                 }, label: {
                     HStack {
                         Image(systemName: "plus.circle.fill")
@@ -43,9 +47,7 @@ struct SubscListView: View {
                 .padding()
                 .accentColor(Color(UIColor.systemRed))
             }
-            .sheet(isPresented: $isPresented, content: {
-                EditSubscView(editSubscVM: EditSubscViewModel.newItem())
-            })
+            .sheet(item: $presentContent, content: { $0 })
         }
     }
 }
@@ -71,7 +73,7 @@ struct TaskListView_Previews: PreviewProvider {
 
     static var previews: some View {
         return Group {
-            SubscListView(subscListVM: demoSubscListVM, isPresented: false)
+            SubscListView(subscListVM: demoSubscListVM)
         }
     }
 }

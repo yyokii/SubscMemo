@@ -36,12 +36,12 @@ struct LoginAndSignUpView: View {
                                 .fill(Color.black.opacity(0.04))
                                 .frame(height: 4)
 
-                            if index == 0 {
-                                Capsule()
-                                    .fill(Color.blue)
-                                    .frame(height: 4)
-                                    .matchedGeometryEffect(id: "Tab", in: name)
-                            }
+                            //                            if index == 0 {
+                            //                                Capsule()
+                            //                                    .fill(Color.blue)
+                            //                                    .frame(height: 4)
+                            //                                    .matchedGeometryEffect(id: "Tab", in: name)
+                            //                            }
                         }
                     }
                 })
@@ -64,12 +64,12 @@ struct LoginAndSignUpView: View {
                                 .fill(Color.black.opacity(0.04))
                                 .frame(height: 4)
 
-                            if index == 1 {
-                                Capsule()
-                                    .fill(Color.blue)
-                                    .frame(height: 4)
-                                    .matchedGeometryEffect(id: "Tab", in: name)
-                            }
+                            //                            if index == 1 {
+                            //                                Capsule()
+                            //                                    .fill(Color.blue)
+                            //                                    .frame(height: 4)
+                            //                                    .matchedGeometryEffect(id: "Tab", in: name)
+                            //                            }
                         }
                     }
                 })

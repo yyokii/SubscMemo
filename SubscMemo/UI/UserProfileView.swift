@@ -13,17 +13,12 @@ struct UserProfileView: View {
 
     var body: some View {
         HStack {
-            Button(action: {
-
-            }, label: {
-                HStack {
-                    Image(systemName: "person")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                    Text(userProfileVM.name)
-                }
-            }).padding()
+            Image(systemName: "person")
+                .resizable()
+                .frame(width: 20, height: 20)
+            Text(userProfileVM.name)
         }
+        .padding()
     }
 }
 

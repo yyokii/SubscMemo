@@ -8,6 +8,7 @@
 import FirebaseAuth
 
 protocol BaseAuthenticationService {
+    func convertToPermanentAccount(with email: String, pass: String)
     func signInAnonymously()
     func signInWithEmail(email: String, pass: String)
     func signOut()
@@ -21,6 +22,18 @@ final class AuthenticationService: BaseAuthenticationService {
 
     init() {
         registerStateListener()
+    }
+
+    func convertToPermanentAccount(with email: String, pass: String) {
+        let credential = EmailAuthProvider.credential(withEmail: email, password: pass)
+
+        let user = Auth.auth().currentUser
+        user?.link(with: credential) { (_, error) in
+
+            if let error = error {
+                #warning("エラー処理")
+            }
+        }
     }
 
     func signInAnonymously() {

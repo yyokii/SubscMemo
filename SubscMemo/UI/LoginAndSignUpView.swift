@@ -10,7 +10,6 @@ import SwiftUI
 struct LoginAndSignUpView: View {
 
     @State var index = 0
-    @Namespace var name
 
     var body: some View {
 
@@ -33,15 +32,8 @@ struct LoginAndSignUpView: View {
                         ZStack {
 
                             Capsule()
-                                .fill(Color.black.opacity(0.04))
+                                .fill( index == 0 ? Color.blue : Color.gray)
                                 .frame(height: 4)
-
-                            //                            if index == 0 {
-                            //                                Capsule()
-                            //                                    .fill(Color.blue)
-                            //                                    .frame(height: 4)
-                            //                                    .matchedGeometryEffect(id: "Tab", in: name)
-                            //                            }
                         }
                     }
                 })
@@ -61,15 +53,8 @@ struct LoginAndSignUpView: View {
                         ZStack {
 
                             Capsule()
-                                .fill(Color.black.opacity(0.04))
+                                .fill( index == 1 ? Color.blue : Color.gray)
                                 .frame(height: 4)
-
-                            //                            if index == 1 {
-                            //                                Capsule()
-                            //                                    .fill(Color.blue)
-                            //                                    .frame(height: 4)
-                            //                                    .matchedGeometryEffect(id: "Tab", in: name)
-                            //                            }
                         }
                     }
                 })
@@ -85,10 +70,14 @@ struct LoginAndSignUpView: View {
     }
 }
 
+struct UserLoginAuthData {
+    var email = ""
+    var password = ""
+}
+
 struct LoginView: View {
 
-    @State var email = ""
-    @State var password = ""
+    @ObservedObject(initialValue: AnyValidator<UserLoginAuthData, ValidationResult>(UserLoginAuthData())) var validator: AnyValidator
 
     var body: some View {
 
@@ -101,24 +90,52 @@ struct LoginView: View {
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
 
-                TextField("email", text: $email)
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(5)
-                    .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0.0, y: 5)
-                    .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0.0, y: -5)
+                Validator(validator: self._validator, keyPath: \.email, content: { (result, text) -> AnyView in
+                    AnyView(HStack {
+                        ValidationStateView(state: result)
+                        TextField("email", text: text)
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(5)
+                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0.0, y: 5)
+                            .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0.0, y: -5)
+                    })
+                }) { text -> ValidationResult? in
+                    if text.isEmpty {
+                        return nil
+                    }
+
+                    if 1 < text.count && text.count < 100 {
+                        return .valid(text)
+                    }
+                    return .invalid("")
+                }
 
                 Text("Password")
                     .font(.caption)
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
 
-                TextField("password", text: $password)
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(5)
-                    .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0.0, y: 5)
-                    .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0.0, y: -5)
+                Validator(validator: self._validator, keyPath: \.password, content: { (result, text) -> AnyView in
+                    AnyView(HStack {
+                        ValidationStateView(state: result)
+                        TextField("6文字以上", text: text)
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(5)
+                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0.0, y: 5)
+                            .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0.0, y: -5)
+                    })
+                }) { text -> ValidationResult? in
+                    if text.isEmpty {
+                        return nil
+                    }
+
+                    if 6 < text.count && text.count < 100 {
+                        return .valid(text)
+                    }
+                    return .invalid("")
+                }
 
                 Button(action: {}, label: {
                     Text("Forget Password")

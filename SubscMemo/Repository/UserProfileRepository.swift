@@ -16,8 +16,10 @@ class BaseUserProfileRepository {
     @Published var appUser: AppUser!
 }
 
+/// ユーザーのプロフィール情報を操作する
 protocol UserProfileRepository: BaseUserProfileRepository {
-
+    func signInWithEmail(email: String, pass: String)
+    func signOut()
 }
 
 final class FirestoreUserProfileRepository: BaseUserProfileRepository, UserProfileRepository, ObservableObject {
@@ -34,4 +36,11 @@ final class FirestoreUserProfileRepository: BaseUserProfileRepository, UserProfi
             .store(in: &cancellables)
     }
 
+    func signInWithEmail(email: String, pass: String) {
+        authenticationService.convertToPermanentAccount(with: email, pass: pass)
+    }
+
+    func signOut() {
+        authenticationService.signOut()
+    }
 }

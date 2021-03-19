@@ -6,6 +6,7 @@ excluded:
 
 disabled_rules:
 - trailing_whitespace
+- multiple_closures_with_trailing_closure
 
 identifier_name:
   min_length: 2

@@ -5,13 +5,21 @@
 //  Created by 東原与生 on 2020/10/11.
 //
 
+import Combine
+
 import FirebaseAuth
+import CombineFirebaseAuthentication
+
+enum AuthenticationServiceError: Error {
+    case other
+}
 
 protocol BaseAuthenticationService {
-    func convertToPermanentAccount(with email: String, pass: String)
-    func signInAnonymously()
-    func signInWithEmail(email: String, pass: String)
-    func signOut()
+
+    func convertToPermanentAccount(with email: String, pass: String) -> AnyPublisher<AppUser, Error>
+    func signInAnonymously() -> AnyPublisher<Void, Error>
+    func signInWithEmail(email: String, pass: String) -> AnyPublisher<AppUser, Error>
+    func signOut() -> AnyPublisher<Void, Error>
 }
 
 final class AuthenticationService: BaseAuthenticationService {
@@ -24,51 +32,66 @@ final class AuthenticationService: BaseAuthenticationService {
         registerStateListener()
     }
 
-    func convertToPermanentAccount(with email: String, pass: String) {
+    func convertToPermanentAccount(with email: String, pass: String) -> AnyPublisher<AppUser, Error> {
+
         let credential = EmailAuthProvider.credential(withEmail: email, password: pass)
 
-        let user = Auth.auth().currentUser
-        user?.link(with: credential) { (_, error) in
+        if let user = Auth.auth().currentUser {
+            return user.link(with: credential).map { result in
 
-            if let error = error {
-                #warning("エラー処理")
-            }
+                AppUser(id: result.user.uid, name: result.user.displayName ?? "", status: .authenticated)
+
+            }.eraseToAnyPublisher()
+        } else {
+            return Future<AppUser, Error> { promise in
+                promise(.failure(AuthenticationServiceError.other))
+            }.eraseToAnyPublisher()
         }
     }
 
-    func signInAnonymously() {
+    func signInAnonymously() -> AnyPublisher<Void, Error> {
 
         let user: User? = Auth.auth().currentUser
         let appUser = AppUser(from: user)
 
         switch appUser.status {
         case .uninitialized:
-            Auth.auth().signInAnonymously { (_, error) in
 
-                if let error = error {
-                    #warning("エラー処理")
-                }
-            }
+            return Auth.auth().signInAnonymously()
+                .map({ _ in
+                    return ()
+                }).eraseToAnyPublisher()
+
         case .authenticatedAnonymously, .authenticated:
-            break
+            return Future<Void, Error> { promise in
+                promise(.success(()))
+            }.eraseToAnyPublisher()
         }
     }
 
-    func signInWithEmail(email: String, pass: String) {
-        Auth.auth().signIn(withEmail: email, password: pass) { (_, error) in
+    func signInWithEmail(email: String, pass: String) -> AnyPublisher<AppUser, Error> {
 
-            if let error = error {
-                #warning("エラー処理")
-            }
-        }
+        return Auth.auth().signIn(withEmail: email, password: pass)
+            .map { result in
+
+                AppUser(id: result.user.uid, name: result.user.displayName ?? "", status: .authenticated)
+
+            }.eraseToAnyPublisher()
     }
 
-    func signOut() {
+    func signOut() -> AnyPublisher<Void, Error> {
+
         do {
             try Auth.auth().signOut()
         } catch let signOutError as NSError {
-            #warning("エラー処理")
+            return Future<Void, Error> { promise in
+                promise(.failure(signOutError))
+            }.eraseToAnyPublisher()
         }
+
+        return Future<Void, Error> { promise in
+            promise(.success(()))
+        }.eraseToAnyPublisher()
     }
 
     private func registerStateListener() {
@@ -86,7 +109,7 @@ final class AuthenticationService: BaseAuthenticationService {
                 print("User signed in \(anonymous)with user ID \(user.uid). Email: \(user.email ?? "(empty)"), display name: [\(user.displayName ?? "(empty)")]")
             } else {
                 print("User signed out.")
-                self?.signInAnonymously()
+                _ = self?.signInAnonymously()
             }
         }
     }

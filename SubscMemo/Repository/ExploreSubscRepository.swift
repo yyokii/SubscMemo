@@ -14,7 +14,7 @@ class BaseExploreSubscRepository {
 }
 
 protocol ExploreSubscRepository: BaseExploreSubscRepository {
-    func loadData()
+    func loadData() -> AnyPublisher<[ExploreSubscItem], Error>
 }
 
 final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, ExploreSubscRepository, ObservableObject {
@@ -28,19 +28,37 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
     override init() {
         super.init()
 
-        loadData()
+        _ = loadData()
     }
 
-    func loadData() {
+    func loadData() -> AnyPublisher<[ExploreSubscItem], Error> {
 
-        db.collection(itemsPath)
-            .order(by: "createdTime")
-            .addSnapshotListener { (querySnapshot, _) in
-                if let querySnapshot = querySnapshot {
-                    self.items = querySnapshot.documents.compactMap { document -> ExploreSubscItem? in
-                        try? document.data(as: ExploreSubscItem.self)
+        return Future<[ExploreSubscItem], Error> { [weak self] promise in
+
+            guard let self = self else {
+                promise(.failure(RepositoryError.other))
+                return
+            }
+
+            self.db.collection(self.itemsPath)
+                .order(by: "createdTime")
+                .addSnapshotListener { (querySnapshot, error) in
+
+                    if let error = error {
+                        promise(.failure(error))
+                    }
+
+                    if let querySnapshot = querySnapshot {
+                        self.items = querySnapshot.documents
+                            .compactMap { document -> ExploreSubscItem? in
+                                try? document.data(as: ExploreSubscItem.self)
+                            }
+                        promise(.success(self.items))
+                    } else {
+                        promise(.failure(RepositoryError.noValue))
                     }
                 }
-            }
+        }
+        .eraseToAnyPublisher()
     }
 }

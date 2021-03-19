@@ -7,7 +7,7 @@
 
 import Combine
 
-import FirebaseAuth
+import CombineFirebaseFirestore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Resolver
@@ -17,9 +17,9 @@ class BaseSubscRepository {
 }
 
 protocol SubscRepository: BaseSubscRepository {
-    func addItem(_ item: SubscItem)
-    func deleteItem(_ item: SubscItem)
-    func updateItem(_ item: SubscItem)
+    func addItem(_ item: SubscItem) -> AnyPublisher<Void, Error>
+    func deleteItem(_ item: SubscItem) -> AnyPublisher<Void, Error>
+    func updateItem(_ item: SubscItem) -> AnyPublisher<Void, Error>
 }
 
 final class FirestoreSubscRepository: BaseSubscRepository, SubscRepository, ObservableObject {
@@ -62,47 +62,63 @@ final class FirestoreSubscRepository: BaseSubscRepository, SubscRepository, Obse
             .order(by: "createdTime")
             .addSnapshotListener { (querySnapshot, _) in
                 if let querySnapshot = querySnapshot {
-                    self.items = querySnapshot.documents.compactMap { document -> SubscItem? in
-                        try? document.data(as: SubscItem.self)
-                    }
+                    self.items = querySnapshot.documents
+                        .compactMap { document -> SubscItem? in
+                            try? document.data(as: SubscItem.self)
+                        }
                 }
             }
     }
 
-    func addItem(_ item: SubscItem) {
-        do {
-            _ = try db.collection(usersPath)
+    func addItem(_ item: SubscItem) -> AnyPublisher<Void, Error> {
+
+        return db.collection(usersPath)
+            .document(userId)
+            .collection(itemsPath)
+            .addDocument(from: item)
+            .map { _ in
+                ()
+            }.eraseToAnyPublisher()
+    }
+
+    func deleteItem(_ item: SubscItem) -> AnyPublisher<Void, Error> {
+
+        if let itemID = item.id {
+            return db.collection(usersPath)
                 .document(userId)
                 .collection(itemsPath)
-                .addDocument(from: item)
-        } catch {
-            fatalError("Unable to encode task: \(error.localizedDescription).")
+                .document(itemID)
+                .delete()
+        } else {
+            return Fail<Void, Error>(error: RepositoryError.other)
+                .eraseToAnyPublisher()
         }
     }
 
-    func deleteItem(_ item: SubscItem) {
+    // こんな感じで繋げられないかね？
+    //    return item.id
+    //        .publisher
+    //        .compactMap { $0 }
+    //        .flatMap{ [weak self] data in
+    //            self?.db.collection(usersPath)
+    //                .document(userId)
+    //                .collection(itemsPath)
+    //                .document(data)
+    //                .delete() ?? Fail<Void, Error>(error: RepositoryError.other)
+    //        }
+    //        .eraseToAnyPublisher()
+
+    func updateItem(_ item: SubscItem) -> AnyPublisher<Void, Error> {
+
         if let itemID = item.id {
-            db.collection(usersPath)
+            return db.collection(usersPath)
                 .document(userId)
                 .collection(itemsPath)
-                .document(itemID).delete { (error) in
-                    if let error = error {
-                        print("Unable to remove document: \(error.localizedDescription)")
-                    }
-                }
-        }
-    }
-
-    func updateItem(_ item: SubscItem) {
-        if let itemID = item.id {
-            do {
-                try db.collection(usersPath)
-                    .document(userId)
-                    .collection(itemsPath)
-                    .document(itemID).setData(from: item)
-            } catch {
-                fatalError("Unable to encode task: \(error.localizedDescription).")
-            }
+                .document(itemID)
+                .setData(from: item)
+        } else {
+            return Fail<Void, Error>(error: RepositoryError.other)
+                .eraseToAnyPublisher()
         }
     }
 }

@@ -8,7 +8,6 @@
 import Combine
 
 import FirebaseAuth
-import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Resolver
 
@@ -18,8 +17,8 @@ class BaseUserProfileRepository {
 
 /// ユーザーのプロフィール情報を操作する
 protocol UserProfileRepository: BaseUserProfileRepository {
-    func signInWithEmail(email: String, pass: String)
-    func signOut()
+    func signInWithEmail(email: String, pass: String) -> AnyPublisher<AppUser, Error>
+    func signOut() -> AnyPublisher<Void, Error>
 }
 
 final class FirestoreUserProfileRepository: BaseUserProfileRepository, UserProfileRepository, ObservableObject {
@@ -36,11 +35,11 @@ final class FirestoreUserProfileRepository: BaseUserProfileRepository, UserProfi
             .store(in: &cancellables)
     }
 
-    func signInWithEmail(email: String, pass: String) {
-        authenticationService.convertToPermanentAccount(with: email, pass: pass)
+    func signInWithEmail(email: String, pass: String) -> AnyPublisher<AppUser, Error> {
+        return authenticationService.convertToPermanentAccount(with: email, pass: pass)
     }
 
-    func signOut() {
-        authenticationService.signOut()
+    func signOut() -> AnyPublisher<Void, Error> {
+        return authenticationService.signOut()
     }
 }

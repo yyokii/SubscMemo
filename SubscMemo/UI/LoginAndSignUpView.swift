@@ -70,14 +70,9 @@ struct LoginAndSignUpView: View {
     }
 }
 
-struct UserLoginAuthData {
-    var email = ""
-    var password = ""
-}
-
 struct LoginView: View {
 
-    @ObservedObject(initialValue: AnyValidator<UserLoginAuthData, ValidationResult>(UserLoginAuthData())) var validator: AnyValidator
+    @ObservedObject var loginAndSignUpVM = LoginAndSignUpViewModel()
 
     var body: some View {
 
@@ -90,52 +85,28 @@ struct LoginView: View {
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
 
-                Validator(validator: self._validator, keyPath: \.email, content: { (result, text) -> AnyView in
-                    AnyView(HStack {
-                        ValidationStateView(state: result)
-                        TextField("email", text: text)
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(5)
-                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0.0, y: 5)
-                            .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0.0, y: -5)
-                    })
-                }) { text -> ValidationResult? in
-                    if text.isEmpty {
-                        return nil
-                    }
+                ValidationStateView(vm: loginAndSignUpVM.emailValidationVM)
 
-                    if 1 < text.count && text.count < 100 {
-                        return .valid(text)
-                    }
-                    return .invalid("")
-                }
+                TextField("email", text: $loginAndSignUpVM.userLoginAuthData.email)
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(5)
+                    .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0.0, y: 5)
+                    .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0.0, y: -5)
 
                 Text("Password")
                     .font(.caption)
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
 
-                Validator(validator: self._validator, keyPath: \.password, content: { (result, text) -> AnyView in
-                    AnyView(HStack {
-                        ValidationStateView(state: result)
-                        TextField("6文字以上", text: text)
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(5)
-                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0.0, y: 5)
-                            .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0.0, y: -5)
-                    })
-                }) { text -> ValidationResult? in
-                    if text.isEmpty {
-                        return nil
-                    }
+                ValidationStateView(vm: loginAndSignUpVM.passwordValidationVM)
 
-                    if 6 < text.count && text.count < 100 {
-                        return .valid(text)
-                    }
-                    return .invalid("")
-                }
+                TextField("6文字以上", text: $loginAndSignUpVM.userLoginAuthData.password)
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(5)
+                    .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0.0, y: 5)
+                    .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0.0, y: -5)
 
                 Button(action: {}, label: {
                     Text("Forget Password")
@@ -162,6 +133,8 @@ struct LoginView: View {
 }
 
 struct SignUpView: View {
+
+    @ObservedObject var loginAndSignUpVM = LoginAndSignUpViewModel()
 
     @State var email = ""
     @State var password = ""

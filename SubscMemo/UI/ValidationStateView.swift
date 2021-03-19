@@ -7,17 +7,12 @@
 
 import SwiftUI
 
-enum ValidationResult: Hashable {
-    case valid(_ text: String)
-    case invalid(_ message: String)
-}
-
 struct ValidationStateView: View {
 
-    var state: ValidationResult?
+    @ObservedObject var vm = ValidationStateViewModel()
 
     var body: some View {
-        self.state.flatMap { state -> AnyView in
+        vm.state.flatMap { state -> AnyView in
 
             switch state {
             case .invalid:

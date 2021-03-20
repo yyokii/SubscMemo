@@ -5,11 +5,12 @@
 //  Created by 東原与生 on 2020/10/11.
 //
 
-import Foundation
 import Combine
 
+import Resolver
+
 final class SubscCellViewModel: ObservableObject, Identifiable {
-    var subscRepository: SubscRepository = FirestoreSubscRepository()
+    var subscRepository: SubscRepository = Resolver.resolve()
 
     @Published var item: SubscItem
 

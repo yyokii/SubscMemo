@@ -7,8 +7,10 @@
 
 import Combine
 
+import Resolver
+
 final class PaymentSummaryViewModel: ObservableObject {
-    @Published var subscRepository: SubscRepository = FirestoreSubscRepository()
+    @Published var subscRepository: SubscRepository = Resolver.resolve()
 
     @Published var yearlyPayment: Int = 0
     @Published var monthlyPayment: Int = 0

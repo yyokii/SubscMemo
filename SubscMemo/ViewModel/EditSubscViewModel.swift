@@ -7,9 +7,11 @@
 
 import Combine
 
+import Resolver
+
 final class EditSubscViewModel: ObservableObject {
     // injectでよくね？
-    @Published var subscRepository: SubscRepository = FirestoreSubscRepository()
+    @Published var subscRepository: SubscRepository = Resolver.resolve()
 
     @Published var item: SubscItem!
 

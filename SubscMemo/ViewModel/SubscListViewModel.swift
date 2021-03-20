@@ -7,8 +7,10 @@
 
 import Combine
 
+import Resolver
+
 final class SubscListViewModel: ObservableObject {
-    @Published var subscRepository: SubscRepository = FirestoreSubscRepository()
+    @Published var subscRepository: SubscRepository = Resolver.resolve()
     @Published var subscCellViewModels = [SubscCellViewModel]()
 
     private var cancellables = Set<AnyCancellable>()

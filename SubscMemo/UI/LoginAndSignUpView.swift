@@ -129,6 +129,10 @@ struct LoginView: View {
             })
             .padding()
         }
+        .alert(isPresented: $loginAndSignUpVM.alertProvider.shouldShowAlert ) {
+            guard let alert = loginAndSignUpVM.alertProvider.alert else { fatalError("💔: Alert not available") }
+            return Alert(alert)
+        }
     }
 }
 

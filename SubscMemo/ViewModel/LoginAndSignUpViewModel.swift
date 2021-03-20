@@ -7,6 +7,7 @@
 
 import Combine
 
+/// ユーザーがログインする際の認証情報
 final class UserLoginAuthData: ObservableObject {
     var email = ""
     var password = ""
@@ -27,6 +28,8 @@ final class LoginAndSignUpViewModel: ObservableObject {
     @Published var validLoginPass: Bool = false
     @Published var validSignUpEmail: Bool = false
     @Published var validSignUpPass: Bool = false
+
+    var alertProvider = AlertProvider()
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -56,6 +59,20 @@ final class LoginAndSignUpViewModel: ObservableObject {
 
             }
             .store(in: &cancellables)
+
+        showAlert()
+    }
+
+    func showAlert() {
+        alertProvider.alert = AlertProvider.Alert(
+            title: "The Locatoin Services are disabled",
+            message: "Do you want to turn location on?",
+            primaryButtomText: "Go To Settings",
+            primaryButtonAction: { [weak self] in
+
+            },
+            secondaryButtonText: "Cancel"
+        )
     }
 }
 

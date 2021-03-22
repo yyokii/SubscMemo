@@ -47,6 +47,7 @@ final class FirestoreSubscRepository: BaseSubscRepository, SubscRepository, Obse
 
         // (re)load data if user changes
         authenticationService.$user
+            .subscribe(on: DispatchQueue.global())
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.loadData()

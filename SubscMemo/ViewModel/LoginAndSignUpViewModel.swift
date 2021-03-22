@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Dispatch
 
 /// ユーザーがログインする際の認証情報
 final class UserLoginAuthData: ObservableObject {
@@ -22,8 +23,16 @@ final class LoginAndSignUpViewModel: ObservableObject {
 
     @Published var userLoginAuthData: UserLoginAuthData = UserLoginAuthData()
 
+    var viewDismissalModePublisher = PassthroughSubject<Bool, Never>()
+    private var shouldDismissView = false {
+        didSet {
+            viewDismissalModePublisher.send(shouldDismissView)
+        }
+    }
+
     @Published var canLogin: Bool = false
     @Published var canSignUp: Bool = false
+    @Published var dismiss: Bool = false
     @Published var validLoginEmail: Bool?
     @Published var validLoginPass: Bool = false
     @Published var validSignUpEmail: Bool = false
@@ -57,22 +66,89 @@ final class LoginAndSignUpViewModel: ObservableObject {
                     self?.passwordValidationVM.state = .invalid("")
                 }
 
+                if let emailValidationResult = self?.emailValidationVM.state,
+                   let passValidationResult = self?.passwordValidationVM.state,
+                   case .valid = emailValidationResult,
+                   case .valid = passValidationResult {
+
+                    self?.canLogin = true
+                    self?.canSignUp = true
+
+                } else {
+
+                    self?.canLogin = false
+                    self?.canSignUp = false
+                }
             }
             .store(in: &cancellables)
 
-        showAlert()
+        //        showAlert()
     }
 
     func showAlert() {
-        alertProvider.alert = AlertProvider.Alert(
-            title: "The Locatoin Services are disabled",
-            message: "Do you want to turn location on?",
-            primaryButtomText: "Go To Settings",
-            primaryButtonAction: { [weak self] in
 
-            },
-            secondaryButtonText: "Cancel"
+        alertProvider.alert = AlertProvider.Alert(
+            title: "demo",
+            message: "demo-message",
+            primaryButtomText: "OK",
+            primaryButtonAction: {},
+            secondaryButtonText: ""
         )
+    }
+
+    func login() {
+        userProfileRepository.loginWithEmail(email: userLoginAuthData.email, pass: userLoginAuthData.password)
+            .subscribe(on: DispatchQueue.global())
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+
+                switch completion {
+                case .failure(let error):
+
+                    self?.alertProvider.alert = AlertProvider.Alert(
+                        title: "エラー",
+                        message: error.localizedDescription,
+                        primaryButtomText: "OK",
+                        primaryButtonAction: {},
+                        secondaryButtonText: ""
+                    )
+
+                case .finished:
+                    break
+                }
+
+            }, receiveValue: { _ in
+                self.shouldDismissView = true
+            })
+            .store(in: &cancellables)
+    }
+
+    func signUpWithEmail() {
+
+        userProfileRepository.signUpWithEmail(email: userLoginAuthData.email, pass: userLoginAuthData.password)
+            .subscribe(on: DispatchQueue.global())
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+
+                switch completion {
+                case .failure(let error):
+
+                    self?.alertProvider.alert = AlertProvider.Alert(
+                        title: "エラー",
+                        message: error.localizedDescription,
+                        primaryButtomText: "OK",
+                        primaryButtonAction: {},
+                        secondaryButtonText: ""
+                    )
+
+                case .finished:
+                    break
+                }
+
+            }, receiveValue: { _ in
+                self.shouldDismissView = true
+            })
+            .store(in: &cancellables)
     }
 }
 

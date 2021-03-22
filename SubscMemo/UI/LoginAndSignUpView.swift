@@ -9,6 +9,8 @@ import SwiftUI
 
 struct LoginAndSignUpView: View {
 
+    @Environment(\.presentationMode) var presentationMode
+
     @State var index = 0
 
     var body: some View {
@@ -62,15 +64,17 @@ struct LoginAndSignUpView: View {
             .padding()
 
             if index == 0 {
-                LoginView()
+                LoginView(parentPresentationMode: presentationMode)
             } else {
-                SignUpView()
+                SignUpView(parentPresentationMode: presentationMode)
             }
         }
     }
 }
 
 struct LoginView: View {
+
+    @Binding var parentPresentationMode: PresentationMode
 
     @ObservedObject var loginAndSignUpVM = LoginAndSignUpViewModel()
 
@@ -115,7 +119,9 @@ struct LoginView: View {
             })
             .padding()
 
-            Button(action: {}, label: {
+            Button(action: {
+                loginAndSignUpVM.login()
+            }, label: {
 
                 Text("Login")
                     .fontWeight(.bold)
@@ -123,25 +129,33 @@ struct LoginView: View {
                     .padding()
                     .frame(width: UIScreen.main.bounds.width - 50)
                     .background(
-                        LinearGradient(gradient: .init(colors: [Color("accent"), Color("accentShadow")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                        loginAndSignUpVM.canLogin ?
+                            LinearGradient(gradient: .init(colors: [Color("accent"), Color("accentShadow")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                            : LinearGradient(gradient: .init(colors: [.gray]), startPoint: .topLeading, endPoint: .bottomTrailing)
+
                     )
                     .cornerRadius(8)
             })
             .padding()
+            .disabled(!loginAndSignUpVM.canLogin)
         }
         .alert(isPresented: $loginAndSignUpVM.alertProvider.shouldShowAlert ) {
             guard let alert = loginAndSignUpVM.alertProvider.alert else { fatalError("💔: Alert not available") }
             return Alert(alert)
+        }
+        .onReceive(loginAndSignUpVM.viewDismissalModePublisher) { shouldDismiss in
+            if shouldDismiss {
+                parentPresentationMode.dismiss()
+            }
         }
     }
 }
 
 struct SignUpView: View {
 
-    @ObservedObject var loginAndSignUpVM = LoginAndSignUpViewModel()
+    @Binding var parentPresentationMode: PresentationMode
 
-    @State var email = ""
-    @State var password = ""
+    @ObservedObject var loginAndSignUpVM = LoginAndSignUpViewModel()
 
     var body: some View {
 
@@ -167,7 +181,7 @@ struct SignUpView: View {
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
 
-                TextField("email", text: $email)
+                TextField("email", text: $loginAndSignUpVM.userLoginAuthData.email)
                     .padding()
                     .background(Color.white)
                     .cornerRadius(5)
@@ -179,7 +193,7 @@ struct SignUpView: View {
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
 
-                TextField("password", text: $password)
+                TextField("password", text: $loginAndSignUpVM.userLoginAuthData.password)
                     .padding()
                     .background(Color.white)
                     .cornerRadius(5)
@@ -188,7 +202,9 @@ struct SignUpView: View {
             })
             .padding()
 
-            Button(action: {}, label: {
+            Button(action: {
+                loginAndSignUpVM.signUpWithEmail()
+            }, label: {
 
                 Text("Sign Up")
                     .fontWeight(.bold)
@@ -196,11 +212,23 @@ struct SignUpView: View {
                     .padding()
                     .frame(width: UIScreen.main.bounds.width - 50)
                     .background(
-                        LinearGradient(gradient: .init(colors: [Color("accent"), Color("accentShadow")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                        loginAndSignUpVM.canSignUp ?
+                            LinearGradient(gradient: .init(colors: [Color("accent"), Color("accentShadow")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                            : LinearGradient(gradient: .init(colors: [.gray]), startPoint: .topLeading, endPoint: .bottomTrailing)
                     )
                     .cornerRadius(8)
             })
             .padding()
+            .disabled(!loginAndSignUpVM.canSignUp)
+        }
+        .alert(isPresented: $loginAndSignUpVM.alertProvider.shouldShowAlert ) {
+            guard let alert = loginAndSignUpVM.alertProvider.alert else { fatalError("💔: Alert not available") }
+            return Alert(alert)
+        }
+        .onReceive(loginAndSignUpVM.viewDismissalModePublisher) { shouldDismiss in
+            if shouldDismiss {
+                parentPresentationMode.dismiss()
+            }
         }
     }
 }
@@ -210,8 +238,6 @@ struct LoginAndSignUpView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             LoginAndSignUpView()
-            LoginView()
-            SignUpView()
         }
     }
 }

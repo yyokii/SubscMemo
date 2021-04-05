@@ -120,6 +120,7 @@ struct LoginView: View {
             .padding()
 
             Button(action: {
+                hideKeyboard()
                 loginAndSignUpVM.login()
             }, label: {
 

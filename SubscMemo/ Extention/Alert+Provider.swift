@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-class AlertProvider {
+final class AlertProvider: ObservableObject {
+
     struct Alert {
         var title: String
         let message: String

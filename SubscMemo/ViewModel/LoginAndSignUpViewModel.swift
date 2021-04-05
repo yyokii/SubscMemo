@@ -9,7 +9,7 @@ import Combine
 import Dispatch
 
 /// ユーザーがログインする際の認証情報
-final class UserLoginAuthData: ObservableObject {
+struct UserLoginAuthData {
     var email = ""
     var password = ""
 }
@@ -38,11 +38,19 @@ final class LoginAndSignUpViewModel: ObservableObject {
     @Published var validSignUpEmail: Bool = false
     @Published var validSignUpPass: Bool = false
 
-    var alertProvider = AlertProvider()
+    @Published var isPresentAlert: Bool = false
+
+    @Published var alertProvider = AlertProvider()
 
     private var cancellables = Set<AnyCancellable>()
 
     init() {
+
+        alertProvider.objectWillChange
+            .sink { [weak self] (_) in
+                self?.objectWillChange.send()
+            }
+            .store(in: &cancellables)
 
         $userLoginAuthData
             .sink { [weak self] data in
@@ -81,8 +89,6 @@ final class LoginAndSignUpViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
-
-        //        showAlert()
     }
 
     func showAlert() {
@@ -97,6 +103,7 @@ final class LoginAndSignUpViewModel: ObservableObject {
     }
 
     func login() {
+
         userProfileRepository.loginWithEmail(email: userLoginAuthData.email, pass: userLoginAuthData.password)
             .subscribe(on: DispatchQueue.global())
             .receive(on: DispatchQueue.main)
@@ -112,6 +119,8 @@ final class LoginAndSignUpViewModel: ObservableObject {
                         primaryButtonAction: {},
                         secondaryButtonText: ""
                     )
+
+                // self?.showAlert()
 
                 case .finished:
                     break

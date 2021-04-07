@@ -14,38 +14,41 @@ struct SubscListView: View {
 
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading) {
 
-                UserProfileView()
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        presentContent = .loginAndSignUp
+            ScrollView {
+                VStack(alignment: .leading) {
+
+                    Text("新着")
+                        .padding()
+
+                    Divider()
+
+                    ExploreSubscRowView()
+
+                    Text("おすすめ")
+                        .padding()
+
+                    Divider()
+                    ForEach(0..<10) {
+                        Text("demo_\($0)")
+                            .padding()
                     }
-
-                PaymentSummaryView()
-
-                ExploreSubscRowView()
-
-                List(subscListVM.subscCellViewModels) { model in
-
-                    NavigationLink(destination: EditSubscView(editSubscVM: EditSubscViewModel(item: model.item)), label: {
-                        SubscCell(subscCellVM: model)
-                    })
                 }
+            }
+            .navigationBarTitle("App")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
 
-                Button(action: {
-                    presentContent = .createSubscItem
-                }, label: {
-                    HStack {
-                        Image(systemName: "plus.circle.fill")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                        Text("New Item")
-                    }
-                })
-                .navigationBarTitle("Home")
-                .padding()
-                .accentColor(Color(UIColor.systemRed))
+                    NavigationLink(
+                        destination:
+                            SearchSubscView(),
+                        label: {
+                            Image(systemName: "magnifyingglass.circle")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                        })
+                }
             }
             .sheet(item: $presentContent, content: { $0 })
         }
@@ -72,9 +75,10 @@ struct SubscCell: View {
 struct TaskListView_Previews: PreviewProvider {
 
     static var previews: some View {
-        return Group {
-            SubscListView(subscListVM: demoSubscListVM)
-        }
+        return
+            Group {
+                SubscListView(subscListVM: demoSubscListVM)
+            }
     }
 }
 

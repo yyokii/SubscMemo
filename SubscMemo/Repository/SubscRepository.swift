@@ -16,6 +16,7 @@ class BaseSubscRepository {
     @Published var items = [SubscItem]()
 }
 
+/// ユーザーが登録しているサブスクリプションサービスの操作
 protocol SubscRepository: BaseSubscRepository {
     func addItem(_ item: SubscItem) -> AnyPublisher<Void, Error>
     func deleteItem(_ item: SubscItem) -> AnyPublisher<Void, Error>

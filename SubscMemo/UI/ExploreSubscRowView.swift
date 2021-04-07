@@ -13,11 +13,6 @@ struct ExploreSubscRowView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("items")
-                .font(.system(size: 20))
-                .fontWeight(.heavy)
-                .padding(.leading, 30)
-
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
                     ForEach(exploreSubscRowVM.exploreSubscItemViewModels) { item in

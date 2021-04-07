@@ -10,6 +10,7 @@ import Combine
 import Resolver
 
 final class SubscCellViewModel: ObservableObject, Identifiable {
+
     var subscRepository: SubscRepository = Resolver.resolve()
 
     @Published var item: SubscItem

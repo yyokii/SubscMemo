@@ -103,8 +103,12 @@ struct CustomShape: Shape {
     // Animating Path...
 
     var animatableData: CGFloat {
-        get {return xAxis}
-        set {xAxis = newValue}
+        get {
+            return xAxis
+        }
+        set {
+            xAxis = newValue
+        }
     }
 
     func path(in rect: CGRect) -> Path {

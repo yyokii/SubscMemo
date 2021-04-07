@@ -10,6 +10,7 @@ import Combine
 import Resolver
 
 final class PaymentSummaryViewModel: ObservableObject {
+
     @Published var subscRepository: SubscRepository = Resolver.resolve()
 
     @Published var yearlyPayment: Int = 0

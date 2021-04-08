@@ -13,6 +13,10 @@ packages:
   Rswift:
     url: https://github.com/mac-cain13/R.swift.Library
     version: 5.2.0
+  Tagged:
+    url: "https://github.com/pointfreeco/swift-tagged.git"
+    version: 0.5.0
+
   # import 効かないのでpodでやる
   # Resolver:
   #   url: https://github.com/hmlongco/Resolver.git
@@ -36,6 +40,7 @@ targets:
         CURRENT_PROJECT_VERSION: 1
     dependencies:
       - package: Rswift
+      - package: Tagged
     preBuildScripts:
       - script: |
                 if mint list | grep -q 'R.swift'; then

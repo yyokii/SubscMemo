@@ -69,17 +69,3 @@ struct SubscCell: View {
         }
     }
 }
-
-#if DEBUG
-
-struct TaskListView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        return
-            Group {
-                SubscListView(subscListVM: demoSubscListVM)
-            }
-    }
-}
-
-#endif

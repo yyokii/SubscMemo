@@ -9,12 +9,12 @@ import SwiftUI
 
 extension Color {
 
-    /// lightモードの時に黒を基調としている場合に、映える色（白）を設定し且つカラーテーマに対応する
+    /// lightモードの場合に、白を設定し且つカラーテーマに対応する
     public static let adaptiveWhite = Self {
         $0.userInterfaceStyle == .dark ? .appBlack : .white
     }
 
-    /// lightモードの時に白を基調としている場合に、映える色（黒）を設定し且つカラーテーマに対応する
+    /// lightモードの場合に、黒を設定し且つカラーテーマに対応する
     public static let adaptiveBlack = Self {
         $0.userInterfaceStyle == .dark ? .white : .appBlack
     }

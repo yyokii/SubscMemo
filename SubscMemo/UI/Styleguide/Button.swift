@@ -47,14 +47,14 @@ struct Buttons_Previews: PreviewProvider {
         let view = NavigationView {
             VStack {
                 Section(header: Text("Active")) {
-                    Button("Button") {}
-                    NavigationLink("Navigation link", destination: EmptyView())
+                    Button("ぼたん") {}
+                    NavigationLink("りんく", destination: EmptyView())
                 }
                 .buttonStyle(ActionButtonStyle())
 
                 Section(header: Text("In-active")) {
-                    Button("Button") {}
-                    NavigationLink("Navigation link", destination: EmptyView())
+                    Button("ぼたん") {}
+                    NavigationLink("りんく", destination: EmptyView())
                 }
                 .buttonStyle(ActionButtonStyle(isActive: false))
             }

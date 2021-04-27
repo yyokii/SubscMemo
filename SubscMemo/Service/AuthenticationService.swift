@@ -29,6 +29,7 @@ final class AuthenticationService: BaseAuthenticationService {
     private var handle: AuthStateDidChangeListenerHandle?
 
     init() {
+
         registerStateListener()
     }
 
@@ -106,9 +107,9 @@ final class AuthenticationService: BaseAuthenticationService {
 
             if let user = user {
                 let anonymous = user.isAnonymous ? "anonymously " : ""
-                print("User signed in \(anonymous)with user ID \(user.uid). Email: \(user.email ?? "(empty)"), display name: [\(user.displayName ?? "(empty)")]")
+                print("✅ User signed in \(anonymous)with user ID \(user.uid). Email: \(user.email ?? "(empty)"), display name: [\(user.displayName ?? "(empty)")]")
             } else {
-                print("User signed out.")
+                print("✅ User signed out.")
                 _ = self?.signInAnonymously()
             }
         }

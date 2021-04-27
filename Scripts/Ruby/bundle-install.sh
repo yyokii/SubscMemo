@@ -12,5 +12,6 @@ fi
 GEMFILE_PATH="$(dirname $0)/../../Gemfile"
 
 # Install Gems
+echo "🫖 install gems"
 $BUNDLE_CMD config path $CONFIG_PATH
 $BUNDLE_CMD install --gemfile=$GEMFILE_PATH --jobs 4 --retry 3

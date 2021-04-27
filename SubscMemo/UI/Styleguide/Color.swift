@@ -31,21 +31,6 @@ extension Color {
     public init(dynamicProvider: @escaping (UITraitCollection) -> Color) {
         self = Self(UIColor { UIColor(dynamicProvider($0)) })
     }
-
-    public func inverted() -> Self {
-        Self(UIColor(self).inverted())
-    }
-}
-
-extension UIColor {
-
-    public func inverted() -> Self {
-        Self {
-            self.resolvedColor(
-                with: .init(userInterfaceStyle: $0.userInterfaceStyle == .dark ? .light : .dark)
-            )
-        }
-    }
 }
 
 #endif

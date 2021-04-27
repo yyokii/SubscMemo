@@ -9,7 +9,7 @@ target 'SubscMemo' do
   pod 'Firebase/Auth'
   pod 'Firebase/Analytics'
   pod 'Firebase/Firestore'
-  pod 'FirebaseFirestoreSwift'
+  pod 'FirebaseFirestoreSwift', '> 7.0-beta'
   pod 'CombineFirebase/Firestore'
   pod 'CombineFirebase/Auth'
   pod "Resolver"

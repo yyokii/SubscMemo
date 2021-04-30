@@ -16,8 +16,9 @@ struct SubscCategory: Codable, Identifiable {
 #if DEBUG
 
 let demoSubscCategories = [
-    SubscCategory(id: "", name: "demo_category_01"),
-    SubscCategory(id: "", name: "demo_category_02")
+    SubscCategory(id: "id-01", name: "教育"),
+    SubscCategory(id: "id-02", name: "写真/動画"),
+    SubscCategory(id: "id-03", name: "ソーシャルネットワーキング")
 ]
 
 #endif

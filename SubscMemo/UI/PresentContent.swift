@@ -8,6 +8,7 @@
 import SwiftUI
 
 extension Identifiable where Self: Hashable {
+    // swiftlint:disable type_name
     typealias ID = Self
     var id: Self { self }
 }

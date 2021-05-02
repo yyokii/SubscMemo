@@ -71,7 +71,6 @@ struct Font_Previews: PreviewProvider {
                 }
             }
         }
-
     }
 }
 #endif

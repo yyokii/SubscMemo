@@ -46,6 +46,7 @@ final class LoginAndSignUpViewModel: ObservableObject {
 
     init() {
 
+        // https://stackoverflow.com/questions/58406287/how-to-tell-swiftui-views-to-bind-to-nested-observableobjects
         alertProvider.objectWillChange
             .sink { [weak self] (_) in
                 self?.objectWillChange.send()

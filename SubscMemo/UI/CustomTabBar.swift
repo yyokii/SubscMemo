@@ -33,7 +33,7 @@ struct CustomTabContent: View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
             TabView(selection: $selectedtab) {
 
-                SubscListView()
+                HomeView()
                     .ignoresSafeArea(.all, edges: .all)
                     .tag("house")
 

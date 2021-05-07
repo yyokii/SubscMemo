@@ -53,6 +53,8 @@ public struct SettingsRow<Content>: View where Content: View {
     }
 }
 
+#if DEBUG
+
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
 
@@ -65,3 +67,5 @@ struct SettingsView_Previews: PreviewProvider {
         }
     }
 }
+
+#endif

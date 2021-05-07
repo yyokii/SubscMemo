@@ -1,5 +1,5 @@
 //
-//  SubscListViewModel.swift
+//  HomeViewModel.swift
 //  SubscMemo
 //
 //  Created by 東原与生 on 2020/10/11.
@@ -9,7 +9,7 @@ import Combine
 
 import Resolver
 
-final class SubscListViewModel: ObservableObject {
+final class HomeViewModel: ObservableObject {
 
     @Published var subscRepository: SubscRepository = Resolver.resolve()
     @Published var subscCellViewModels = [SubscCellViewModel]()
@@ -34,9 +34,9 @@ final class SubscListViewModel: ObservableObject {
 
 #if DEBUG
 
-var demoSubscListVM: SubscListViewModel {
+var demoSubscListVM: HomeViewModel {
 
-    let vm = SubscListViewModel()
+    let vm = HomeViewModel()
     vm.subscCellViewModels = demoSubscCellVM
     return vm
 }

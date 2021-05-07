@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// サービス探すときのアイテムの実装サンプル
 struct SubscListItemView: View {
 
     var title = "Build an app with SwiftUI"

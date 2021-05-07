@@ -1,5 +1,5 @@
 //
-//  SubscListView.swift
+//  HomeView.swift
 //  SubscMemo
 //
 //  Created by 東原与生 on 2020/10/10.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct SubscListView: View {
-    @ObservedObject var subscListVM = SubscListViewModel()
+struct HomeView: View {
+    @ObservedObject var subscListVM = HomeViewModel()
 
     @State var presentContent: PresentContent?
 
@@ -69,3 +69,21 @@ struct SubscCell: View {
         }
     }
 }
+
+#if DEBUG
+
+struct HomeView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        return
+            Group {
+                HomeView()
+                    .environment(\.colorScheme, .light)
+
+                HomeView()
+                    .environment(\.colorScheme, .dark)
+            }
+    }
+}
+
+#endif

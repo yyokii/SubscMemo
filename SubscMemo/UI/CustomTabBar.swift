@@ -1,5 +1,5 @@
 //
-//  TabBar.swift
+//  CustomTabBar.swift
 //  SubscMemo
 //
 //  Created by 東原与生 on 2020/12/29.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct TabBar: View {
+struct CustomTabBar: View {
     var body: some View {
 
-        TabContent()
+        CustomTabContent()
     }
 }
 
-struct TabContent: View {
+struct CustomTabContent: View {
 
     @State var selectedtab = "house"
 
@@ -141,7 +141,7 @@ struct CustomShape: Shape {
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        TabBar()
+        CustomTabBar()
     }
 }
 #endif

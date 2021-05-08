@@ -14,19 +14,20 @@ struct SubscItem: Codable, Identifiable {
     var price: Int
     var cycle: String
     var payAt: Timestamp?
-    var category: String
+    var mainCategoryID: String
+    var subCategoryID: String?
     var url: String
     var description: String
     @ServerTimestamp var createdTime: Timestamp?
 
     static func makeNewItem() -> SubscItem {
-        return SubscItem(title: "", price: 0, cycle: "monthly", payAt: nil, category: "", url: "", description: "")
+        return SubscItem(title: "", price: 0, cycle: "monthly", payAt: nil, mainCategoryID: "", subCategoryID: nil, url: "", description: "")
     }
 }
 
 #if DEBUG
 let testDataTasks = [
-    SubscItem(title: "demo-01", price: 100, cycle: "monthly", payAt: nil, category: "", url: "", description: ""),
-    SubscItem(title: "demo-02", price: 200, cycle: "monthly", payAt: nil, category: "", url: "", description: "")
+    SubscItem(title: "demo-01", price: 100, cycle: "monthly", payAt: nil, mainCategoryID: "", subCategoryID: nil, url: "", description: ""),
+    SubscItem(title: "demo-02", price: 200, cycle: "monthly", payAt: nil, mainCategoryID: "", subCategoryID: nil, url: "", description: "")
 ]
 #endif

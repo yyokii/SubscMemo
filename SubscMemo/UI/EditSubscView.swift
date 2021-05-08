@@ -23,7 +23,7 @@ struct EditSubscView: View {
 
                     LabelTextField(title: "Cycle", placeHolder: "", label: $editSubscVM.item.cycle)
 
-                    LabelTextField(title: "Category", placeHolder: "", label: $editSubscVM.item.category)
+                    LabelTextField(title: "Category", placeHolder: "", label: $editSubscVM.item.mainCategoryID)
 
                     LabelTextField(title: "Description", placeHolder: "", label: $editSubscVM.item.description)
                 }

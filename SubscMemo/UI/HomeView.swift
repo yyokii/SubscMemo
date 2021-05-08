@@ -18,17 +18,12 @@ struct HomeView: View {
             ScrollView {
                 VStack(alignment: .leading) {
 
-                    Text("新着")
+                    PaymentSummaryView()
                         .padding()
 
-                    Divider()
+                    // CategoryPieChartViewとか作って配置
+                    //                    PieChartView()
 
-                    ExploreSubscRowView()
-
-                    Text("おすすめ")
-                        .padding()
-
-                    Divider()
                     ForEach(0..<10) {
                         Text("demo_\($0)")
                             .padding()
@@ -36,13 +31,12 @@ struct HomeView: View {
                 }
             }
             .navigationBarTitle("App")
-            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
 
                     NavigationLink(
                         destination:
-                            SearchSubscView(),
+                            SettingsView(),
                         label: {
                             Image(systemName: "magnifyingglass.circle")
                                 .resizable()

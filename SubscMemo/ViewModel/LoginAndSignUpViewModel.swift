@@ -8,6 +8,8 @@
 import Combine
 import Dispatch
 
+import Resolver
+
 /// ユーザーがログインする際の認証情報
 struct UserLoginAuthData {
     var email = ""
@@ -16,7 +18,7 @@ struct UserLoginAuthData {
 
 final class LoginAndSignUpViewModel: ObservableObject {
 
-    @Published var userProfileRepository: UserProfileRepository = FirestoreUserProfileRepository()
+    @Published var userProfileRepository: UserProfileRepository = Resolver.resolve()
 
     @Published var emailValidationVM = ValidationStateViewModel()
     @Published var passwordValidationVM = ValidationStateViewModel()

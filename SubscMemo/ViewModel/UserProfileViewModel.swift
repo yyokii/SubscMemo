@@ -7,9 +7,11 @@
 
 import Combine
 
+import Resolver
+
 final class UserProfileViewModel: ObservableObject {
 
-    @Published var userProfileRepository: UserProfileRepository = FirestoreUserProfileRepository()
+    @Published var userProfileRepository: UserProfileRepository = Resolver.resolve()
 
     @Published var name: String = ""
 

@@ -11,9 +11,12 @@ import Resolver
 extension Resolver: ResolverRegistering {
     public static func registerAllServices() {
 
-        // register application components
-        register { AuthenticationService() }.scope(application)
-        register { FirestoreSubscRepository() as SubscRepository }.scope(application)
-        register { FirestoreExploreSubscRepository() as ExploreSubscRepository }.scope(application)
+        register { AuthenticationService() }.scope(.application)
+
+        // Repositoryの登録
+        register { FirestoreSubscRepository() as SubscRepository }.scope(.application)
+        register { FirestoreExploreSubscRepository() as ExploreSubscRepository }.scope(.application)
+        register { FirestoreUserProfileRepository() as UserProfileRepository }.scope(.application)
+        register { FirestoreSubscCategoryRepository() as SubscCategoryRepository }.scope(.application)
     }
 }

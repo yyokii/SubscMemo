@@ -42,7 +42,7 @@ final class CategoryPieChartViewModel: ObservableObject {
                 .name
 
             if let categoryTitle = title {
-                datas[categoryTitle] = datas[categoryTitle] ?? 0 + 1
+                datas[categoryTitle, default: 0] += 1
             }
         }
 

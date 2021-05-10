@@ -24,8 +24,13 @@ struct HomeView: View {
                     CategoryPieChartView()
                         .padding()
 
-                    ForEach(0..<10) {
-                        Text("demo_\($0)")
+                    Text("登録済みのサービス")
+                        .adaptiveFont(.matterSemiBold, size: 12)
+                        .padding()
+
+                    ForEach(0..<10) { _ in
+
+                        SubscribedItemView()
                             .padding()
                     }
                 }

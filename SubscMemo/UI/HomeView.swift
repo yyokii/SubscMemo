@@ -21,8 +21,8 @@ struct HomeView: View {
                     PaymentSummaryView()
                         .padding()
 
-                    // CategoryPieChartViewとか作って配置
-                    //                    PieChartView()
+                    CategoryPieChartView()
+                        .padding()
 
                     ForEach(0..<10) {
                         Text("demo_\($0)")

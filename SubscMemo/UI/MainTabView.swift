@@ -16,7 +16,7 @@ struct MainTabView: View {
                     Text("🍌🍌")
                 }
 
-            DiscoverSubscView()
+            ExploreSubscView()
                 .tabItem {
                     Image(systemName: "2.square.fill")
                     Text("🍏🍏")

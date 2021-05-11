@@ -57,10 +57,10 @@ struct SubscCategoryItemView: View {
 #if DEBUG
 struct SubscCategoryRowView_Previews: PreviewProvider {
     static var previews: some View {
-        
+
         SubscCategoryRowView(subscCategoryRowVM: demoSubscCategoryRowVM)
             .environment(\.colorScheme, .light)
-        
+
         SubscCategoryRowView(subscCategoryRowVM: demoSubscCategoryRowVM)
             .environment(\.colorScheme, .dark)
     }

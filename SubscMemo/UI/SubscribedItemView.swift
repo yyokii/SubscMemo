@@ -33,11 +33,11 @@ struct SubscribedItemView: View {
                                 Text("Apple Music")
                                     .adaptiveFont(.matterSemiBold, size: 12)
                                     .padding(.bottom, 10)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.appBlack)
 
                                 Text("free plan")
                                     .adaptiveFont(.matterMedium, size: 12)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.appBlack)
                             }
                         }
                     }
@@ -55,7 +55,7 @@ struct SubscribedItemView: View {
                                 Text("monthly")
                                     .adaptiveFont(.matter, size: 12)
                                     .lineLimit(2)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.appBlack)
 
                             }
                         }

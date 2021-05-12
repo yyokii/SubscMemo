@@ -11,6 +11,8 @@ struct ExploreSubscView: View {
 
     @State var presentContent: PresentContent?
 
+    var columns: [GridItem] = Array(repeating: .init(.flexible(), spacing: 0), count: 2)
+
     var body: some View {
 
         NavigationView {
@@ -19,6 +21,13 @@ struct ExploreSubscView: View {
                 VStack(alignment: .leading) {
                     SubscCategoryRowView()
                 }
+
+                LazyVGrid(columns: columns, spacing: 30) {
+                    ForEach(0..<10, id: \.self) { _ in
+                        ExploreSubscListItemView()
+                    }
+                }
+                .font(.largeTitle)
             }
             .navigationBarTitle("見つける")
             .sheet(item: $presentContent, content: { $0 })

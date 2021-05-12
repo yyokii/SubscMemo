@@ -57,7 +57,7 @@ struct ExploreSubscItemView: View {
             //                .offset(y: 50)
         }
         .frame(width: 150, height: 80)
-        .background(Color.black)
+        .background(Color.appBlack)
         .cornerRadius(10)
         .shadow(radius: 10)
     }

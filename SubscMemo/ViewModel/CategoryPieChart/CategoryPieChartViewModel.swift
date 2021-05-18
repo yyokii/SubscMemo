@@ -30,7 +30,7 @@ final class CategoryPieChartViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    private func arrangePieChartDatas(subscItems: [SubscItem], categories: [SubscCategory]) -> [PieChartData] {
+    private func arrangePieChartDatas(subscItems: [SubscribedItem], categories: [SubscCategory]) -> [PieChartData] {
 
         var datas: [String: Int] = [:]
 

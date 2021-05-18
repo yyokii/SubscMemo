@@ -17,7 +17,7 @@ struct EditSubscView: View {
             VStack {
 
                 VStack(alignment: .leading) {
-                    LabelTextField(title: "Title", placeHolder: "Fill in the title", label: $editSubscVM.item.title)
+                    LabelTextField(title: "Title", placeHolder: "Fill in the title", label: $editSubscVM.item.name)
 
                     LabelTextField(title: "Price", placeHolder: "Fill in the price", label: $editSubscVM.item.price.intToString(0))
 

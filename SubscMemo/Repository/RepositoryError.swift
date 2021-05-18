@@ -6,6 +6,6 @@
 //
 
 enum RepositoryError: Error {
-    case noValue
+    case notFound
     case other
 }

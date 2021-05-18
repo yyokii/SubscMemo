@@ -13,15 +13,15 @@ final class SubscCellViewModel: ObservableObject, Identifiable {
 
     var subscRepository: SubscRepository = Resolver.resolve()
 
-    @Published var item: SubscItem
+    @Published var item: SubscribedItem
 
     private var cancellables = Set<AnyCancellable>()
 
     //    static func newItem() -> SubscCellViewModel {
-    //        SubscCellViewModel(item: SubscItem(title: "", completed: false))
+    //        SubscCellViewModel(item: SubscribedItem(title: "", completed: false))
     //    }
 
-    init(item: SubscItem) {
+    init(item: SubscribedItem) {
         self.item = item
 
         $item
@@ -37,8 +37,8 @@ final class SubscCellViewModel: ObservableObject, Identifiable {
 #if DEBUG
 
 let demoSubscCellVM = [
-    SubscCellViewModel(item: testDataTasks[0]),
-    SubscCellViewModel(item: testDataTasks[1])
+    SubscCellViewModel(item: demoSubscItems[0]),
+    SubscCellViewModel(item: demoSubscItems[1])
 ]
 
 #endif

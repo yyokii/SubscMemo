@@ -11,6 +11,7 @@ import Resolver
 
 final class HomeViewModel: ObservableObject {
 
+    #warning("repositoryを@Publishedにする意味ってなんぞ、例えば無くした時に動作しないか検証したいね")
     @Published var subscRepository: SubscRepository = Resolver.resolve()
     @Published var subscCellViewModels = [SubscCellViewModel]()
 
@@ -27,7 +28,7 @@ final class HomeViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func addItem(item: SubscItem) {
+    func addItem(item: SubscribedItem) {
         subscRepository.addItem(item)
     }
 }

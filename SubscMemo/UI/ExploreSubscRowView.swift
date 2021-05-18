@@ -34,7 +34,7 @@ struct ExploreSubscItemView: View {
         return VStack {
             HStack {
                 VStack(alignment: .leading) {
-                    Text(exploreSubscItemVM.item.title)
+                    Text(exploreSubscItemVM.item.name)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundColor(Color("accent"))

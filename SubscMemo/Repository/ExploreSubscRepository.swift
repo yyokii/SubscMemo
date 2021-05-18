@@ -17,7 +17,7 @@ class BaseExploreSubscRepository {
 /// 公開されているサブスクリプションサービスへのデータアクセス
 protocol ExploreSubscRepository: BaseExploreSubscRepository {
     func loadData() -> AnyPublisher<[ExploreSubscItem], Error>
-    func loadCategory() -> AnyPublisher<[SubscCategory], Error>
+    func loadData(with ids: [String]) -> AnyPublisher<[ExploreSubscItem], Error>
 }
 
 final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, ExploreSubscRepository, ObservableObject {
@@ -25,10 +25,11 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
     var db: Firestore = Firestore.firestore()
 
     enum FirestorePathComponent: String {
-        case itemsPath = "subscItems"
-        case subscriptionServices = "subscription_services"
-        case version = "v1"
         case categories = "categories"
+        case plan = "plan"
+        case subscriptionServices = "subscription_services"
+        case services = "services"
+        case version = "v1"
     }
 
     private var cancellables = Set<AnyCancellable>()
@@ -37,7 +38,6 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
         super.init()
 
         _ = loadData()
-        _ = loadCategory()
     }
 
     func loadData() -> AnyPublisher<[ExploreSubscItem], Error> {
@@ -49,7 +49,7 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
                 return
             }
 
-            self.db.collection(FirestorePathComponent.itemsPath.rawValue)
+            self.db.collection(FirestorePathComponent.subscriptionServices.rawValue)
                 .order(by: "createdTime")
                 .addSnapshotListener { (querySnapshot, error) in
 
@@ -64,42 +64,45 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
                             }
                         promise(.success(self.items))
                     } else {
-                        promise(.failure(RepositoryError.noValue))
+                        promise(.failure(RepositoryError.notFound))
                     }
                 }
         }
         .eraseToAnyPublisher()
     }
 
-    func loadCategory() -> AnyPublisher<[SubscCategory], Error> {
-        return Future<[SubscCategory], Error> { [weak self] promise in
+    func hoge() {
 
-            guard let self = self else {
-                promise(.failure(RepositoryError.other))
-                return
+    }
+
+    func loadData(with ids: [String]) -> AnyPublisher<[ExploreSubscItem], Error> {
+        let serviceCollectionRef = db.collection(FirestorePathComponent.subscriptionServices.rawValue)
+            .document(FirestorePathComponent.version.rawValue)
+            .collection(FirestorePathComponent.services.rawValue)
+
+        return serviceCollectionRef
+            .whereField("serviceID", in: ids)
+            .order(by: "createdTime")
+            .getDocuments()
+            .map { snapshot in
+                snapshot.documents
+                    .compactMap { document -> ExploreSubscItem? in
+                        try? document.data(as: ExploreSubscItem.self)
+                    }
             }
+            .eraseToAnyPublisher()
+    }
 
-            self.db
-                .collection(FirestorePathComponent.subscriptionServices.rawValue)
-                .document(FirestorePathComponent.version.rawValue)
-                .collection(FirestorePathComponent.categories.rawValue)
-                .addSnapshotListener { (querySnapshot, error) in
+    func planData(with planID: String, serviceDocumentRef: DocumentReference) -> AnyPublisher<ExploreSubscItem.SubscPlan, Error> {
 
-                    if let error = error {
-                        promise(.failure(error))
-                    }
-
-                    if let querySnapshot = querySnapshot {
-                        self.categories = querySnapshot.documents
-                            .compactMap { document -> SubscCategory? in
-                                try? document.data(as: SubscCategory.self)
-                            }
-                        promise(.success(self.categories))
-                    } else {
-                        promise(.failure(RepositoryError.noValue))
-                    }
-                }
-        }
-        .eraseToAnyPublisher()
+        return serviceDocumentRef
+            .collection(FirestorePathComponent.plan.rawValue)
+            .whereField("planID", isEqualTo: planID)
+            .getDocuments()
+            // これなかったらエラー流れるっけ？いやfinishするだけ
+            .compactMap {
+                try? $0.documents.first?.data(as: ExploreSubscItem.SubscPlan.self)
+            }
+            .eraseToAnyPublisher()
     }
 }

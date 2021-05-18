@@ -12,15 +12,17 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Resolver
 
+// これ消したいね
+
 class BaseSubscRepository {
-    @Published var items = [SubscItem]()
+    @Published var items = [SubscribedItem]()
 }
 
 /// ユーザーが登録しているサブスクリプションサービスの操作
 protocol SubscRepository: BaseSubscRepository {
-    func addItem(_ item: SubscItem) -> AnyPublisher<Void, Error>
-    func deleteItem(_ item: SubscItem) -> AnyPublisher<Void, Error>
-    func updateItem(_ item: SubscItem) -> AnyPublisher<Void, Error>
+    func addItem(_ item: SubscribedItem) -> AnyPublisher<Void, Error>
+    func deleteItem(_ item: SubscribedItem) -> AnyPublisher<Void, Error>
+    func updateItem(_ item: SubscribedItem) -> AnyPublisher<Void, Error>
 }
 
 final class FirestoreSubscRepository: BaseSubscRepository, SubscRepository, ObservableObject {
@@ -65,14 +67,14 @@ final class FirestoreSubscRepository: BaseSubscRepository, SubscRepository, Obse
             .addSnapshotListener { (querySnapshot, _) in
                 if let querySnapshot = querySnapshot {
                     self.items = querySnapshot.documents
-                        .compactMap { document -> SubscItem? in
-                            try? document.data(as: SubscItem.self)
+                        .compactMap { document -> SubscribedItem? in
+                            try? document.data(as: SubscribedItem.self)
                         }
                 }
             }
     }
 
-    func addItem(_ item: SubscItem) -> AnyPublisher<Void, Error> {
+    func addItem(_ item: SubscribedItem) -> AnyPublisher<Void, Error> {
 
         return db.collection(usersPath)
             .document(userId)
@@ -83,7 +85,7 @@ final class FirestoreSubscRepository: BaseSubscRepository, SubscRepository, Obse
             }.eraseToAnyPublisher()
     }
 
-    func deleteItem(_ item: SubscItem) -> AnyPublisher<Void, Error> {
+    func deleteItem(_ item: SubscribedItem) -> AnyPublisher<Void, Error> {
 
         if let itemID = item.id {
             return db.collection(usersPath)
@@ -110,7 +112,7 @@ final class FirestoreSubscRepository: BaseSubscRepository, SubscRepository, Obse
     //        }
     //        .eraseToAnyPublisher()
 
-    func updateItem(_ item: SubscItem) -> AnyPublisher<Void, Error> {
+    func updateItem(_ item: SubscribedItem) -> AnyPublisher<Void, Error> {
 
         if let itemID = item.id {
             return db.collection(usersPath)

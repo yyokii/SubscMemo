@@ -60,11 +60,11 @@ enum InputError: Error {
 
 struct SubscCell: View {
     @ObservedObject var subscCellVM: SubscCellViewModel
-    var onCommit: (Result<SubscItem, InputError>) -> Void = { _ in }
+    var onCommit: (Result<SubscribedItem, InputError>) -> Void = { _ in }
 
     var body: some View {
         VStack {
-            Text(subscCellVM.item.title)
+            Text(subscCellVM.item.name)
         }
     }
 }

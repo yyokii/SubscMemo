@@ -61,7 +61,7 @@ final class FirestoreSubscCategoryRepository: BaseSubscCategoryRepository, Subsc
                             }
                         promise(.success(self.categories))
                     } else {
-                        promise(.failure(RepositoryError.noValue))
+                        promise(.failure(RepositoryError.notFound))
                     }
                 }
         }

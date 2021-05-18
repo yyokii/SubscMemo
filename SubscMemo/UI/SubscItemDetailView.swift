@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SubscItemDetailView: View {
 
+    @Binding var subscItem: SubscribedItem
+
     var body: some View {
         ZStack {
 
@@ -25,13 +27,14 @@ struct SubscItemDetailView: View {
                             .padding(.top, 30)
 
                         VStack(alignment: .leading) {
-                            Text("サブスクリプションサービス")
+                            Text(subscItem.name)
                                 .adaptiveFont(.matterSemiBold, size: 24)
                                 .fixedSize(horizontal: false, vertical: true)
                                 .lineLimit(2)
                                 .foregroundColor(.adaptiveBlack)
 
-                            Text("カテゴリー")
+                            #warning("viewDataいるやん")
+                            Text(subscItem.mainCategoryID)
                                 .adaptiveFont(.matterSemiBold, size: 16)
                                 .fixedSize(horizontal: false, vertical: true)
                                 .lineLimit(2)
@@ -55,7 +58,7 @@ struct SubscItemDetailView: View {
                             }
                             .padding(.top, 20)
 
-                            Text("せつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめい")
+                            Text(subscItem.description)
                                 .adaptiveFont(.matterSemiBold, size: 16)
                                 .fixedSize(horizontal: false, vertical: true)
                                 .padding(.top, 40)
@@ -64,23 +67,23 @@ struct SubscItemDetailView: View {
                         .padding()
                         .padding(.top, 40)
                     }
-                    
+
                 }
-                
+
                 Button(action: {
 
                 }) {
                     Text("登録する")
                         .adaptiveFont(.matterMedium, size: 16)
-                        .foregroundColor(.green)
+                        .foregroundColor(.appBlack)
                         .frame(minWidth: 0, maxWidth: 300)
                         .padding()
                         .background(
                             RoundedRectangle(cornerRadius: 24)
                                 .fill(Color.white)
                                 .shadow(color: .gray, radius: 5, x: 0, y: 5)
-                    )
-                    .padding()
+                        )
+                        .padding()
                 }
                 .padding(8)
             }
@@ -94,10 +97,16 @@ struct SubscItemDetailView_Previews: PreviewProvider {
     static var previews: some View {
 
         Group {
-            SubscItemDetailView()
+
+            let item = Binding<SubscribedItem>(
+                get: { demoSubscItems[0] },
+                set: { _ in () }
+            )
+
+            SubscItemDetailView(subscItem: item)
                 .environment(\.colorScheme, .light)
 
-            SubscItemDetailView()
+            SubscItemDetailView(subscItem: item)
                 .environment(\.colorScheme, .dark)
         }
     }

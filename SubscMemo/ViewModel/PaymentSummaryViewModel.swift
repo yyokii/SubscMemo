@@ -46,7 +46,7 @@ final class PaymentSummaryViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func addItem(item: SubscItem) {
+    func addItem(item: SubscribedItem) {
         subscRepository.addItem(item)
     }
 }

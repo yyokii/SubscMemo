@@ -13,23 +13,23 @@ final class EditSubscViewModel: ObservableObject {
 
     @Published var subscRepository: SubscRepository = Resolver.resolve()
 
-    @Published var item: SubscItem!
+    @Published var item: SubscribedItem!
 
     private var cancellables = Set<AnyCancellable>()
 
-    init(item: SubscItem) {
+    init(item: SubscribedItem) {
         self.item = item
     }
 
     static func newItem() -> EditSubscViewModel {
-        EditSubscViewModel(item: SubscItem.makeNewItem())
+        EditSubscViewModel(item: SubscribedItem.makeNewItem())
     }
 
-    func addItem(item: SubscItem) {
+    func addItem(item: SubscribedItem) {
         subscRepository.addItem(item)
     }
 
-    func deleteItem(item: SubscItem) {
+    func deleteItem(item: SubscribedItem) {
         subscRepository.deleteItem(item)
     }
 }

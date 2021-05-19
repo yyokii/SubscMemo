@@ -14,7 +14,7 @@ struct SubscribedItemJoinedData {
     var cycle: String
     var description: String
     var id: String?
-    var iconImageURL: String
+    var iconImageURL: String?
     var mainCategoryID: String
     var mainCategoryName: String
     var name: String

@@ -11,7 +11,6 @@ import Resolver
 
 final class HomeViewModel: ObservableObject {
 
-    #warning("repositoryを@Publishedにする意味ってなんぞ、例えば無くした時に動作しないか検証したいね")
     @Published var subscRepository: SubscRepository = Resolver.resolve()
     @Published var subscCellViewModels = [SubscCellViewModel]()
 

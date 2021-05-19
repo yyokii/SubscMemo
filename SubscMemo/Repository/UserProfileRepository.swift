@@ -33,8 +33,7 @@ final class FirestoreUserProfileRepository: BaseUserProfileRepository, UserProfi
     private var userId: String = ""
 
     enum FirestorePathComponent: String {
-        case originalSubscriptionServices = "original_subscription_services"
-        case subscriptionServices = "subscription_services"
+        case subscribedServices = "subscribed_services"
         case userProfile = "user_profile"
         case users = "users"
         case version = "v1"
@@ -65,20 +64,20 @@ final class FirestoreUserProfileRepository: BaseUserProfileRepository, UserProfi
     }
 
     func loadSubscribedServices() {
-        //        db.collection(FirestorePathComponent.userProfile.rawValue)
-        //            .document(FirestorePathComponent.version.rawValue)
-        //            .collection(FirestorePathComponent.users.rawValue)
-        //            .document(userId)
-        //            .collection(FirestorePathComponent.subscriptionServices.rawValue)
-        //            .order(by: "createdTime")
-        //            .addSnapshotListener { [weak self] (querySnapshot, _) in
-        //                if let querySnapshot = querySnapshot {
-        //                    self?.subscribedServices = querySnapshot.documents
-        //                        .compactMap { document -> SubscribedService? in
-        //                            try? document.data(as: SubscribedService.self)
-        //                        }
-        //                }
-        //            }
+        db.collection(FirestorePathComponent.userProfile.rawValue)
+            .document(FirestorePathComponent.version.rawValue)
+            .collection(FirestorePathComponent.users.rawValue)
+            .document(userId)
+            .collection(FirestorePathComponent.subscribedServices.rawValue)
+            .order(by: "createdTime")
+            .addSnapshotListener { [weak self] (querySnapshot, _) in
+                if let querySnapshot = querySnapshot {
+                    self?.subscribedServices = querySnapshot.documents
+                        .compactMap { document -> SubscribedItem? in
+                            try? document.data(as: SubscribedItem.self)
+                        }
+                }
+            }
     }
 
     func loginWithEmail(email: String, pass: String) -> AnyPublisher<AppUser, Error> {

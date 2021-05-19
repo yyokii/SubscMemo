@@ -38,20 +38,48 @@ final class FirestoreSubscribedServiceRepository: BaseSubscribedServiceRepositor
     override init() {
         super.init()
 
-        //        authenticationService.$user
-        //            .compactMap { user in
-        //                user?.id
-        //            }
-        //            .assign(to: \.userId, on: self)
-        //            .store(in: &cancellables)
+        loadData()
+    }
 
-        // (re)load data if user changes
-        authenticationService.$user
-            .subscribe(on: DispatchQueue.global())
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                //   self?.loadData()
+    func loadData() {
+        userProfileRepository.$subscribedServices
+            .combineLatest(subscCategoryRepository.$categories)
+            .map { (services, categories) -> [SubscribedItemJoinedData] in
+
+                let datas = services.map { service -> SubscribedItemJoinedData in
+
+                    let mainCategoryName = categories.first {
+                        $0.id == service.mainCategoryID
+                    }?.name ?? ""
+
+                    var subCategoryName: String?
+                    if let subCategoryID = service.subCategoryID {
+                        subCategoryName = categories.first {
+                            $0.id == subCategoryID
+                        }?.name
+                    }
+
+                    return SubscribedItemJoinedData(createdTime: service.createdTime,
+                                                    cycle: service.cycle,
+                                                    description: service.description,
+                                                    id: service.id,
+                                                    iconImageURL: service.iconImageURL,
+                                                    mainCategoryID: service.mainCategoryID,
+                                                    mainCategoryName: mainCategoryName,
+                                                    name: service.name,
+                                                    planID: service.planID,
+                                                    planName: service.planName,
+                                                    price: service.price,
+                                                    payAt: service.payAt,
+                                                    subCategoryID: service.subCategoryID,
+                                                    subCategoryName: subCategoryName,
+                                                    serviceID: service.serviceID,
+                                                    seriviceURL: service.seriviceURL)
+                }
+
+                return datas
             }
+            .assign(to: \.items, on: self)
             .store(in: &cancellables)
     }
 }

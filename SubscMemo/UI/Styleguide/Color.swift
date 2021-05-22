@@ -31,6 +31,8 @@ extension Color {
     public init(dynamicProvider: @escaping (UITraitCollection) -> Color) {
         self = Self(UIColor { UIColor(dynamicProvider($0)) })
     }
+
+    public static let placeholderGray = Color(UIColor.placeholderText)
 }
 
 #endif

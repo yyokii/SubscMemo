@@ -20,18 +20,40 @@ enum PaymentCycle: String, CaseIterable, Identifiable {
 
 struct PaymentCyclePickerView: View {
 
+    @Binding var isPresented: Bool
+    @Binding var selectedCycleText: String
     @State private var selectedCycle = PaymentCycle.monthly
 
     var body: some View {
-        Picker("支払い頻度", selection: $selectedCycle) {
-            ForEach(PaymentCycle.allCases, id: \.self) { cycle in
-                Text(cycle.rawValue.capitalized)
-                    .adaptiveFont(.matterSemiBold, size: 8)
-                    .foregroundColor(.adaptiveBlack)
+        VStack {
+            Text(selectedCycle.rawValue)
+                .adaptiveFont(.matterSemiBold, size: 16)
+                .foregroundColor(.adaptiveBlack)
+                .padding(.top, 20)
+
+            Picker("設定して下さい", selection: $selectedCycle) {
+                ForEach(PaymentCycle.allCases, id: \.self) { cycle in
+                    Text(cycle.rawValue.capitalized)
+                        .adaptiveFont(.matterSemiBold, size: 8)
+                        .foregroundColor(.adaptiveBlack)
+                }
             }
+            .adaptiveFont(.matterSemiBold, size: 8)
+            .foregroundColor(.adaptiveBlack)
+            .pickerStyle(InlinePickerStyle())
+
+            Button(action: {
+                selectedCycleText = selectedCycle.rawValue
+                isPresented = false
+            }) {
+                Text("閉じる")
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                    .padding(.bottom, 20)
+            }
+
         }
-        .adaptiveFont(.matterSemiBold, size: 8)
-        .foregroundColor(.placeholderGray)
+        .background(Color.adaptiveWhite)
+        .cornerRadius(8)
     }
 }
 
@@ -42,7 +64,7 @@ struct PaymentCyclePickerView_Previews: PreviewProvider {
     struct ContentView: View {
         var body: some View {
             NavigationView {
-                PaymentCyclePickerView()
+                PaymentCyclePickerView(isPresented: .constant(false), selectedCycleText: .constant("demo"))
             }
         }
     }

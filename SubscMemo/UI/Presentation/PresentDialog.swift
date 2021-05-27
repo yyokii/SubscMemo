@@ -11,6 +11,7 @@ enum DialogContent: View {
 
     case contentDetail01(isPresented: Binding<Bool>)
     case contentDetail02(isPresented: Binding<Bool>)
+    case selectPaymentCycle(isPresented: Binding<Bool>, text: Binding<String>)
 
     var body: some View {
         switch self {
@@ -21,6 +22,11 @@ enum DialogContent: View {
         case .contentDetail02(let isPresented):
             return AnyView(
                 DemoDialogContent02(isPresented: isPresented)
+            )
+        case .selectPaymentCycle(let isPresented, let text):
+            return AnyView(
+                PaymentCyclePickerView(isPresented: isPresented, selectedCycleText: text)
+
             )
         }
     }

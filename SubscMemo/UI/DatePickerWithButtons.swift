@@ -13,57 +13,49 @@ struct DatePickerWithButtons: View {
 
     @Binding var showDatePicker: Bool
     @Binding var savedDate: Date?
-    @State var selectedDate: Date = Date()
+    @State var selectingDate: Date = Date()
 
     var body: some View {
+        VStack {
+            DatePicker(
+                "",
+                selection: $selectingDate,
+                in: dateRange,
+                displayedComponents: [.date]
+            )
+            .datePickerStyle(GraphicalDatePickerStyle())
 
-        ZStack {
-            Color.black.opacity(0.3)
-                .edgesIgnoringSafeArea(.all)
+            Divider()
 
-            VStack {
-                DatePicker(
-                    "",
-                    selection: $selectedDate,
-                    in: dateRange,
-                    displayedComponents: [.date]
-                )
-                .datePickerStyle(GraphicalDatePickerStyle())
+            HStack {
+                Button(action: {
+                    savedDate = nil
+                    showDatePicker = false
+                }, label: {
+                    Text("リセット")
+                        .adaptiveFont(.matterMedium, size: 16)
+                        .foregroundColor(.red)
+                })
 
-                Divider()
+                Spacer()
 
-                HStack {
-                    Button(action: {
-                        savedDate = nil
-                        showDatePicker = false
-                    }, label: {
-                        Text("リセット")
-                            .adaptiveFont(.matterMedium, size: 16)
-                            .foregroundColor(.red)
-                    })
-
-                    Spacer()
-
-                    Button(action: {
-                        savedDate = selectedDate
-                        showDatePicker = false
-                    }, label: {
-                        Text("設定".uppercased())
-                            .adaptiveFont(.matterMedium, size: 16)
-                    })
-
-                }
-                .padding(.horizontal)
+                Button(action: {
+                    savedDate = selectingDate
+                    showDatePicker = false
+                }, label: {
+                    Text("設定".uppercased())
+                        .adaptiveFont(.matterMedium, size: 16)
+                })
 
             }
-            .padding()
-            .background(
-                Color.adaptiveWhite
-                    .cornerRadius(30)
-            )
+            .padding(.horizontal)
 
         }
-
+        .padding()
+        .background(
+            Color.adaptiveWhite
+                .cornerRadius(30)
+        )
     }
 }
 
@@ -97,7 +89,7 @@ struct PaymentDatePickerView: View {
                     dateRange: dateRange,
                     showDatePicker: $showDatePicker,
                     savedDate: $savedDate,
-                    selectedDate: savedDate ?? Date()
+                    selectingDate: savedDate ?? Date()
                 )
                 .animation(.linear)
                 .transition(.opacity)

@@ -12,20 +12,43 @@ enum DialogContent: View {
     case selectPaymentCycle(isPresented: Binding<Bool>, text: Binding<String>)
     case selectMainCategory(isPresented: Binding<Bool>, datas: [String], selectedData: Binding<String>)
     case selectSubCategory(isPresented: Binding<Bool>, datas: [String], selectedData: Binding<String>)
+    case selectDate(isPresented: Binding<Bool>, dateRange: ClosedRange<Date>, savedDate: Binding<Date?>, selectingDate: Date)
 
     var body: some View {
         switch self {
         case .selectPaymentCycle(let isPresented, let text):
             return AnyView(
-                PaymentCyclePickerView(isPresented: isPresented, selectedCycleText: text)
+                PaymentCyclePickerView(
+                    isPresented: isPresented,
+                    selectedCycleText: text
+                )
             )
-        case .selectMainCategory(isPresented: let isPresented, datas: let datas, selectedData: let selectedData):
+        case .selectMainCategory(let isPresented, let datas, let selectedData):
             return AnyView(
-                OptionalablePickerView(datas: datas, isOptionalPick: false, isPresented: isPresented, selectedData: selectedData)
+                OptionalablePickerView(
+                    datas: datas,
+                    isOptionalPick: false,
+                    isPresented: isPresented,
+                    selectedData: selectedData
+                )
             )
-        case .selectSubCategory(isPresented: let isPresented, datas: let datas, selectedData: let selectedData):
+        case .selectSubCategory(let isPresented, let datas, let selectedData):
             return AnyView(
-                OptionalablePickerView(datas: datas, isOptionalPick: true, isPresented: isPresented, selectedData: selectedData)
+                OptionalablePickerView(
+                    datas: datas,
+                    isOptionalPick: true,
+                    isPresented: isPresented,
+                    selectedData: selectedData
+                )
+            )
+        case .selectDate(let isPresented, let dateRange, let savedDate, let selectingDate):
+            return AnyView(
+                DatePickerWithButtons(
+                    dateRange: dateRange,
+                    showDatePicker: isPresented,
+                    savedDate: savedDate,
+                    selectingDate: selectingDate
+                )
             )
         }
     }

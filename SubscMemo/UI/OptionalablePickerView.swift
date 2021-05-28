@@ -11,27 +11,44 @@ struct OptionalablePickerView: View {
 
     let datas: [String]
     var isOptionalPick: Bool = false
+    @Binding var isPresented: Bool
     @Binding var selectedData: String
-    let title: String
 
     var body: some View {
 
-        Picker(title, selection: $selectedData) {
+        VStack {
+            Text(selectedData)
+                .adaptiveFont(.matterSemiBold, size: 16)
+                .foregroundColor(.adaptiveBlack)
+                .padding(.top, 20)
 
-            if isOptionalPick {
-                Text("選択しない")
-                    .tag("")
-                    .foregroundColor(.adaptiveBlack)
+            Picker("", selection: $selectedData) {
+                if isOptionalPick {
+                    Text("選択しない")
+                        .tag("")
+                        .foregroundColor(.adaptiveBlack)
+                }
+
+                ForEach(datas, id: \.self) { data in
+                    Text(data)
+                        .foregroundColor(.adaptiveBlack)
+                }
+            }
+            .adaptiveFont(.matterSemiBold, size: 8)
+            .foregroundColor(.placeholderGray)
+            .buttonStyle(PlainButtonStyle())
+
+            Button(action: {
+                isPresented = false
+            }) {
+                Text("閉じる")
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                    .padding(.bottom, 20)
             }
 
-            ForEach(datas, id: \.self) { data in
-                Text(data)
-                    .foregroundColor(.adaptiveBlack)
-            }
         }
-        .adaptiveFont(.matterSemiBold, size: 8)
-        .foregroundColor(.placeholderGray)
-        .buttonStyle(PlainButtonStyle())
+        .background(Color.adaptiveWhite)
+        .cornerRadius(8)
     }
 }
 
@@ -49,8 +66,8 @@ struct OptionalablePickerView_Previews: PreviewProvider {
                     OptionalablePickerView(
                         datas: datas,
                         isOptionalPick: false,
-                        selectedData: $data,
-                        title: "demo"
+                        isPresented: .constant(false),
+                        selectedData: $data
                     )
 
                     Divider()
@@ -58,8 +75,8 @@ struct OptionalablePickerView_Previews: PreviewProvider {
                     OptionalablePickerView(
                         datas: datas,
                         isOptionalPick: true,
-                        selectedData: $data,
-                        title: "demo"
+                        isPresented: .constant(false),
+                        selectedData: $data
                     )
                 }
             }

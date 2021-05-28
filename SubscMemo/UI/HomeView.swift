@@ -30,8 +30,8 @@ struct HomeView: View {
 
                     ForEach(0..<10) { _ in
 
-                        SubscribedItemView()
-                            .padding()
+                        //                        SubscribedItemView()
+                        //                            .padding()
                     }
                 }
             }

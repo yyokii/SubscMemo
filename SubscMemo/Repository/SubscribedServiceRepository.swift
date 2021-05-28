@@ -29,10 +29,6 @@ final class FirestoreSubscribedServiceRepository: BaseSubscribedServiceRepositor
     @Injected var userProfileRepository: UserProfileRepository
     @Injected var subscCategoryRepository: SubscCategoryRepository
 
-    let usersPath: String = "users"
-    let itemsPath: String = "subscItems"
-    var userId: String = "unknown"
-
     private var cancellables = Set<AnyCancellable>()
 
     override init() {
@@ -64,6 +60,7 @@ final class FirestoreSubscribedServiceRepository: BaseSubscribedServiceRepositor
                                                     description: service.description,
                                                     id: service.id,
                                                     iconImageURL: service.iconImageURL,
+                                                    isUserOriginal: service.isUserOriginal,
                                                     mainCategoryID: service.mainCategoryID,
                                                     mainCategoryName: mainCategoryName,
                                                     name: service.name,

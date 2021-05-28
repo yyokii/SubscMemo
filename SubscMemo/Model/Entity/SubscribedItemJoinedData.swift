@@ -15,6 +15,7 @@ struct SubscribedItemJoinedData {
     var description: String
     var id: String?
     var iconImageURL: String?
+    var isUserOriginal: Bool // true: ユーザーが独自に追加したもの, false: アプリが提供しているサービス群か追加したもの
     var mainCategoryID: String
     var mainCategoryName: String
     var name: String
@@ -25,7 +26,7 @@ struct SubscribedItemJoinedData {
     var subCategoryID: String?
     var subCategoryName: String?
     var serviceID: String
-    var seriviceURL: String
+    var seriviceURL: String?
 }
 
 #if DEBUG
@@ -35,6 +36,7 @@ let demoSubscItemJoinedDatas = [
                              description: "",
                              id: "demo-01",
                              iconImageURL: "https://via.placeholder.com/150",
+                             isUserOriginal: false,
                              mainCategoryID: "",
                              mainCategoryName: "demo-category",
                              name: "demo-name",
@@ -52,6 +54,7 @@ let demoSubscItemJoinedDatas = [
                              description: "",
                              id: "demo-01",
                              iconImageURL: "https://via.placeholder.com/150",
+                             isUserOriginal: false,
                              mainCategoryID: "",
                              mainCategoryName: "demo-category",
                              name: "demo-name",

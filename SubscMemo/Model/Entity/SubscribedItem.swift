@@ -8,13 +8,13 @@
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-// これ消せるのか
 /// 登録しているサブスクリプションサービスの情報
 struct SubscribedItem: Codable, Identifiable {
     @DocumentID var id: String?
     var cycle: String
     var description: String
     var iconImageURL: String
+    var isUserOriginal: Bool // true: ユーザーが独自に追加したもの, false: アプリが提供しているサービス群か追加したもの
     var mainCategoryID: String
     var name: String
     var planID: String?
@@ -23,7 +23,7 @@ struct SubscribedItem: Codable, Identifiable {
     var payAt: Timestamp?
     var subCategoryID: String?
     var serviceID: String
-    var seriviceURL: String
+    var seriviceURL: String?
     @ServerTimestamp var createdTime: Timestamp?
 
     static func makeNewItem() -> SubscribedItem {
@@ -31,6 +31,7 @@ struct SubscribedItem: Codable, Identifiable {
                               cycle: "",
                               description: "",
                               iconImageURL: "https://via.placeholder.com/50",
+                              isUserOriginal: false,
                               mainCategoryID: "",
                               name: "",
                               planID: nil,
@@ -49,6 +50,7 @@ let demoSubscItems = [
                    cycle: "monthly",
                    description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
                    iconImageURL: "https://via.placeholder.com/50",
+                   isUserOriginal: false,
                    mainCategoryID: "",
                    name: "demo-01",
                    planID: nil,
@@ -62,6 +64,7 @@ let demoSubscItems = [
                    cycle: "monthly",
                    description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
                    iconImageURL: "https://via.placeholder.com/50",
+                   isUserOriginal: false,
                    mainCategoryID: "",
                    name: "demo-01",
                    planID: nil,

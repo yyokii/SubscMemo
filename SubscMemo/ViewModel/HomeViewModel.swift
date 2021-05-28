@@ -10,25 +10,19 @@ import Combine
 import Resolver
 
 final class HomeViewModel: ObservableObject {
-
-    @Published var subscRepository: SubscRepository = Resolver.resolve()
-    @Published var subscCellViewModels = [SubscCellViewModel]()
+    @Published var subscribedServiceRepository: SubscribedServiceRepository = Resolver.resolve()
+    @Published var subscribedItemVMs = [SubscribedItemViewModel]()
 
     private var cancellables = Set<AnyCancellable>()
 
     init() {
-        subscRepository.$items
-            .map { items in
-                items.map { item in
-                    SubscCellViewModel(item: item)
-                }
-            }
-            .assign(to: \.subscCellViewModels, on: self)
-            .store(in: &cancellables)
-    }
 
-    func addItem(item: SubscribedItem) {
-        subscRepository.addItem(item)
+        subscribedServiceRepository.$items
+            .map { items in
+                items.map { SubscribedItemViewModel(item: $0) }
+            }
+            .assign(to: \.subscribedItemVMs, on: self)
+            .store(in: &cancellables)
     }
 }
 
@@ -37,7 +31,7 @@ final class HomeViewModel: ObservableObject {
 var demoSubscListVM: HomeViewModel {
 
     let vm = HomeViewModel()
-    vm.subscCellViewModels = demoSubscCellVM
+    vm.subscribedItemVMs = demoSubscribedItemVMs
     return vm
 }
 

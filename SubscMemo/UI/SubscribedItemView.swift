@@ -9,11 +9,10 @@ import SwiftUI
 
 /// 加入済みサービスの情報を表示するView
 struct SubscribedItemView: View {
+    @ObservedObject var subscribedItemVM: SubscribedItemViewModel
 
     var body: some View {
-
         return
-
             ZStack {
                 Rectangle()
                     .fill(Color.white)
@@ -30,12 +29,12 @@ struct SubscribedItemView: View {
                     VStack(alignment: .leading) {
                         HStack {
                             VStack(alignment: .leading) {
-                                Text("Apple Music")
+                                Text(subscribedItemVM.item.serviceName)
                                     .adaptiveFont(.matterSemiBold, size: 12)
                                     .padding(.bottom, 10)
                                     .foregroundColor(.appBlack)
 
-                                Text("free plan")
+                                Text(subscribedItemVM.item.planName ?? "")
                                     .adaptiveFont(.matterMedium, size: 12)
                                     .foregroundColor(.appBlack)
                             }
@@ -47,7 +46,7 @@ struct SubscribedItemView: View {
                     VStack(alignment: .leading) {
                         HStack {
                             VStack(alignment: .leading) {
-                                Text("¥1,200")
+                                Text(subscribedItemVM.item.price)
                                     .adaptiveFont(.matterSemiBold, size: 12)
                                     .padding(.bottom, 10)
                                     .foregroundColor(.green)
@@ -76,9 +75,11 @@ struct SubscribedItemView_Previews: PreviewProvider {
     static var previews: some View {
         return
             Group {
-                SubscribedItemView()                .environment(\.colorScheme, .light)
+                SubscribedItemView(subscribedItemVM: demoSubscribedItemVMs[0])
+                    .environment(\.colorScheme, .light)
 
-                SubscribedItemView()                .environment(\.colorScheme, .dark)
+                SubscribedItemView(subscribedItemVM: demoSubscribedItemVMs[0])
+                    .environment(\.colorScheme, .dark)
             }
     }
 }

@@ -18,5 +18,7 @@ extension Resolver: ResolverRegistering {
         register { FirestoreExploreSubscRepository() as ExploreSubscRepository }.scope(.application)
         register { FirestoreUserProfileRepository() as UserProfileRepository }.scope(.application)
         register { FirestoreSubscCategoryRepository() as SubscCategoryRepository }.scope(.application)
+        register { FirestoreSubscribedServiceRepository() as SubscribedServiceRepository }.scope(.application)
+
     }
 }

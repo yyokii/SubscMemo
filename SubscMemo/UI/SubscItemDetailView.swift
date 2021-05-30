@@ -73,7 +73,7 @@ struct SubscItemDetailView: View {
                 Button(action: {
 
                 }) {
-                    Text("登録する")
+                    Text("追加する")
                         .adaptiveFont(.matterMedium, size: 16)
                         .foregroundColor(.appBlack)
                         .frame(minWidth: 0, maxWidth: 300)

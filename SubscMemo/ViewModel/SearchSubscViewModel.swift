@@ -8,6 +8,7 @@
 import Combine
 import Resolver
 
+// 使わないかも
 final class SearchSubscViewModel: ObservableObject {
 
     @Published var exploreSubscRepository: ExploreSubscRepository = Resolver.resolve()
@@ -17,9 +18,9 @@ final class SearchSubscViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     init() {
-        exploreSubscRepository.$categories
-            .assign(to: \.categories, on: self)
-            .store(in: &cancellables)
+        //        exploreSubscRepository.$categories
+        //            .assign(to: \.categories, on: self)
+        //            .store(in: &cancellables)
     }
 }
 

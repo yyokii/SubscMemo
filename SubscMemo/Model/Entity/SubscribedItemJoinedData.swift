@@ -26,7 +26,7 @@ struct SubscribedItemJoinedData {
     var subCategoryID: String?
     var subCategoryName: String?
     var serviceID: String
-    var seriviceURL: String?
+    var serviceURL: String?
 }
 
 #if DEBUG
@@ -47,7 +47,7 @@ let demoSubscItemJoinedDatas = [
                              subCategoryID: nil,
                              subCategoryName: nil,
                              serviceID: "demo-service-id",
-                             seriviceURL: ""),
+                             serviceURL: ""),
 
     SubscribedItemJoinedData(createdTime: nil,
                              cycle: "monthly",
@@ -65,6 +65,6 @@ let demoSubscItemJoinedDatas = [
                              subCategoryID: nil,
                              subCategoryName: nil,
                              serviceID: "demo-service-id",
-                             seriviceURL: "")
+                             serviceURL: "")
 ]
 #endif

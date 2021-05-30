@@ -11,13 +11,13 @@ import FirebaseFirestore
 
 class BaseExploreSubscRepository {
     @Published var items = [ExploreSubscItem]()
-    @Published var categories = [SubscCategory]()
 }
 
 /// 公開されているサブスクリプションサービスへのデータアクセス
 protocol ExploreSubscRepository: BaseExploreSubscRepository {
     func loadData() -> AnyPublisher<[ExploreSubscItem], Error>
-    func loadData(with ids: [String]) -> AnyPublisher<[ExploreSubscItem], Error>
+    func loadData(with serviceIDs: [String]) -> AnyPublisher<[ExploreSubscItem], Error>
+    func loadPlans(of serviceID: String) -> AnyPublisher<[ExploreSubscItem.SubscPlan], Error>
 }
 
 final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, ExploreSubscRepository, ObservableObject {
@@ -25,8 +25,7 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
     var db: Firestore = Firestore.firestore()
 
     enum FirestorePathComponent: String {
-        case categories = "categories"
-        case plan = "plan"
+        case plans = "plans"
         case subscriptionServices = "subscription_services"
         case services = "services"
         case version = "v1"
@@ -49,7 +48,10 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
                 return
             }
 
-            self.db.collection(FirestorePathComponent.subscriptionServices.rawValue)
+            self.db
+                .collection(FirestorePathComponent.subscriptionServices.rawValue)
+                .document(FirestorePathComponent.version.rawValue)
+                .collection(FirestorePathComponent.services.rawValue)
                 .order(by: "createdTime")
                 .addSnapshotListener { (querySnapshot, error) in
 
@@ -71,17 +73,14 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
         .eraseToAnyPublisher()
     }
 
-    func hoge() {
-
-    }
-
-    func loadData(with ids: [String]) -> AnyPublisher<[ExploreSubscItem], Error> {
-        let serviceCollectionRef = db.collection(FirestorePathComponent.subscriptionServices.rawValue)
+    func loadData(with serviceIDs: [String]) -> AnyPublisher<[ExploreSubscItem], Error> {
+        let serviceCollectionRef = db
+            .collection(FirestorePathComponent.subscriptionServices.rawValue)
             .document(FirestorePathComponent.version.rawValue)
             .collection(FirestorePathComponent.services.rawValue)
 
         return serviceCollectionRef
-            .whereField("serviceID", in: ids)
+            .whereField("serviceID", in: serviceIDs)
             .order(by: "createdTime")
             .getDocuments()
             .map { snapshot in
@@ -93,10 +92,46 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
             .eraseToAnyPublisher()
     }
 
-    func planData(with planID: String, serviceDocumentRef: DocumentReference) -> AnyPublisher<ExploreSubscItem.SubscPlan, Error> {
+    func loadPlans(of serviceID: String) -> AnyPublisher<[ExploreSubscItem.SubscPlan], Error> {
+
+        let serviceCollectionRef = db
+            .collection(FirestorePathComponent.subscriptionServices.rawValue)
+            .document(FirestorePathComponent.version.rawValue)
+            .collection(FirestorePathComponent.services.rawValue)
+
+        return loadData(with: [serviceID])
+            .compactMap { [weak self] items in
+                guard let id = items.first?.id else {
+                    return Fail<[ExploreSubscItem.SubscPlan], Error>(error: RepositoryError.other)
+                        .eraseToAnyPublisher()
+                }
+                let ref = serviceCollectionRef
+                    .document(id)
+                return self?.loadPlans(with: ref)
+            }
+            .flatMap(maxPublishers: .max(1)) { loadplan -> AnyPublisher<[ExploreSubscItem.SubscPlan], Error> in
+                loadplan
+            }
+            .eraseToAnyPublisher()
+    }
+
+    private func loadPlans(with serviceDocumentRef: DocumentReference) -> AnyPublisher<[ExploreSubscItem.SubscPlan], Error> {
 
         return serviceDocumentRef
-            .collection(FirestorePathComponent.plan.rawValue)
+            .collection(FirestorePathComponent.plans.rawValue)
+            .getDocuments()
+            .map {
+                $0.documents.compactMap { doc in
+                    try? doc.data(as: ExploreSubscItem.SubscPlan.self)
+                }
+            }
+            .eraseToAnyPublisher()
+    }
+
+    func loadPlan(with planID: String, serviceDocumentRef: DocumentReference) -> AnyPublisher<ExploreSubscItem.SubscPlan, Error> {
+
+        return serviceDocumentRef
+            .collection(FirestorePathComponent.plans.rawValue)
             .whereField("planID", isEqualTo: planID)
             .getDocuments()
             // これなかったらエラー流れるっけ？いやfinishするだけ

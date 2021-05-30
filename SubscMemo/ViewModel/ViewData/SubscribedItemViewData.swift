@@ -5,8 +5,6 @@
 //  Created by Higashihara Yoki on 2021/05/29.
 //
 
-import Foundation
-
 struct SubscribedItemViewData {
 
     let subscribedItemJoinedData: SubscribedItemJoinedData
@@ -24,7 +22,7 @@ struct SubscribedItemViewData {
     }
 
     var price: String {
-        return "¥" + "\(subscribedItemJoinedData.price)"
+        return subscribedItemJoinedData.price.modifyToPriceStringData()
     }
 
     var imageURL: String? {
@@ -39,7 +37,7 @@ struct SubscribedItemViewData {
     }
 
     var cycle: String {
-        let paymentCycle = PaymentCycle(rawValue: subscribedItemJoinedData.cycle)
-        return paymentCycle?.title ?? ""
+        let paymentCycle = PaymentCycle(rawValue: subscribedItemJoinedData.cycle)?.title ?? ""
+        return paymentCycle
     }
 }

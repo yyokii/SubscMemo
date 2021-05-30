@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @ObservedObject var subscListVM = HomeViewModel()
-
+    @ObservedObject var homeVM = HomeViewModel()
     @State var presentContent: PresentContent?
 
     var body: some View {
@@ -28,10 +27,13 @@ struct HomeView: View {
                         .adaptiveFont(.matterSemiBold, size: 12)
                         .padding()
 
-                    ForEach(0..<10) { _ in
+                    ForEach(homeVM.subscribedItemVMs) { vm in
+                        SubscribedItemView(subscribedItemVM: vm)
+                            .padding()
+                            .onTapGesture {
 
-                        //                        SubscribedItemView()
-                        //                            .padding()
+                            }
+
                     }
                 }
             }
@@ -76,10 +78,10 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         return
             Group {
-                HomeView()
+                HomeView(homeVM: demoHomeVM)
                     .environment(\.colorScheme, .light)
 
-                HomeView()
+                HomeView(homeVM: demoHomeVM)
                     .environment(\.colorScheme, .dark)
             }
     }

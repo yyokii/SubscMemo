@@ -16,7 +16,6 @@ final class HomeViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     init() {
-
         subscribedServiceRepository.$items
             .map { items in
                 items.map { SubscribedItemViewModel(item: $0) }
@@ -28,7 +27,7 @@ final class HomeViewModel: ObservableObject {
 
 #if DEBUG
 
-var demoSubscListVM: HomeViewModel {
+var demoHomeVM: HomeViewModel {
 
     let vm = HomeViewModel()
     vm.subscribedItemVMs = demoSubscribedItemVMs

@@ -23,7 +23,7 @@ struct SubscribedItem: Codable, Identifiable {
     var payAt: Timestamp?
     var subCategoryID: String?
     var serviceID: String
-    var seriviceURL: String?
+    var serviceURL: String?
     @ServerTimestamp var createdTime: Timestamp?
 
     static func makeNewItem() -> SubscribedItem {
@@ -40,7 +40,7 @@ struct SubscribedItem: Codable, Identifiable {
                               payAt: nil,
                               subCategoryID: "",
                               serviceID: "",
-                              seriviceURL: "https://via.placeholder.com/150")
+                              serviceURL: "https://via.placeholder.com/150")
     }
 }
 
@@ -59,7 +59,7 @@ let demoSubscItems = [
                    payAt: nil,
                    subCategoryID: "",
                    serviceID: "",
-                   seriviceURL: ""),
+                   serviceURL: ""),
     SubscribedItem(id: "demo-02",
                    cycle: "monthly",
                    description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
@@ -73,6 +73,6 @@ let demoSubscItems = [
                    payAt: nil,
                    subCategoryID: "",
                    serviceID: "",
-                   seriviceURL: "")
+                   serviceURL: "")
 ]
 #endif

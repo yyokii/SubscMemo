@@ -71,7 +71,7 @@ final class FirestoreSubscribedServiceRepository: BaseSubscribedServiceRepositor
                                                     subCategoryID: service.subCategoryID,
                                                     subCategoryName: subCategoryName,
                                                     serviceID: service.serviceID,
-                                                    seriviceURL: service.seriviceURL)
+                                                    serviceURL: service.serviceURL)
                 }
 
                 return datas

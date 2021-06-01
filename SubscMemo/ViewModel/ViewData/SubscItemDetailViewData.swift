@@ -5,6 +5,8 @@
 //  Created by Higashihara Yoki on 2021/05/30.
 //
 
+import Foundation
+
 // サブスクリプションサービスの詳細画面で表示する基本情報
 struct SubscItemDetailViewData {
     var cycle: String?
@@ -15,10 +17,12 @@ struct SubscItemDetailViewData {
     var planName: String?
     var price: String?
     var serviceName: String
-    var serviceURL: String?
-    var subCategoryName: String
+    var serviceURL: URL?
+    var subCategoryName: String?
 
     static func translate(from input: SubscribedItemJoinedData) -> Self {
+        let url = URL(string: input.serviceURL ?? "")
+
         return SubscItemDetailViewData(
             cycle: nil,
             description: input.description,
@@ -28,12 +32,14 @@ struct SubscItemDetailViewData {
             planName: nil,
             price: nil,
             serviceName: input.name,
-            serviceURL: input.serviceURL,
+            serviceURL: url,
             subCategoryName: ""
         )
     }
 
     static func translate(from input: ExploreSubscItem) -> Self {
+        let url = URL(string: input.serviceURL ?? "")
+
         return SubscItemDetailViewData(
             cycle: nil,
             description: input.description,
@@ -43,8 +49,25 @@ struct SubscItemDetailViewData {
             planName: nil,
             price: nil,
             serviceName: input.name,
-            serviceURL: input.serviceURL,
+            serviceURL: url,
             subCategoryName: ""
         )
     }
 }
+
+#if DEBUG
+
+let demoSubscItemDetailViewData = SubscItemDetailViewData(
+    cycle: "月々",
+    description: "せつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめい",
+    iconImageURL: nil,
+    mainCategoryName: "ソーシャルネットワーキング",
+    payAtDate: "2020/10/10",
+    planName: "スタンダードプラン",
+    price: "¥1200",
+    serviceName: "サービス名",
+    serviceURL: nil,
+    subCategoryName: nil
+)
+
+#endif

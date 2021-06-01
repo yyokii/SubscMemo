@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct SubscItemDetailView: View {
-
-    @Binding var subscItem: SubscribedItem
+    @State var presentContent: PresentContent?
+    var subscItem: SubscItemDetailViewData
+    var subscPlans: [SubscPlanViewData]
 
     var body: some View {
         ZStack {
-
             // ベースカラー
             Color.adaptiveWhite
                 .ignoresSafeArea()
@@ -27,36 +27,37 @@ struct SubscItemDetailView: View {
                             .padding(.top, 30)
 
                         VStack(alignment: .leading) {
-                            Text(subscItem.name)
-                                .adaptiveFont(.matterSemiBold, size: 24)
-                                .fixedSize(horizontal: false, vertical: true)
-                                .lineLimit(2)
-                                .foregroundColor(.adaptiveBlack)
 
-                            #warning("viewDataいるやん")
-                            Text(subscItem.mainCategoryID)
+                            HStack {
+                                Text(subscItem.serviceName)
+                                    .adaptiveFont(.matterSemiBold, size: 24)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .lineLimit(2)
+                                    .foregroundColor(.adaptiveBlack)
+
+                                if let serviceURL = subscItem.serviceURL {
+                                    Button(action: {
+                                        presentContent = .safariView(url: serviceURL)
+                                    }, label: {
+                                        Image(systemName: "link.circle")
+                                            .resizable()
+                                            .renderingMode(.original)
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 24, height: 24)
+                                            .padding()
+                                    })
+                                }
+                            }
+
+                            Text(subscItem.mainCategoryName)
                                 .adaptiveFont(.matterSemiBold, size: 16)
                                 .fixedSize(horizontal: false, vertical: true)
                                 .lineLimit(2)
                                 .padding(.top)
                                 .foregroundColor(.gray)
 
-                            HStack {
-                                Text("プラン名プラン名プラン名プラン名プラン名")
-                                    .adaptiveFont(.matterSemiBold, size: 16)
-                                    .fixedSize(horizontal: false, vertical: true)
-                                    .lineLimit(3)
-                                    .foregroundColor(.adaptiveBlack)
-
-                                Spacer()
-
-                                Text("1,200/月")
-                                    .adaptiveFont(.matterSemiBold, size: 22)
-                                    .fixedSize(horizontal: false, vertical: true)
-                                    .lineLimit(2)
-                                    .foregroundColor(.adaptiveBlack)
-                            }
-                            .padding(.top, 20)
+                            SubscPlanListView(plans: subscPlans)
+                                .padding(.top, 20)
 
                             Text(subscItem.description)
                                 .adaptiveFont(.matterSemiBold, size: 16)
@@ -88,6 +89,7 @@ struct SubscItemDetailView: View {
                 .padding(8)
             }
         }
+        .sheet(item: $presentContent, content: { $0 })
     }
 }
 
@@ -95,19 +97,18 @@ struct SubscItemDetailView: View {
 
 struct SubscItemDetailView_Previews: PreviewProvider {
     static var previews: some View {
-
         Group {
-
-            let item = Binding<SubscribedItem>(
-                get: { demoSubscItems[0] },
-                set: { _ in () }
+            SubscItemDetailView(
+                subscItem: demoSubscItemDetailViewData,
+                subscPlans: demoSubscPlanViewDatas
             )
+            .environment(\.colorScheme, .light)
 
-            SubscItemDetailView(subscItem: item)
-                .environment(\.colorScheme, .light)
-
-            SubscItemDetailView(subscItem: item)
-                .environment(\.colorScheme, .dark)
+            SubscItemDetailView(
+                subscItem: demoSubscItemDetailViewData,
+                subscPlans: demoSubscPlanViewDatas
+            )
+            .environment(\.colorScheme, .dark)
         }
     }
 }

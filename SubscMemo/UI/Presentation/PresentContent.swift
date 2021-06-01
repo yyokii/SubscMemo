@@ -17,11 +17,22 @@ enum PresentContent: View, Hashable, Identifiable {
 
     case loginAndSignUp
     case createSubscItem
+    case safariView(url: URL)
 
     var body: some View {
         switch self {
-        case .createSubscItem: return AnyView(EditSubscView(editSubscVM: EditSubscViewModel.newItem()))
-        case .loginAndSignUp: return AnyView(LoginAndSignUpView())
+        case .createSubscItem:
+            return AnyView(
+                EditSubscView(editSubscVM: EditSubscViewModel.newItem())
+            )
+        case .loginAndSignUp:
+            return AnyView(
+                LoginAndSignUpView()
+            )
+        case .safariView(let url):
+            return AnyView(
+                SafariView(url: url)
+            )
         }
     }
 }

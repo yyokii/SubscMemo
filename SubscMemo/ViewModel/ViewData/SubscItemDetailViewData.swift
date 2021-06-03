@@ -38,7 +38,7 @@ struct SubscItemDetailViewData {
     }
 
     static func translate(from input: ExploreSubscItem) -> Self {
-        let url = URL(string: input.serviceURL ?? "")
+        let url = URL(string: input.serviceURL)
 
         return SubscItemDetailViewData(
             cycle: nil,

@@ -1,5 +1,5 @@
 //
-//  SubscItemDetailView.swift
+//  ExploreSubscItemDetailView.swift
 //  SubscMemo
 //
 //  Created by Higashihara Yoki on 2021/05/12.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SubscItemDetailView: View {
+struct ExploreSubscItemDetailView: View {
     @State var presentContent: PresentContent?
     var subscItem: SubscItemDetailViewData
     var subscPlans: [SubscPlanViewData]
@@ -98,13 +98,13 @@ struct SubscItemDetailView: View {
 struct SubscItemDetailView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            SubscItemDetailView(
+            ExploreSubscItemDetailView(
                 subscItem: demoSubscItemDetailViewData,
                 subscPlans: demoSubscPlanViewDatas
             )
             .environment(\.colorScheme, .light)
 
-            SubscItemDetailView(
+            ExploreSubscItemDetailView(
                 subscItem: demoSubscItemDetailViewData,
                 subscPlans: demoSubscPlanViewDatas
             )

@@ -28,26 +28,13 @@ struct ExploreSubscItemDetailView: View {
 
                         VStack(alignment: .leading) {
 
-                            HStack {
-                                Text(subscItem.serviceName)
-                                    .adaptiveFont(.matterSemiBold, size: 24)
-                                    .fixedSize(horizontal: false, vertical: true)
-                                    .lineLimit(2)
-                                    .foregroundColor(.adaptiveBlack)
-
-                                if let serviceURL = subscItem.serviceURL {
-                                    Button(action: {
-                                        presentContent = .safariView(url: serviceURL)
-                                    }, label: {
-                                        Image(systemName: "link.circle")
-                                            .resizable()
-                                            .renderingMode(.original)
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(width: 24, height: 24)
-                                            .padding()
-                                    })
+                            ServiceNameView(
+                                serviceName: subscItem.serviceName,
+                                serviceURL: subscItem.serviceURL,
+                                linkTapAction: { url in
+                                    presentContent = .safariView(url: url)
                                 }
-                            }
+                            )
 
                             Text(subscItem.mainCategoryName)
                                 .adaptiveFont(.matterSemiBold, size: 16)

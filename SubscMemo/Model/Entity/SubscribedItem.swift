@@ -14,8 +14,9 @@ struct SubscribedItem: Codable, Identifiable {
     var cycle: String
     var description: String
     var iconImageURL: String
-    var isUserOriginal: Bool // true: ユーザーが独自に追加したもの, false: アプリが提供しているサービス群か追加したもの
+    var isUserOriginal: Bool // true: ユーザーが独自に追加したもの, false: アプリが提供しているサービス群から追加したもの
     var mainCategoryID: String
+    var memo: String
     var name: String
     var planID: String?
     var planName: String?
@@ -33,6 +34,7 @@ struct SubscribedItem: Codable, Identifiable {
                               iconImageURL: "https://via.placeholder.com/50",
                               isUserOriginal: false,
                               mainCategoryID: "",
+                              memo: "",
                               name: "",
                               planID: nil,
                               planName: "",
@@ -52,6 +54,7 @@ let demoSubscItems = [
                    iconImageURL: "https://via.placeholder.com/50",
                    isUserOriginal: false,
                    mainCategoryID: "",
+                   memo: "demo-memo",
                    name: "demo-01",
                    planID: nil,
                    planName: "",
@@ -66,6 +69,7 @@ let demoSubscItems = [
                    iconImageURL: "https://via.placeholder.com/50",
                    isUserOriginal: false,
                    mainCategoryID: "",
+                   memo: "demo-memo",
                    name: "demo-01",
                    planID: nil,
                    planName: "",

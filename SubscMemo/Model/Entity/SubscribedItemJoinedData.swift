@@ -18,6 +18,7 @@ struct SubscribedItemJoinedData {
     var isUserOriginal: Bool // true: ユーザーが独自に追加したもの, false: アプリが提供しているサービス群か追加したもの
     var mainCategoryID: String
     var mainCategoryName: String
+    var memo: String
     var name: String
     var planID: String?
     var planName: String?
@@ -39,6 +40,7 @@ let demoSubscItemJoinedDatas = [
                              isUserOriginal: false,
                              mainCategoryID: "",
                              mainCategoryName: "demo-category",
+                             memo: "メモメモメモメモメモメモ",
                              name: "demo-name",
                              planID: nil,
                              planName: nil,
@@ -57,6 +59,7 @@ let demoSubscItemJoinedDatas = [
                              isUserOriginal: false,
                              mainCategoryID: "",
                              mainCategoryName: "demo-category",
+                             memo: "メモメモメモメモメモメモ",
                              name: "demo-name",
                              planID: nil,
                              planName: nil,

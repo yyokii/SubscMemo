@@ -33,11 +33,11 @@ targets:
         type: file
     settings:
       base:
-        INFOPLIST_FILE: SubscMemo/Info.plist
-        # PRODUCT_BUNDLE_IDENTIFIER: {Bundle ID Prefix}.SubscMemo # `bundleIdPrefix` を指定しない場合はコメントイン
         CODE_SIGN_ENTITLEMENTS: SubscMemo/SubscMemo.entitlements
-        MARKETING_VERSION: 1.0.0 
         CURRENT_PROJECT_VERSION: 1
+        INFOPLIST_FILE: SubscMemo/Info.plist
+        MARKETING_VERSION: 1.0.0 
+        OTHER_LDFLAGS: -fprofile-instr-generate
     dependencies:
       - package: Rswift
       - package: Tagged

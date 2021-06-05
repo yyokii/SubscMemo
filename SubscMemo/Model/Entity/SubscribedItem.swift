@@ -19,7 +19,7 @@ struct SubscribedItem: Codable, Identifiable {
     var memo: String
     var name: String
     var planID: String?
-    var planName: String?
+    var planName: String? // アプリが提供しているサービス群から選択している場合で且つプランを選択しているとその名称が入る
     var price: Int
     var payAt: Timestamp?
     var subCategoryID: String?

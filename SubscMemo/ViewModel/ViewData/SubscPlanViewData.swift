@@ -13,8 +13,26 @@ struct SubscPlanViewData: Identifiable {
     var planName: String
     var price: String
 
-    static func translate(from input: ExploreSubscItem.SubscPlan) -> Self {
+    static func makeEmptyData() -> SubscPlanViewData {
+        return  SubscPlanViewData(
+            cycle: "月々",
+            planName: "スタンダードプラン",
+            price: "¥1200"
+        )
+    }
 
+    static func translate(from input: ExploreSubscItem.SubscPlan) -> Self {
+        let paymentCycle = PaymentCycle(rawValue: input.cycle)?.title ?? ""
+
+        return SubscPlanViewData(
+            cycle: paymentCycle,
+            planName: input.name,
+            price: input.price
+                .modifyToPriceStringData()
+        )
+    }
+
+    static func translate(from input: SubscribedItemJoinedData) -> Self {
         let paymentCycle = PaymentCycle(rawValue: input.cycle)?.title ?? ""
 
         return SubscPlanViewData(

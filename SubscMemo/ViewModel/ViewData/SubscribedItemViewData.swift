@@ -7,37 +7,24 @@
 
 struct SubscribedItemViewData {
 
-    let subscribedItemJoinedData: SubscribedItemJoinedData
+    var cycle: String
+    var iconImageURL: String?
+    var mainCategoryName: String
+    var planName: String?
+    var price: String
+    var serviceName: String
 
-    init(data: SubscribedItemJoinedData) {
-        subscribedItemJoinedData = data
+    static func translate(from input: SubscribedItemJoinedData) -> Self {
+        let paymentCycle = PaymentCycle.init(rawValue: input.cycle)
+
+        return SubscribedItemViewData(
+            cycle: paymentCycle?.title ?? "",
+            iconImageURL: input.iconImageURL,
+            mainCategoryName: input.mainCategoryName,
+            planName: input.planName,
+            price: input.price.modifyToPriceStringData(),
+            serviceName: input.name
+        )
     }
 
-    var serviceName: String {
-        return subscribedItemJoinedData.name
-    }
-
-    var planName: String? {
-        return subscribedItemJoinedData.planName
-    }
-
-    var price: String {
-        return subscribedItemJoinedData.price.modifyToPriceStringData()
-    }
-
-    var imageURL: String? {
-        return subscribedItemJoinedData.iconImageURL
-    }
-
-    var payAtDate: String? {
-        let dateString = subscribedItemJoinedData.payAt?
-            .dateValue()
-            .toString(format: .yMd, timeZone: .japan)
-        return dateString
-    }
-
-    var cycle: String {
-        let paymentCycle = PaymentCycle(rawValue: subscribedItemJoinedData.cycle)?.title ?? ""
-        return paymentCycle
-    }
 }

@@ -18,6 +18,8 @@ class BaseSubscribedServiceRepository {
 
 /// ユーザーが登録しているサブスクリプションサービスの操作
 protocol SubscribedServiceRepository: BaseSubscribedServiceRepository {
+    func loadData()
+    func loadData(with serviceID: String) -> AnyPublisher<SubscribedItemJoinedData, Error>
 }
 
 final class FirestoreSubscribedServiceRepository: BaseSubscribedServiceRepository, SubscribedServiceRepository, ObservableObject {
@@ -63,6 +65,7 @@ final class FirestoreSubscribedServiceRepository: BaseSubscribedServiceRepositor
                                                     isUserOriginal: service.isUserOriginal,
                                                     mainCategoryID: service.mainCategoryID,
                                                     mainCategoryName: mainCategoryName,
+                                                    memo: service.memo,
                                                     name: service.name,
                                                     planID: service.planID,
                                                     planName: service.planName,
@@ -78,5 +81,22 @@ final class FirestoreSubscribedServiceRepository: BaseSubscribedServiceRepositor
             }
             .assign(to: \.items, on: self)
             .store(in: &cancellables)
+    }
+
+    /// 任意のサービスIDのデータを取得する
+    func loadData(with serviceID: String) -> AnyPublisher<SubscribedItemJoinedData, Error> {
+        let targetData = items.first { item in
+            item.id == serviceID
+        }
+
+        if let data = targetData {
+            return Future<SubscribedItemJoinedData, Error> { promise in
+                promise(.success(data))
+            }.eraseToAnyPublisher()
+        } else {
+            return Future<SubscribedItemJoinedData, Error> { promise in
+                promise(.failure(RepositoryError.notFound))
+            }.eraseToAnyPublisher()
+        }
     }
 }

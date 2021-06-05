@@ -8,7 +8,7 @@
 import Foundation
 
 extension DateFormatter {
-    
+
     enum Template: String {
         case yMd = "y/M/d"     // 2010/1/1
     }

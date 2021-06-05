@@ -115,6 +115,7 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
             .eraseToAnyPublisher()
     }
 
+    #warning("つくったけど今使わないかも・・・")
     private func loadPlans(with serviceDocumentRef: DocumentReference) -> AnyPublisher<[ExploreSubscItem.SubscPlan], Error> {
 
         return serviceDocumentRef

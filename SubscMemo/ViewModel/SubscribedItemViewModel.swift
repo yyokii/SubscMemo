@@ -16,7 +16,7 @@ final class SubscribedItemViewModel: ObservableObject, Identifiable {
     private var cancellables = Set<AnyCancellable>()
 
     init(item: SubscribedItemJoinedData) {
-        self.item = SubscribedItemViewData(data: item)
+        self.item = SubscribedItemViewData.translate(from: item)
     }
 }
 

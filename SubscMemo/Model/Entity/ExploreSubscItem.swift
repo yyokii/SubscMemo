@@ -10,11 +10,13 @@ import FirebaseFirestoreSwift
 
 /// サブスクリプションサービスの情報
 struct ExploreSubscItem: Codable, Identifiable {
-    var category: String
     var description: String
     var iconImageURL: String
     @DocumentID var id: String?
+    var mainCategoryID: String
+    var serviceID: String
     var serviceURL: String
+    var subCategoryID: String?
     var name: String
 
     @ServerTimestamp var createdTime: Timestamp?
@@ -29,8 +31,27 @@ struct ExploreSubscItem: Codable, Identifiable {
 
 #if DEBUG
 let demoExploreSubscItems = [
-
-    ExploreSubscItem(category: "category-01", description: "", iconImageURL: "https://via.placeholder.com/150", id: "demo-01", serviceURL: "", name: "demo-name", createdTime: nil),
-    ExploreSubscItem(category: "category-01", description: "", iconImageURL: "https://via.placeholder.com/150", id: "demo-01", serviceURL: "", name: "demo-name", createdTime: nil)
+    ExploreSubscItem(
+        description: "demo-description",
+        iconImageURL: "https://via.placeholder.com/150",
+        id: "demo-id",
+        mainCategoryID: "demo",
+        serviceID: "demo-serviceID",
+        serviceURL: "https://www.google.com/?hl=ja",
+        subCategoryID: "demo",
+        name: "demo-name01",
+        createdTime: nil
+    ),
+    ExploreSubscItem(
+        description: "demo-description",
+        iconImageURL: "https://via.placeholder.com/150",
+        id: "demo-id",
+        mainCategoryID: "demo",
+        serviceID: "demo-serviceID",
+        serviceURL: "https://www.google.com/?hl=ja",
+        subCategoryID: "demo",
+        name: "demo-name02",
+        createdTime: nil
+    )
 ]
 #endif

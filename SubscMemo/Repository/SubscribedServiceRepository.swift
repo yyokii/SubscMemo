@@ -44,7 +44,7 @@ final class FirestoreSubscribedServiceRepository: BaseSubscribedServiceRepositor
             .combineLatest(subscCategoryRepository.$categories)
             .map { (services, categories) -> [SubscribedItemJoinedData] in
 
-                let datas = services.map { service -> SubscribedItemJoinedData in
+                return services.map { service -> SubscribedItemJoinedData in
 
                     let mainCategoryName = categories.first {
                         $0.id == service.mainCategoryID
@@ -76,8 +76,6 @@ final class FirestoreSubscribedServiceRepository: BaseSubscribedServiceRepositor
                                                     serviceID: service.serviceID,
                                                     serviceURL: service.serviceURL)
                 }
-
-                return datas
             }
             .assign(to: \.items, on: self)
             .store(in: &cancellables)

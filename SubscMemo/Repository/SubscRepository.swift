@@ -18,6 +18,7 @@ class BaseSubscRepository {
     @Published var items = [SubscribedItem]()
 }
 
+#warning("SubscribedServiceRepositoryにいれた方が良さげかも？")
 /// ユーザーが登録しているサブスクリプションサービスの操作
 protocol SubscRepository: BaseSubscRepository {
     func addItem(_ item: SubscribedItem) -> AnyPublisher<Void, Error>

@@ -14,7 +14,7 @@ final class ExploreSubscRowViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     init() {
-        exploreSubscRepository.$items
+        exploreSubscRepository.$exploreSubscItems
             .map { items in
                 items.map { item in
                     ExploreSubscItemViewModel(item: item)

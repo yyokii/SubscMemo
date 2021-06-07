@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct ExploreSubscItemDetailView: View {
+    @ObservedObject var exploreSubscItemDetailVM: ExploreSubscItemDetailViewModel
     @State var presentContent: PresentContent?
-    var subscItem: SubscItemDetailViewData
-    var subscPlans: [SubscPlanViewData]
 
     var body: some View {
         ZStack {
@@ -29,24 +28,24 @@ struct ExploreSubscItemDetailView: View {
                         VStack(alignment: .leading) {
 
                             ServiceNameView(
-                                serviceName: subscItem.serviceName,
-                                serviceURL: subscItem.serviceURL,
+                                serviceName: exploreSubscItemDetailVM.subscItem .serviceName,
+                                serviceURL: exploreSubscItemDetailVM.subscItem.serviceURL,
                                 linkTapAction: { url in
                                     presentContent = .safariView(url: url)
                                 }
                             )
 
-                            Text(subscItem.mainCategoryName)
+                            Text(exploreSubscItemDetailVM.subscItem.mainCategoryName)
                                 .adaptiveFont(.matterSemiBold, size: 16)
                                 .fixedSize(horizontal: false, vertical: true)
                                 .lineLimit(2)
                                 .padding(.top)
                                 .foregroundColor(.gray)
 
-                            SubscPlanListView(plans: subscPlans)
+                            SubscPlanListView(plans: exploreSubscItemDetailVM.plans)
                                 .padding(.top, 20)
 
-                            Text(subscItem.description)
+                            Text(exploreSubscItemDetailVM.subscItem.description)
                                 .adaptiveFont(.matterSemiBold, size: 16)
                                 .fixedSize(horizontal: false, vertical: true)
                                 .padding(.top, 40)
@@ -85,17 +84,11 @@ struct ExploreSubscItemDetailView: View {
 struct SubscItemDetailView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ExploreSubscItemDetailView(
-                subscItem: demoSubscItemDetailViewData,
-                subscPlans: demoSubscPlanViewDatas
-            )
-            .environment(\.colorScheme, .light)
+            ExploreSubscItemDetailView(exploreSubscItemDetailVM: demoExploreSubscItemDetailVM)
+                .environment(\.colorScheme, .light)
 
-            ExploreSubscItemDetailView(
-                subscItem: demoSubscItemDetailViewData,
-                subscPlans: demoSubscPlanViewDatas
-            )
-            .environment(\.colorScheme, .dark)
+            ExploreSubscItemDetailView(exploreSubscItemDetailVM: demoExploreSubscItemDetailVM)
+                .environment(\.colorScheme, .dark)
         }
     }
 }

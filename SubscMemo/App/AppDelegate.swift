@@ -20,6 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         FirebaseApp.configure()
 
+        #if DEBUG
+        if isTesting() {
+            return true
+        }
+        #endif
+
         _ = authenticationService.signInAnonymously()
         return true
     }

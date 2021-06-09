@@ -13,6 +13,12 @@ target 'SubscMemo' do
   pod 'CombineFirebase/Firestore'
   pod 'CombineFirebase/Auth'
   pod "Resolver"
+  
+  target 'SubscMemoTests' do
+    inherit! :search_paths
+    
+    pod 'Firebase'
+  end
 
 end
 

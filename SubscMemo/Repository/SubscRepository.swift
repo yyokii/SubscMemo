@@ -60,6 +60,9 @@ final class FirestoreSubscRepository: BaseSubscRepository, SubscRepository, Obse
     }
 
     private func loadData() {
+        guard !userId.isEmpty else {
+            return
+        }
 
         db.collection(usersPath)
             .document(userId)

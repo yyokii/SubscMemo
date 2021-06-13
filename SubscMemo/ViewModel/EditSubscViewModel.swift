@@ -22,7 +22,7 @@ final class EditSubscViewModel: ObservableObject {
     }
 
     static func newItem() -> EditSubscViewModel {
-        EditSubscViewModel(item: SubscribedItem.makeNewItem())
+        EditSubscViewModel(item: SubscribedItem.makeEmptyData())
     }
 
     func addItem(item: SubscribedItem) {

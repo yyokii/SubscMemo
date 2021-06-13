@@ -15,7 +15,7 @@ struct SubscPlanListView: View {
             ForEach(plans) { plan in
                 SubscPlanItemView(
                     planName: plan.planName,
-                    price: plan.price,
+                    price: plan.priceText,
                     cycle: plan.cycle
                 )
                 .padding(8)

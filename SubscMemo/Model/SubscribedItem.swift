@@ -27,11 +27,11 @@ struct SubscribedItem: Codable, Identifiable {
     var serviceURL: String?
     @ServerTimestamp var createdTime: Timestamp?
 
-    static func makeNewItem() -> SubscribedItem {
+    static func makeEmptyData() -> SubscribedItem {
         return SubscribedItem(id: nil,
                               cycle: "",
                               description: "",
-                              iconImageURL: "https://via.placeholder.com/50",
+                              iconImageURL: "",
                               isUserOriginal: false,
                               mainCategoryID: "",
                               memo: "",
@@ -42,7 +42,29 @@ struct SubscribedItem: Codable, Identifiable {
                               payAt: nil,
                               subCategoryID: "",
                               serviceID: "",
-                              serviceURL: "https://via.placeholder.com/150")
+                              serviceURL: nil)
+    }
+
+    static func translate(from input: ExploreSubscItem) -> Self {
+
+        SubscribedItem(
+            id: nil,
+            cycle: "",
+            description: input.description,
+            iconImageURL: input.iconImageURL,
+            isUserOriginal: false,
+            mainCategoryID: input.mainCategoryID,
+            memo: "",
+            name: input.name,
+            planID: nil,
+            planName: nil,
+            price: 0,
+            payAt: nil,
+            subCategoryID: input.subCategoryID,
+            serviceID: input.serviceID,
+            serviceURL: input.serviceURL,
+            createdTime: nil
+        )
     }
 }
 

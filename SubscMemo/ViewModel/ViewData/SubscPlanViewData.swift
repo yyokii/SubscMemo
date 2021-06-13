@@ -10,14 +10,17 @@ import Foundation
 struct SubscPlanViewData: Identifiable {
     var cycle: String
     var id = UUID()
+    var planID: String?
     var planName: String
-    var price: String
+    var price: Int
+    var priceText: String
 
     static func makeEmptyData() -> SubscPlanViewData {
         return  SubscPlanViewData(
-            cycle: "月々",
-            planName: "スタンダードプラン",
-            price: "¥1200"
+            cycle: "",
+            planName: "",
+            price: 0,
+            priceText: ""
         )
     }
 
@@ -26,8 +29,10 @@ struct SubscPlanViewData: Identifiable {
 
         return SubscPlanViewData(
             cycle: paymentCycle,
+            planID: input.planID,
             planName: input.name,
-            price: input.price
+            price: input.price,
+            priceText: input.price
                 .modifyToPriceStringData()
         )
     }
@@ -37,8 +42,10 @@ struct SubscPlanViewData: Identifiable {
 
         return SubscPlanViewData(
             cycle: paymentCycle,
+            planID: input.planID,
             planName: input.name,
-            price: input.price
+            price: input.price,
+            priceText: input.price
                 .modifyToPriceStringData()
         )
     }
@@ -49,18 +56,24 @@ struct SubscPlanViewData: Identifiable {
 let demoSubscPlanViewDatas = [
     SubscPlanViewData(
         cycle: "月々",
+        planID: "planID-01",
         planName: "スタンダードプラン",
-        price: "¥1200"
+        price: 1000,
+        priceText: "¥1200"
     ),
     SubscPlanViewData(
         cycle: "月々",
+        planID: "planID-02",
         planName: "ゴールドプラン",
-        price: "¥1300"
+        price: 2000,
+        priceText: "¥1300"
     ),
     SubscPlanViewData(
         cycle: "月々",
+        planID: "planID-03",
         planName: "プラチナプラン",
-        price: "¥10200"
+        price: 3000,
+        priceText: "¥10200"
     )
 ]
 

@@ -13,6 +13,7 @@ struct DatePickerWithButtons: View {
 
     @Binding var showDatePicker: Bool
     @Binding var savedDate: Date?
+    /// 現在設定されている日付（初期値）
     @State var selectingDate: Date = Date()
 
     var body: some View {

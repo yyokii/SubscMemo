@@ -43,6 +43,7 @@ struct SubscItemDetailViewData {
     static func translate(from input: SubscribedItemJoinedData) -> Self {
         let url = URL(string: input.serviceURL ?? "")
         let paymentCycle = PaymentCycle.init(rawValue: input.cycle)
+        let payAtDate = input.payAt?.dateValue().toString(format: .yMd, timeZone: .japan) ?? "設定されていません"
 
         return SubscItemDetailViewData(
             cycle: paymentCycle?.title ?? "",
@@ -51,7 +52,7 @@ struct SubscItemDetailViewData {
             isUserOriginal: input.isUserOriginal,
             mainCategoryName: input.mainCategoryName,
             memo: input.memo,
-            payAtDate: nil,
+            payAtDate: payAtDate,
             planID: input.planID,
             planName: input.planName,
             price: input.price.modifyToPriceStringData(),

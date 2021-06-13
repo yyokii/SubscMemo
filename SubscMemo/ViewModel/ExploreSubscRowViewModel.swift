@@ -26,7 +26,7 @@ final class ExploreSubscRowViewModel: ObservableObject {
 }
 
 #if DEBUG
-
+#warning("computedじゃなくてgetterでいい気がする")
 var demoExploreSubscRowVM: ExploreSubscRowViewModel {
 
     let vm = ExploreSubscRowViewModel()

@@ -81,7 +81,7 @@ struct CreateCustomSubscItemView: View {
 
                             // 支払いサイクル選択
                             HStack {
-                                Text("次回支払い日")
+                                Text("支払いサイクル")
                                     .adaptiveFont(.matterSemiBold, size: 8)
                                     .foregroundColor(.placeholderGray)
 

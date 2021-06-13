@@ -18,6 +18,7 @@ class BaseUserProfileRepository {
 
 /// ユーザーのプロフィール情報を操作する
 protocol UserProfileRepository: BaseUserProfileRepository {
+    func addSubscribedService(data: SubscribedItem) -> AnyPublisher<Void, Error>
     func loadSubscribedServices()
     func loginWithEmail(email: String, pass: String) -> AnyPublisher<AppUser, Error>
     func signUpWithEmail(email: String, pass: String) -> AnyPublisher<AppUser, Error>
@@ -63,7 +64,22 @@ final class FirestoreUserProfileRepository: BaseUserProfileRepository, UserProfi
             .store(in: &cancellables)
     }
 
+    func addSubscribedService(data: SubscribedItem) -> AnyPublisher<Void, Error> {
+        return db.collection(FirestorePathComponent.userProfile.rawValue)
+            .document(FirestorePathComponent.version.rawValue)
+            .collection(FirestorePathComponent.users.rawValue)
+            .document(userId)
+            .collection(FirestorePathComponent.subscribedServices.rawValue)
+            .addDocument(from: data)
+            .map { _ in () }
+            .eraseToAnyPublisher()
+    }
+
     func loadSubscribedServices() {
+        guard !userId.isEmpty else {
+            return
+        }
+
         db.collection(FirestorePathComponent.userProfile.rawValue)
             .document(FirestorePathComponent.version.rawValue)
             .collection(FirestorePathComponent.users.rawValue)

@@ -79,22 +79,47 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
     }
 
     func loadData(with serviceIDs: [String]) -> AnyPublisher<[ExploreSubscItem], Error> {
-        let serviceCollectionRef = db
-            .collection(FirestorePathComponent.subscriptionServices.rawValue)
-            .document(FirestorePathComponent.version.rawValue)
-            .collection(FirestorePathComponent.services.rawValue)
+        let cachedItems = loadDataFromCache(with: serviceIDs)
 
-        return serviceCollectionRef
-            .whereField("serviceID", in: serviceIDs)
-            .order(by: "createdTime")
-            .getDocuments()
-            .map { snapshot in
-                snapshot.documents
-                    .compactMap { document -> ExploreSubscItem? in
-                        try? document.data(as: ExploreSubscItem.self)
-                    }
+        var copyServiceIDs = serviceIDs
+        copyServiceIDs.removeAll { id in
+            cachedItems.contains { item in
+                item.serviceID == id
             }
-            .eraseToAnyPublisher()
+        }
+
+        if copyServiceIDs.isEmpty {
+            return Future<[ExploreSubscItem], Error> { promise in
+                promise(.success(cachedItems))
+            }.eraseToAnyPublisher()
+        } else {
+            let serviceCollectionRef = db
+                .collection(FirestorePathComponent.subscriptionServices.rawValue)
+                .document(FirestorePathComponent.version.rawValue)
+                .collection(FirestorePathComponent.services.rawValue)
+
+            return serviceCollectionRef
+                .whereField("serviceID", in: copyServiceIDs)
+                .order(by: "createdTime")
+                .getDocuments()
+                .map { snapshot in
+                    let items =  snapshot.documents
+                        .compactMap { document -> ExploreSubscItem? in
+                            try? document.data(as: ExploreSubscItem.self)
+                        }
+                    return items + cachedItems
+                }
+                .eraseToAnyPublisher()
+        }
+    }
+
+    func loadDataFromCache(with serviceIDs: [String]) -> [ExploreSubscItem] {
+
+        return exploreSubscItems.filter { item in
+            serviceIDs.contains { id in
+                id == item.serviceID
+            }
+        }
     }
 
     func loadJoinedData() {
@@ -152,7 +177,6 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
     }
 
     func loadPlans(of serviceID: String) -> AnyPublisher<[ExploreSubscItem.SubscPlan], Error> {
-
         let serviceCollectionRef = db
             .collection(FirestorePathComponent.subscriptionServices.rawValue)
             .document(FirestorePathComponent.version.rawValue)
@@ -174,9 +198,7 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
             .eraseToAnyPublisher()
     }
 
-    #warning("つくったけど今使わないかも・・・")
     private func loadPlans(with serviceDocumentRef: DocumentReference) -> AnyPublisher<[ExploreSubscItem.SubscPlan], Error> {
-
         return serviceDocumentRef
             .collection(FirestorePathComponent.plans.rawValue)
             .getDocuments()
@@ -189,7 +211,6 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
     }
 
     func loadPlan(with planID: String, serviceDocumentRef: DocumentReference) -> AnyPublisher<ExploreSubscItem.SubscPlan, Error> {
-
         return serviceDocumentRef
             .collection(FirestorePathComponent.plans.rawValue)
             .whereField("planID", isEqualTo: planID)

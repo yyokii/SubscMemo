@@ -38,19 +38,6 @@ struct CreateCustomSubscItemView: View {
         return now ... oneYearAgoDate!
     }()
 
-    struct SubscItemTextField: View {
-
-        let placeholder: String
-        @Binding var text: String
-
-        var body: some View {
-            TextField(placeholder, text: _text)
-                .adaptiveFont(.matterSemiBold, size: 8)
-                .foregroundColor(.adaptiveBlack)
-                .textFieldStyle(PlainTextFieldStyle())
-        }
-    }
-
     var body: some View {
         NavigationView {
             ZStack {

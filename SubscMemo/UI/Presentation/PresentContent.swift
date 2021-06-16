@@ -15,12 +15,17 @@ extension Identifiable where Self: Hashable {
 
 enum PresentContent: View, Hashable, Identifiable {
 
-    case loginAndSignUp
+    case createCustomSubscItem
     case createSubscItem
+    case loginAndSignUp
     case safariView(url: URL)
 
     var body: some View {
         switch self {
+        case .createCustomSubscItem:
+            return AnyView(
+                CreateCustomSubscItemView()
+            )
         case .createSubscItem:
             return AnyView(
                 EditSubscView(editSubscVM: EditSubscViewModel.newItem())

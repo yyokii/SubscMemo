@@ -16,7 +16,6 @@ struct HomeView: View {
 
             ScrollView {
                 VStack(alignment: .leading) {
-
                     PaymentSummaryView()
                         .padding()
 
@@ -31,10 +30,18 @@ struct HomeView: View {
                         SubscribedItemView(subscribedItemVM: vm)
                             .padding()
                             .onTapGesture {
-
                             }
-
                     }
+
+                    HStack {
+                        Button("さがす") {
+
+                        }
+                        Button("自分で追加する") {
+                            presentContent = .createCustomSubscItem
+                        }
+                    }
+                    .buttonStyle(ActionButtonStyle())
                 }
             }
             .navigationBarTitle("App")
@@ -48,7 +55,8 @@ struct HomeView: View {
                             Image(systemName: "magnifyingglass.circle")
                                 .resizable()
                                 .frame(width: 20, height: 20)
-                        })
+                        }
+                    )
                 }
             }
             .sheet(item: $presentContent, content: { $0 })

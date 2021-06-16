@@ -20,24 +20,17 @@ enum PresentContent: View, Hashable, Identifiable {
     case loginAndSignUp
     case safariView(url: URL)
 
+    @ViewBuilder
     var body: some View {
         switch self {
         case .createCustomSubscItem:
-            return AnyView(
-                CreateCustomSubscItemView()
-            )
+            CreateCustomSubscItemView()
         case .createSubscItem:
-            return AnyView(
-                EditSubscView(editSubscVM: EditSubscViewModel.newItem())
-            )
+            EditSubscView(editSubscVM: EditSubscViewModel.newItem())
         case .loginAndSignUp:
-            return AnyView(
-                LoginAndSignUpView()
-            )
+            LoginAndSignUpView()
         case .safariView(let url):
-            return AnyView(
-                SafariView(url: url)
-            )
+            SafariView(url: url)
         }
     }
 }

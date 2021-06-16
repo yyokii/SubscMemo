@@ -8,11 +8,20 @@
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-struct SubscCategory: Codable, Identifiable {
+struct SubscCategory: Codable, Identifiable, Hashable {
     @DocumentID var id: String?
     var categoryID: String
     var iconImageURL: String
     var name: String
+
+    static func makeEmptyData() -> Self {
+        return SubscCategory(
+            id: "",
+            categoryID: "",
+            iconImageURL: "",
+            name: ""
+        )
+    }
 }
 
 #if DEBUG

@@ -8,24 +8,9 @@
 import SwiftUI
 
 struct CreateCustomSubscItemView: View {
+    @ObservedObject var createCustomSubscItemVM = CreateCustomSubscItemViewModel()
+    @State private var dialogPresentation = DialogPresentation()
 
-    @State private var dialogPresentataion = DialogPresentation()
-
-    // デモ用
-    @State var hoge: String = ""
-    @Binding var subscItem: SubscribedItem
-
-    // 支払いサイクル設定
-    @State var cycle: String?
-
-    // カテゴリ選択関連
-    let categories = ["a", "b", "c"]
-    @State var mainCategory = ""
-    @State var subCategory = ""
-
-    // 支払い日選択View関連
-    @State var showDatePicker: Bool = false
-    @State var savedDate: Date?
     let nextPaymentDateRange: ClosedRange<Date> = {
         let now = Date()
 
@@ -47,7 +32,7 @@ struct CreateCustomSubscItemView: View {
                         .frame(width: 70, height: 70)
                         .padding(.top, 10)
 
-                    TextField("サービス名", text: $hoge)
+                    TextField("サービス名", text: $createCustomSubscItemVM.subscItem.name)
                         .adaptiveFont(.matterSemiBold, size: 16)
                         .foregroundColor(.adaptiveBlack)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -56,15 +41,12 @@ struct CreateCustomSubscItemView: View {
 
                     Form {
                         Section(header: Text("🗒 サービス概要")) {
-
-                            SubscItemTextField(placeholder: "サービスのURL", text: $hoge)
-
-                            SubscItemTextField(placeholder: "サービス情報", text: $hoge)
+                            SubscItemTextField(placeholder: "サービスのURL", text: $createCustomSubscItemVM.subscItem.serviceURL ?? "")
+                            SubscItemTextField(placeholder: "サービス情報", text: $createCustomSubscItemVM.subscItem.description)
                         }
 
                         Section(header: Text("💰 支払い")) {
-
-                            SubscItemTextField(placeholder: "料金", text: $hoge)
+                            SubscItemTextField(placeholder: "料金", text: $createCustomSubscItemVM.subscItem.price.intToString(0))
 
                             // 支払いサイクル選択
                             HStack {
@@ -75,14 +57,14 @@ struct CreateCustomSubscItemView: View {
                                 Spacer()
 
                                 Button(action: {
-                                    dialogPresentataion.show(
-                                        content: .selectPaymentCycle(isPresented: $dialogPresentataion.isPresented, text: $subscItem.cycle))
+                                    dialogPresentation.show(
+                                        content: .selectPaymentCycle(isPresented: $dialogPresentation.isPresented, text: $createCustomSubscItemVM.subscItem.cycle))
                                 }) {
-                                    Text(subscItem.cycle)
+                                    Text(createCustomSubscItemVM.subscItem.cycle)
                                 }
                             }
 
-                            SubscItemTextField(placeholder: "プラン名", text: $hoge)
+                            SubscItemTextField(placeholder: "プラン名", text: $createCustomSubscItemVM.subscItem.planName ?? "")
 
                             // 日付選択
                             HStack {
@@ -93,25 +75,21 @@ struct CreateCustomSubscItemView: View {
                                 Spacer()
 
                                 Button(action: {
-                                    dialogPresentataion.show(
+                                    dialogPresentation.show(
                                         content: .selectDate(
-                                            isPresented: $dialogPresentataion.isPresented,
+                                            isPresented: $dialogPresentation.isPresented,
                                             dateRange: nextPaymentDateRange,
-                                            savedDate: $savedDate,
-                                            selectingDate: savedDate ?? Date())
+                                            savedDate: $createCustomSubscItemVM.payAtDate,
+                                            selectingDate: createCustomSubscItemVM.payAtDate ?? Date())
                                     )
-                                    //                                    showDatePicker.toggle()
                                 }, label: {
-                                    let date = savedDate?.toString(format: .yMd, timeZone: .japan) ?? "設定されていません"
+                                    let date = createCustomSubscItemVM.payAtDate?.toString(format: .yMd, timeZone: .japan) ?? "設定されていません"
                                     Text(date)
                                 })
                             }
-
-                            SubscItemTextField(placeholder: "次回支払い日", text: $hoge)
                         }
 
                         Section(header: Text("🧹 カテゴリー")) {
-
                             // カテゴリー選択
                             HStack {
                                 Text("メインカテゴリー")
@@ -121,10 +99,15 @@ struct CreateCustomSubscItemView: View {
                                 Spacer()
 
                                 Button(action: {
-                                    dialogPresentataion.show(
-                                        content: .selectMainCategory(isPresented: $dialogPresentataion.isPresented, datas: ["ソーシャルネットワーク", "音楽"], selectedData: $mainCategory))
+                                    dialogPresentation.show(
+                                        content: .selectMainCategory(
+                                            isPresented: $dialogPresentation.isPresented,
+                                            datas: createCustomSubscItemVM.categories,
+                                            selectedData: $createCustomSubscItemVM.mainCategory
+                                        )
+                                    )
                                 }) {
-                                    Text(mainCategory)
+                                    Text(createCustomSubscItemVM.mainCategory.name)
                                 }
                             }
 
@@ -136,10 +119,15 @@ struct CreateCustomSubscItemView: View {
                                 Spacer()
 
                                 Button(action: {
-                                    dialogPresentataion.show(
-                                        content: .selectMainCategory(isPresented: $dialogPresentataion.isPresented, datas: ["ソーシャルネットワーク", "音楽"], selectedData: $subCategory))
+                                    dialogPresentation.show(
+                                        content: .selectMainCategory(
+                                            isPresented: $dialogPresentation.isPresented,
+                                            datas: createCustomSubscItemVM.categories,
+                                            selectedData: $createCustomSubscItemVM.subCategory
+                                        )
+                                    )
                                 }) {
-                                    Text(subCategory)
+                                    Text(createCustomSubscItemVM.subCategory.name)
                                 }
                             }
                         }
@@ -167,27 +155,19 @@ struct CreateCustomSubscItemView: View {
             }
             .navigationBarHidden(true) // バックグラウンドから戻ってきたら表示されてるかも？  https://filipmolcik.com/how-to-hide-swiftui-navigationbar/
         }
-        .customDialog(presentationManager: dialogPresentataion)
+        .customDialog(presentationManager: dialogPresentation)
     }
 }
 
 #if DEBUG
 
 struct CreateCustomSubscItemView_Previews: PreviewProvider {
-
-    static let item = Binding<SubscribedItem>(
-        get: { demoSubscItems[0] },
-        set: { _ in () }
-    )
-
     static var previews: some View {
-
         Group {
-
-            CreateCustomSubscItemView(subscItem: item)
+            CreateCustomSubscItemView(createCustomSubscItemVM: demoCreateCustomSubscItemVM)
                 .environment(\.colorScheme, .light)
 
-            CreateCustomSubscItemView(subscItem: item)
+            CreateCustomSubscItemView(createCustomSubscItemVM: demoCreateCustomSubscItemVM)
                 .environment(\.colorScheme, .dark)
         }
     }

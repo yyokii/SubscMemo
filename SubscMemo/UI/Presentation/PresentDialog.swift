@@ -10,8 +10,8 @@ import SwiftUI
 enum DialogContent: View {
 
     case selectPaymentCycle(isPresented: Binding<Bool>, text: Binding<String>)
-    case selectMainCategory(isPresented: Binding<Bool>, datas: [String], selectedData: Binding<String>)
-    case selectSubCategory(isPresented: Binding<Bool>, datas: [String], selectedData: Binding<String>)
+    case selectMainCategory(isPresented: Binding<Bool>, datas: [SubscCategory], selectedData: Binding<SubscCategory>)
+    case selectSubCategory(isPresented: Binding<Bool>, datas: [SubscCategory], selectedData: Binding<SubscCategory>)
     case selectDate(isPresented: Binding<Bool>, dateRange: ClosedRange<Date>, savedDate: Binding<Date?>, selectingDate: Date)
 
     var body: some View {
@@ -25,7 +25,7 @@ enum DialogContent: View {
             )
         case .selectMainCategory(let isPresented, let datas, let selectedData):
             return AnyView(
-                OptionalablePickerView(
+                SubscCategoryPickerView(
                     datas: datas,
                     isOptionalPick: false,
                     isPresented: isPresented,
@@ -34,7 +34,7 @@ enum DialogContent: View {
             )
         case .selectSubCategory(let isPresented, let datas, let selectedData):
             return AnyView(
-                OptionalablePickerView(
+                SubscCategoryPickerView(
                     datas: datas,
                     isOptionalPick: true,
                     isPresented: isPresented,

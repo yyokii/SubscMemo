@@ -11,7 +11,6 @@ struct AddExploreSubscItemView: View {
     @ObservedObject var addExploreSubscItemVM: AddExploreSubscItemViewModel
     @State private var dialogPresentation = DialogPresentation()
 
-    // 支払い日選択View関連
     let nextPaymentDateRange: ClosedRange<Date> = {
         let now = Date()
 
@@ -90,7 +89,7 @@ struct AddExploreSubscItemView: View {
                                         isPresented: $dialogPresentation.isPresented,
                                         dateRange: nextPaymentDateRange,
                                         savedDate: $addExploreSubscItemVM.payAtDate,
-                                        selectingDate: addExploreSubscItemVM.subscItem.payAt?.dateValue() ?? Date())
+                                        selectingDate: addExploreSubscItemVM.payAtDate ?? Date())
                                 )
                             }, label: {
                                 let date = addExploreSubscItemVM.payAtDate?.toString(format: .yMd, timeZone: .japan) ?? "設定されていません"

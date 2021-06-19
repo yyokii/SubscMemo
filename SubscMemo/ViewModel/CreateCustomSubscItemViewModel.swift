@@ -12,9 +12,9 @@ import Resolver
 
 final class CreateCustomSubscItemViewModel: ObservableObject {
     @Published var categories: [SubscCategory] = []
-    var mainCategory: SubscCategory = SubscCategory.makeEmptyData()
+    @Published var mainCategory: SubscCategory = SubscCategory.makeEmptyData()
     @Published var payAtDate: Date?
-    var subCategory: SubscCategory = SubscCategory.makeEmptyData()
+    @Published var subCategory: SubscCategory = SubscCategory.makeEmptyData()
     @Injected var subscCategoryRepository: SubscCategoryRepository
     @Published var subscItem: SubscribedItem = SubscribedItem.makeEmptyData()
     @Published var userProfileRepository: UserProfileRepository = Resolver.resolve()

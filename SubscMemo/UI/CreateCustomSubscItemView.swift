@@ -135,7 +135,7 @@ struct CreateCustomSubscItemView: View {
                     .padding(.top, 30)
 
                     Button(action: {
-
+                        createCustomSubscItemVM.addItem()
                     }) {
                         Text("追加する")
                             .adaptiveFont(.matterMedium, size: 16)

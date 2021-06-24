@@ -10,6 +10,8 @@ import SwiftUI
 /// 既存のサブスクリプションサービス探すときのアイテムView
 struct ExploreSubscListItemView: View {
 
+    @ObservedObject var exploreSubscItemVM: ExploreSubscItemViewModel
+
     let width: CGFloat = UIScreen.main.bounds.width/2 - 20
 
     var body: some View {
@@ -56,10 +58,10 @@ struct ExploreSubscListItemView_Previews: PreviewProvider {
 
     static var previews: some View {
 
-        ExploreSubscListItemView()
+        ExploreSubscListItemView(exploreSubscItemVM: demoExploreSubscItemVMs[0])
             .environment(\.colorScheme, .light)
 
-        ExploreSubscListItemView()
+        ExploreSubscListItemView(exploreSubscItemVM: demoExploreSubscItemVMs[1])
             .environment(\.colorScheme, .dark)
     }
 }

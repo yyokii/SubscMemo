@@ -9,20 +9,20 @@ import Combine
 
 final class ExploreSubscItemViewModel: ObservableObject, Identifiable {
 
-    @Published var item: ExploreSubscItem
+    @Published var item: ExploreSubscItemViewData
 
     private var cancellables = Set<AnyCancellable>()
 
-    init(item: ExploreSubscItem) {
+    init(item: ExploreSubscItemViewData) {
         self.item = item
     }
 }
 
 #if DEBUG
 
-let demoExploreSubscItemVM = [
-    ExploreSubscItemViewModel(item: demoExploreSubscItems[0]),
-    ExploreSubscItemViewModel(item: demoExploreSubscItems[1])
+let demoExploreSubscItemVMs = [
+    ExploreSubscItemViewModel(item: ExploreSubscItemViewData.translate(from: demoExploreItemJoinedDatas[0])),
+    ExploreSubscItemViewModel(item: ExploreSubscItemViewData.translate(from: demoExploreItemJoinedDatas[1]))
 ]
 
 #endif

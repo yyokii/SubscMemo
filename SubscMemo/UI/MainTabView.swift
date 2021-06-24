@@ -13,13 +13,13 @@ struct MainTabView: View {
             HomeView()
                 .tabItem {
                     Image(systemName: "1.circle.fill")
-                    Text("🍌🍌")
+                    Text("マイページ")
                 }
 
             ExploreSubscView()
                 .tabItem {
                     Image(systemName: "2.square.fill")
-                    Text("🍏🍏")
+                    Text("さがす")
                 }
         }
         .font(.headline)

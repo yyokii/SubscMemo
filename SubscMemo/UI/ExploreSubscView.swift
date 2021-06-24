@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ExploreSubscView: View {
 
+    @ObservedObject var exploreSubscVM = ExploreSubscViewModel()
     @State var presentContent: PresentContent?
-
     var columns: [GridItem] = Array(repeating: .init(.flexible(), spacing: 0), count: 2)
 
     var body: some View {
@@ -23,8 +23,8 @@ struct ExploreSubscView: View {
                 }
 
                 LazyVGrid(columns: columns, spacing: 30) {
-                    ForEach(0..<10, id: \.self) { _ in
-                        ExploreSubscListItemView()
+                    ForEach(exploreSubscVM.exploreSubscItemVMs) { vm in
+                        ExploreSubscListItemView(exploreSubscItemVM: vm)
                     }
                 }
                 .font(.largeTitle)
@@ -41,10 +41,10 @@ struct ExploreSubscView_Previews: PreviewProvider {
     static var previews: some View {
 
         Group {
-            ExploreSubscView()
+            ExploreSubscView(exploreSubscVM: demoExploreSubscVM)
                 .environment(\.colorScheme, .light)
 
-            ExploreSubscView()
+            ExploreSubscView(exploreSubscVM: demoExploreSubscVM)
                 .environment(\.colorScheme, .dark)
         }
     }

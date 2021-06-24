@@ -42,6 +42,7 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
         super.init()
 
         _ = loadData()
+        loadJoinedData()
     }
 
     func loadData() -> AnyPublisher<[ExploreSubscItem], Error> {
@@ -123,7 +124,7 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
     }
 
     func loadJoinedData() {
-        $exploreItemJoinedDatas
+        $exploreSubscItems
             .combineLatest(subscCategoryRepository.$categories)
             .map { (items, categories) -> [ExploreItemJoinedData] in
 

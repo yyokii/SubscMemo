@@ -37,7 +37,7 @@ struct CustomTabContent: View {
                     .ignoresSafeArea(.all, edges: .all)
                     .tag("house")
 
-                ExploreSubscRowView()
+                HomeView()
                     .ignoresSafeArea(.all, edges: .all)
                     .tag("magnifyingglass")
             }

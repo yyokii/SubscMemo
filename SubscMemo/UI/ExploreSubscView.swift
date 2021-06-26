@@ -24,7 +24,12 @@ struct ExploreSubscView: View {
 
                 LazyVGrid(columns: columns, spacing: 30) {
                     ForEach(exploreSubscVM.exploreSubscItemVMs) { vm in
-                        ExploreSubscListItemView(exploreSubscItemVM: vm)
+                        let exploreSubscItemDetailVM = ExploreSubscItemDetailViewModel(serviceID: vm.item.serviceID)
+                        NavigationLink(
+                            destination: ExploreSubscItemDetailView(exploreSubscItemDetailVM: exploreSubscItemDetailVM),
+                            label: {
+                                ExploreSubscListItemView(exploreSubscItemVM: vm)
+                            })
                     }
                 }
                 .font(.largeTitle)

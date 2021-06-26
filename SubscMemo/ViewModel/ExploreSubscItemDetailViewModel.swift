@@ -20,7 +20,12 @@ final class ExploreSubscItemDetailViewModel: ObservableObject {
 
     init(serviceID: String) {
         self.serviceID = serviceID
-        loadItemData(serviceID: self.serviceID)
+    }
+
+    ///　サービス情報とプラン情報を取得
+    func loadData() {
+        loadItemData(serviceID: serviceID)
+        loadPlanData(serviceID: serviceID)
     }
 
     func loadItemData(serviceID: String) {

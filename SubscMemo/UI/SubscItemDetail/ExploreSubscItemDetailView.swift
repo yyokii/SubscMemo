@@ -19,41 +19,40 @@ struct ExploreSubscItemDetailView: View {
 
             VStack {
                 ScrollView {
-                    VStack {
-                        Image(systemName: "scribble.variable")
-                            .resizable()
-                            .frame(width: 70, height: 70)
-                            .padding(.top, 30)
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Image(systemName: "scribble.variable")
+                                .resizable()
+                                .frame(width: 70, height: 70)
+                        }.frame(maxWidth: .infinity)
 
-                        VStack(alignment: .leading) {
+                        ServiceNameView(
+                            serviceName: exploreSubscItemDetailVM.subscItem.serviceName,
+                            serviceURL: exploreSubscItemDetailVM.subscItem.serviceURL,
+                            linkTapAction: { url in
+                                presentContent = .safariView(url: url)
+                            }
+                        )
+                        .padding([.top], 40)
 
-                            ServiceNameView(
-                                serviceName: exploreSubscItemDetailVM.subscItem .serviceName,
-                                serviceURL: exploreSubscItemDetailVM.subscItem.serviceURL,
-                                linkTapAction: { url in
-                                    presentContent = .safariView(url: url)
-                                }
-                            )
+                        Text(exploreSubscItemDetailVM.subscItem.mainCategoryName)
+                            .adaptiveFont(.matterSemiBold, size: 16)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .lineLimit(2)
+                            .padding(.top)
+                            .foregroundColor(.gray)
 
-                            Text(exploreSubscItemDetailVM.subscItem.mainCategoryName)
-                                .adaptiveFont(.matterSemiBold, size: 16)
-                                .fixedSize(horizontal: false, vertical: true)
-                                .lineLimit(2)
-                                .padding(.top)
-                                .foregroundColor(.gray)
+                        SubscPlanListView(plans: exploreSubscItemDetailVM.plans)
+                            .padding(.top, 20)
 
-                            SubscPlanListView(plans: exploreSubscItemDetailVM.plans)
-                                .padding(.top, 20)
+                        Text(exploreSubscItemDetailVM.subscItem.description)
+                            .adaptiveFont(.matterSemiBold, size: 16)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding(.top, 40)
+                            .foregroundColor(.gray)
 
-                            Text(exploreSubscItemDetailVM.subscItem.description)
-                                .adaptiveFont(.matterSemiBold, size: 16)
-                                .fixedSize(horizontal: false, vertical: true)
-                                .padding(.top, 40)
-                                .foregroundColor(.gray)
-                        }
-                        .padding()
-                        .padding(.top, 40)
                     }
+                    .padding([.leading, .trailing, .bottom])
 
                 }
 
@@ -75,6 +74,9 @@ struct ExploreSubscItemDetailView: View {
                 .padding(8)
             }
         }
+        .onAppear(perform: {
+            exploreSubscItemDetailVM.loadData()
+        })
         .sheet(item: $presentContent, content: { $0 })
     }
 }

@@ -19,10 +19,12 @@ struct SubscribedItemDetailView: View {
 
             ScrollView {
                 VStack {
-                    Image(systemName: "scribble.variable")
-                        .resizable()
-                        .frame(width: 70, height: 70)
-                        .padding(.top, 30)
+                    HStack {
+                        Image(systemName: "scribble.variable")
+                            .resizable()
+                            .frame(width: 70, height: 70)
+                    }
+                    .frame(maxWidth: .infinity)
 
                     VStack(alignment: .leading) {
 
@@ -57,9 +59,11 @@ struct SubscribedItemDetailView: View {
                     .padding()
                     .padding(.top, 40)
                 }
-
             }
         }
+        .onAppear(perform: {
+            subscribedItemDetailVM.loadItemData()
+        })
         .sheet(item: $presentContent, content: { $0 })
     }
 }

@@ -24,7 +24,10 @@ final class SubscribedItemDetailViewModel: ObservableObject {
 
     init(serviceID: String) {
         self.serviceID = serviceID
-        loadItemData(serviceID: self.serviceID)
+    }
+
+    func loadItemData() {
+        loadItemData(serviceID: serviceID)
     }
 
     func loadItemData(serviceID: String) {

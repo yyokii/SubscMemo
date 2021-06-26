@@ -12,6 +12,7 @@ struct SubscribedItemViewData {
     var mainCategoryName: String
     var planName: String?
     var price: String
+    var serviceID: String
     var serviceName: String
 
     static func translate(from input: SubscribedItemJoinedData) -> Self {
@@ -23,6 +24,7 @@ struct SubscribedItemViewData {
             mainCategoryName: input.mainCategoryName,
             planName: input.planName,
             price: input.price.modifyToPriceStringData(),
+            serviceID: input.serviceID,
             serviceName: input.name
         )
     }

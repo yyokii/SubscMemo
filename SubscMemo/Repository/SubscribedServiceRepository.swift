@@ -84,7 +84,7 @@ final class FirestoreSubscribedServiceRepository: BaseSubscribedServiceRepositor
     /// 任意のサービスIDのデータを取得する
     func loadData(with serviceID: String) -> AnyPublisher<SubscribedItemJoinedData, Error> {
         let targetData = items.first { item in
-            item.id == serviceID
+            item.serviceID == serviceID
         }
 
         if let data = targetData {

@@ -27,10 +27,13 @@ struct HomeView: View {
                         .padding()
 
                     ForEach(homeVM.subscribedItemVMs) { vm in
-                        SubscribedItemView(subscribedItemVM: vm)
-                            .padding()
-                            .onTapGesture {
-                            }
+                        let subscribedItemDetailVM = SubscribedItemDetailViewModel(serviceID: vm.item.serviceID)
+                        NavigationLink(
+                            destination: SubscribedItemDetailView(subscribedItemDetailVM: subscribedItemDetailVM),
+                            label: {
+                                SubscribedItemView(subscribedItemVM: vm)
+                                    .padding()
+                            })
                     }
 
                     HStack {

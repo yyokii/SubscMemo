@@ -24,7 +24,8 @@ struct ExploreSubscItemDetailView: View {
                             Image(systemName: "scribble.variable")
                                 .resizable()
                                 .frame(width: 70, height: 70)
-                        }.frame(maxWidth: .infinity)
+                        }
+                        .frame(maxWidth: .infinity)
 
                         ServiceNameView(
                             serviceName: exploreSubscItemDetailVM.subscItem.serviceName,

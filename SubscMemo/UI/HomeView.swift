@@ -71,17 +71,6 @@ enum InputError: Error {
     case empty
 }
 
-struct SubscCell: View {
-    @ObservedObject var subscCellVM: SubscCellViewModel
-    var onCommit: (Result<SubscribedItem, InputError>) -> Void = { _ in }
-
-    var body: some View {
-        VStack {
-            Text(subscCellVM.item.name)
-        }
-    }
-}
-
 #if DEBUG
 
 struct HomeView_Previews: PreviewProvider {

@@ -18,31 +18,30 @@ struct UserLoginAuthData {
 
 final class LoginAndSignUpViewModel: ObservableObject {
 
+    // Repository
     @Published var userProfileRepository: UserProfileRepository = Resolver.resolve()
-
+    
+    // Validation
     @Published var emailValidationVM = ValidationStateViewModel()
     @Published var passwordValidationVM = ValidationStateViewModel()
 
-    @Published var userLoginAuthData: UserLoginAuthData = UserLoginAuthData()
-
+    // Manage View Presentation
     var viewDismissalModePublisher = PassthroughSubject<Bool, Never>()
     private var shouldDismissView = false {
         didSet {
             viewDismissalModePublisher.send(shouldDismissView)
         }
     }
-
+    
+    @Published var alertProvider = AlertProvider()
     @Published var canLogin: Bool = false
     @Published var canSignUp: Bool = false
     @Published var dismiss: Bool = false
+    @Published var userLoginAuthData: UserLoginAuthData = UserLoginAuthData()
     @Published var validLoginEmail: Bool?
     @Published var validLoginPass: Bool = false
     @Published var validSignUpEmail: Bool = false
     @Published var validSignUpPass: Bool = false
-
-    @Published var isPresentAlert: Bool = false
-
-    @Published var alertProvider = AlertProvider()
 
     private var cancellables = Set<AnyCancellable>()
 

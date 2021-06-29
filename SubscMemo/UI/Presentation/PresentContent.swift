@@ -19,6 +19,7 @@ enum PresentContent: View, Hashable, Identifiable {
     case createSubscItem
     case loginAndSignUp
     case safariView(url: URL)
+    case userSetting
 
     @ViewBuilder
     var body: some View {
@@ -31,6 +32,8 @@ enum PresentContent: View, Hashable, Identifiable {
             LoginAndSignUpView()
         case .safariView(let url):
             SafariView(url: url)
+        case .userSetting:
+            SettingsView()
         }
     }
 }

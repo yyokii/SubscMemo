@@ -21,7 +21,6 @@ struct SettingsView: View {
                 }
 
                 Section(header: Text("アプリについて")) {
-
                     SettingsRow(title: "バージョン") {
                         Text("2.2.1")
                     }

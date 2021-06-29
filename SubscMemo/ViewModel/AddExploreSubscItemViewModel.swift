@@ -11,6 +11,7 @@ import FirebaseFirestore
 import Resolver
 
 final class AddExploreSubscItemViewModel: ObservableObject {
+    @Published var alertProvider = AlertProvider()
     @Published var exploreSubscRepository: ExploreSubscRepository = Resolver.resolve()
     @Published var payAtDate: Date?
     @Published var planDatas: [SubscPlanViewData] = []
@@ -23,6 +24,12 @@ final class AddExploreSubscItemViewModel: ObservableObject {
 
     init(serviceID: String) {
         self.serviceID = serviceID
+
+        alertProvider.objectWillChange
+            .sink { [weak self] (_) in
+                self?.objectWillChange.send()
+            }
+            .store(in: &cancellables)
 
         loadData(of: self.serviceID)
         loadPlanData(of: self.serviceID)
@@ -43,11 +50,11 @@ final class AddExploreSubscItemViewModel: ObservableObject {
     func loadData(of serviceID: String) {
         exploreSubscRepository.loadData(with: [serviceID])
             .first()
-            .sink(receiveCompletion: { completion in
+            .sink(receiveCompletion: { [weak self] completion in
 
                 switch completion {
-                case .failure(let error):
-                    #warning("アラートを出す")
+                case .failure:
+                    self?.alertProvider.showErrorAlert(message: nil)
                 case .finished:
                     break
                 }
@@ -61,11 +68,11 @@ final class AddExploreSubscItemViewModel: ObservableObject {
 
     func loadPlanData(of serviceID: String) {
         exploreSubscRepository.loadPlans(of: serviceID)
-            .sink(receiveCompletion: { completion in
+            .sink(receiveCompletion: { [weak self] completion in
 
                 switch completion {
-                case .failure(let error):
-                    #warning("アラートを出す")
+                case .failure:
+                    self?.alertProvider.showErrorAlert(message: nil)
                 case .finished:
                     break
                 }
@@ -84,11 +91,11 @@ final class AddExploreSubscItemViewModel: ObservableObject {
         }
 
         userProfileRepository.addSubscribedService(data: subscItem)
-            .sink(receiveCompletion: { completion in
+            .sink(receiveCompletion: { [weak self] completion in
 
                 switch completion {
-                case .failure(let error):
-                    #warning("アラートを出す")
+                case .failure:
+                    self?.alertProvider.showErrorAlert(message: nil)
                 case .finished:
                     break
                 }

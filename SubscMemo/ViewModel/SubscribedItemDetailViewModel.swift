@@ -10,19 +10,21 @@ import Combine
 import Resolver
 
 final class SubscribedItemDetailViewModel: ObservableObject {
+    @Published var alertProvider = AlertProvider()
     @Published var plan: SubscPlanViewData = SubscPlanViewData.makeEmptyData()
     @Published var subscItem: SubscItemDetailViewData = SubscItemDetailViewData.makeEmptyData()
     var serviceID: String!
     @Published var subscribedServiceRepository: SubscribedServiceRepository = Resolver.resolve()
 
-    enum PresentationType {
-        case exploredServiceDetail
-        case subscribedServiceDetail
-    }
-
     private var cancellables = Set<AnyCancellable>()
 
     init(serviceID: String) {
+        alertProvider.objectWillChange
+            .sink { [weak self] (_) in
+                self?.objectWillChange.send()
+            }
+            .store(in: &cancellables)
+
         self.serviceID = serviceID
     }
 
@@ -32,11 +34,11 @@ final class SubscribedItemDetailViewModel: ObservableObject {
 
     func loadItemData(serviceID: String) {
         subscribedServiceRepository.loadData(with: serviceID)
-            .sink(receiveCompletion: { completion in
+            .sink(receiveCompletion: { [weak self] completion in
 
                 switch completion {
-                case .failure(let error):
-                    #warning("アラートを出す")
+                case .failure:
+                    self?.alertProvider.showErrorAlert(message: nil)
                 case .finished:
                     break
                 }

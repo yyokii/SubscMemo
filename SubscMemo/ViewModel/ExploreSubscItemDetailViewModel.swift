@@ -10,7 +10,7 @@ import Combine
 import Resolver
 
 final class ExploreSubscItemDetailViewModel: ObservableObject {
-
+    @Published var alertProvider = AlertProvider()
     @Published var exploreSubscRepository: ExploreSubscRepository = Resolver.resolve()
     @Published var plans: [SubscPlanViewData] = [] // サブスクリプションサービスのプラン情報一覧
     var serviceID: String
@@ -20,6 +20,12 @@ final class ExploreSubscItemDetailViewModel: ObservableObject {
 
     init(serviceID: String) {
         self.serviceID = serviceID
+
+        alertProvider.objectWillChange
+            .sink { [weak self] (_) in
+                self?.objectWillChange.send()
+            }
+            .store(in: &cancellables)
     }
 
     ///　サービス情報とプラン情報を取得
@@ -30,11 +36,11 @@ final class ExploreSubscItemDetailViewModel: ObservableObject {
 
     func loadItemData(serviceID: String) {
         exploreSubscRepository.loadJoinedData(with: serviceID)
-            .sink(receiveCompletion: { completion in
+            .sink(receiveCompletion: { [weak self] completion in
 
                 switch completion {
-                case .failure(let error):
-                    #warning("アラートを出す")
+                case .failure:
+                    self?.alertProvider.showErrorAlert(message: nil)
                 case .finished:
                     break
                 }
@@ -47,11 +53,11 @@ final class ExploreSubscItemDetailViewModel: ObservableObject {
 
     func loadPlanData(serviceID: String) {
         exploreSubscRepository.loadPlans(of: serviceID)
-            .sink(receiveCompletion: { completion in
+            .sink(receiveCompletion: { [weak self] completion in
 
                 switch completion {
-                case .failure(let error):
-                    #warning("アラートを出す")
+                case .failure:
+                    self?.alertProvider.showErrorAlert(message: nil)
                 case .finished:
                     break
                 }

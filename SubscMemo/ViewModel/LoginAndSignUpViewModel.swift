@@ -20,7 +20,7 @@ final class LoginAndSignUpViewModel: ObservableObject {
 
     // Repository
     @Published var userProfileRepository: UserProfileRepository = Resolver.resolve()
-    
+
     // Validation
     @Published var emailValidationVM = ValidationStateViewModel()
     @Published var passwordValidationVM = ValidationStateViewModel()
@@ -32,7 +32,7 @@ final class LoginAndSignUpViewModel: ObservableObject {
             viewDismissalModePublisher.send(shouldDismissView)
         }
     }
-    
+
     @Published var alertProvider = AlertProvider()
     @Published var canLogin: Bool = false
     @Published var canSignUp: Bool = false

@@ -89,7 +89,7 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
             .collection(FirestorePathComponent.subscriptionServices.rawValue)
             .document(FirestorePathComponent.version.rawValue)
             .collection(FirestorePathComponent.services.rawValue)
-            .whereField("mainCategoryID", in: categoryIDs)
+            .whereField("categoryIDs", arrayContainsAny: categoryIDs)
             .getDocuments()
             .map { snapshot in
                 let items =  snapshot.documents
@@ -161,26 +161,20 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
     func makeJoinedData(items: [ExploreSubscItem], categories: [SubscCategory]) -> [ExploreItemJoinedData] {
         return items.map { item -> ExploreItemJoinedData in
 
-            let mainCategoryName = categories.first {
-                $0.id == item.mainCategoryID
-            }?.name ?? ""
-
-            var subCategoryName: String?
-            if let subCategoryID = item.subCategoryID {
-                subCategoryName = categories.first {
-                    $0.id == subCategoryID
+            let categoryNames = item.categoryIDs.compactMap { id in
+                categories.first {
+                    $0.id == id
                 }?.name
             }
 
             return ExploreItemJoinedData(
+                categoryIDs: item.categoryIDs,
+                categoryNames: categoryNames,
                 createdTime: item.createdTime,
                 description: item.description,
                 id: item.id,
-                iconImageURL: item.iconImageURL, mainCategoryID: item.mainCategoryID,
-                mainCategoryName: mainCategoryName,
+                iconImageURL: item.iconImageURL,
                 name: item.name,
-                subCategoryID: item.subCategoryID,
-                subCategoryName: subCategoryName,
                 serviceID: item.serviceID,
                 serviceURL: item.serviceURL
             )

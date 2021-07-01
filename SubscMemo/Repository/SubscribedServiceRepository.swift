@@ -46,35 +46,30 @@ final class FirestoreSubscribedServiceRepository: BaseSubscribedServiceRepositor
 
                 return services.map { service -> SubscribedItemJoinedData in
 
-                    let mainCategoryName = categories.first {
-                        $0.id == service.mainCategoryID
-                    }?.name ?? ""
-
-                    var subCategoryName: String?
-                    if let subCategoryID = service.subCategoryID {
-                        subCategoryName = categories.first {
-                            $0.id == subCategoryID
+                    let categoryNames = service.categoryIDs.compactMap { id in
+                        categories.first {
+                            $0.id == id
                         }?.name
                     }
 
-                    return SubscribedItemJoinedData(createdTime: service.createdTime,
-                                                    cycle: service.cycle,
-                                                    description: service.description,
-                                                    id: service.id,
-                                                    iconImageURL: service.iconImageURL,
-                                                    isUserOriginal: service.isUserOriginal,
-                                                    mainCategoryID: service.mainCategoryID,
-                                                    mainCategoryName: mainCategoryName,
-                                                    memo: service.memo,
-                                                    name: service.name,
-                                                    planID: service.planID,
-                                                    planName: service.planName,
-                                                    price: service.price,
-                                                    payAt: service.payAt,
-                                                    subCategoryID: service.subCategoryID,
-                                                    subCategoryName: subCategoryName,
-                                                    serviceID: service.serviceID,
-                                                    serviceURL: service.serviceURL)
+                    return SubscribedItemJoinedData(
+                        categoryIDs: service.categoryIDs,
+                        categoryNames: categoryNames,
+                        createdTime: service.createdTime,
+                        cycle: service.cycle,
+                        description: service.description,
+                        id: service.id,
+                        iconImageURL: service.iconImageURL,
+                        isUserOriginal: service.isUserOriginal,
+                        memo: service.memo,
+                        name: service.name,
+                        planID: service.planID,
+                        planName: service.planName,
+                        price: service.price,
+                        payAt: service.payAt,
+                        serviceID: service.serviceID,
+                        serviceURL: service.serviceURL
+                    )
                 }
             }
             .assign(to: \.items, on: self)

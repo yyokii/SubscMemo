@@ -21,7 +21,7 @@ struct SubscribedItemViewData {
         return SubscribedItemViewData(
             cycle: paymentCycle?.title ?? "",
             iconImageURL: input.iconImageURL,
-            mainCategoryName: input.mainCategoryName,
+            mainCategoryName: input.categoryNames[0],
             planName: input.planName,
             price: input.price.modifyToPriceStringData(),
             serviceID: input.serviceID,

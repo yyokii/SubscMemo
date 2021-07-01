@@ -39,8 +39,8 @@ final class CreateCustomSubscItemViewModel: ObservableObject {
             subscItem.payAt = Timestamp(date: payAt)
         }
 
-        subscItem.mainCategoryID = mainCategory.categoryID
-        subscItem.subCategoryID = subCategory.categoryID
+        subscItem.categoryIDs[0] = mainCategory.categoryID
+        subscItem.categoryIDs[1] = subCategory.categoryID
 
         userProfileRepository.addSubscribedService(data: subscItem)
             .sink(receiveCompletion: { [weak self] completion in

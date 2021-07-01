@@ -10,57 +10,55 @@ import FirebaseFirestoreSwift
 
 /// 登録しているサブスクリプションサービスの情報
 struct SubscribedItem: Codable, Identifiable {
-    @DocumentID var id: String?
+    var categoryIDs: [String]
     var cycle: String
     var description: String
     var iconImageURL: String
+    @DocumentID var id: String?
     var isUserOriginal: Bool // true: ユーザーが独自に追加したもの, false: アプリが提供しているサービス群から追加したもの
-    var mainCategoryID: String
     var memo: String
     var name: String
     var planID: String?
     var planName: String? // アプリが提供しているサービス群から選択している場合で且つプランを選択しているとその名称が入る
     var price: Int
     var payAt: Timestamp?
-    var subCategoryID: String?
     var serviceID: String
     var serviceURL: String?
     @ServerTimestamp var createdTime: Timestamp?
 
     static func makeEmptyData() -> SubscribedItem {
-        return SubscribedItem(id: nil,
-                              cycle: "",
-                              description: "",
-                              iconImageURL: "",
-                              isUserOriginal: false,
-                              mainCategoryID: "",
-                              memo: "",
-                              name: "",
-                              planID: nil,
-                              planName: "",
-                              price: 0,
-                              payAt: nil,
-                              subCategoryID: "",
-                              serviceID: "",
-                              serviceURL: nil)
+        return SubscribedItem(
+            categoryIDs: [""],
+            cycle: "",
+            description: "",
+            iconImageURL: "",
+            id: nil,
+            isUserOriginal: false,
+            memo: "",
+            name: "",
+            planID: nil,
+            planName: "",
+            price: 0,
+            payAt: nil,
+            serviceID: "",
+            serviceURL: nil
+        )
     }
 
     static func translate(from input: ExploreSubscItem) -> Self {
-
         SubscribedItem(
-            id: nil,
+            categoryIDs: input.categoryIDs,
             cycle: "",
             description: input.description,
             iconImageURL: input.iconImageURL,
+            id: nil,
             isUserOriginal: false,
-            mainCategoryID: input.mainCategoryID,
             memo: "",
             name: input.name,
             planID: nil,
             planName: nil,
             price: 0,
             payAt: nil,
-            subCategoryID: input.subCategoryID,
             serviceID: input.serviceID,
             serviceURL: input.serviceURL,
             createdTime: nil
@@ -70,35 +68,38 @@ struct SubscribedItem: Codable, Identifiable {
 
 #if DEBUG
 let demoSubscItems = [
-    SubscribedItem(id: "demo-01",
-                   cycle: "monthly",
-                   description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
-                   iconImageURL: "https://via.placeholder.com/50",
-                   isUserOriginal: false,
-                   mainCategoryID: "",
-                   memo: "demo-memo",
-                   name: "demo-01",
-                   planID: nil,
-                   planName: "",
-                   price: 100,
-                   payAt: nil,
-                   subCategoryID: "",
-                   serviceID: "",
-                   serviceURL: ""),
-    SubscribedItem(id: "demo-02",
-                   cycle: "monthly",
-                   description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
-                   iconImageURL: "https://via.placeholder.com/50",
-                   isUserOriginal: false,
-                   mainCategoryID: "",
-                   memo: "demo-memo",
-                   name: "demo-01",
-                   planID: nil,
-                   planName: "",
-                   price: 100,
-                   payAt: nil,
-                   subCategoryID: "",
-                   serviceID: "",
-                   serviceURL: "")
+    SubscribedItem(
+        categoryIDs: ["demo-id"],
+        cycle: "monthly",
+        description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
+        iconImageURL: "https://via.placeholder.com/50",
+        id: "demo-01",
+
+        isUserOriginal: false,
+        memo: "demo-memo",
+        name: "demo-01",
+        planID: nil,
+        planName: "",
+        price: 100,
+        payAt: nil,
+        serviceID: "",
+        serviceURL: ""
+    ),
+    SubscribedItem(
+        categoryIDs: ["demo-id"],
+        cycle: "monthly",
+        description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
+        iconImageURL: "https://via.placeholder.com/50",
+        id: "demo-02",
+        isUserOriginal: false,
+        memo: "demo-memo",
+        name: "demo-01",
+        planID: nil,
+        planName: "",
+        price: 100,
+        payAt: nil,
+        serviceID: "",
+        serviceURL: ""
+    )
 ]
 #endif

@@ -16,7 +16,6 @@ extension Identifiable where Self: Hashable {
 enum PresentContent: View, Hashable, Identifiable {
 
     case createCustomSubscItem
-    case createSubscItem
     case loginAndSignUp
     case safariView(url: URL)
     case userSetting
@@ -26,8 +25,6 @@ enum PresentContent: View, Hashable, Identifiable {
         switch self {
         case .createCustomSubscItem:
             CreateCustomSubscItemView()
-        case .createSubscItem:
-            EditSubscView(editSubscVM: EditSubscViewModel.newItem())
         case .loginAndSignUp:
             LoginAndSignUpView()
         case .safariView(let url):

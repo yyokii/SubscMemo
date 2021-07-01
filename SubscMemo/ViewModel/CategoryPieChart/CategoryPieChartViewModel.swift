@@ -37,7 +37,7 @@ final class CategoryPieChartViewModel: ObservableObject {
         subscItems.forEach { item in
             let title: String? = categories
                 .first {
-                    $0.categoryID == item.mainCategoryID
+                    $0.categoryID == item.categoryIDs[0]
                 }?
                 .name
 

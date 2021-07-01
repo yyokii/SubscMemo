@@ -50,7 +50,7 @@ struct SubscItemDetailViewData {
             description: input.description,
             iconImageURL: input.iconImageURL,
             isUserOriginal: input.isUserOriginal,
-            mainCategoryName: input.mainCategoryName,
+            mainCategoryName: input.categoryNames[0],
             memo: input.memo,
             payAtDate: payAtDate,
             planID: input.planID,
@@ -58,7 +58,7 @@ struct SubscItemDetailViewData {
             price: input.price.modifyToPriceStringData(),
             serviceName: input.name,
             serviceURL: url,
-            subCategoryName: ""
+            subCategoryName: input.categoryNames[1]
         )
     }
 }

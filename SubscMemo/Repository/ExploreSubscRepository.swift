@@ -18,6 +18,7 @@ class BaseExploreSubscRepository {
 /// 公開されているサブスクリプションサービスへのデータアクセス
 protocol ExploreSubscRepository: BaseExploreSubscRepository {
     func loadData() -> AnyPublisher<[ExploreSubscItem], Error>
+    func loadData(with category: [SubscCategory]) -> AnyPublisher<[ExploreItemJoinedData], Error>
     func loadData(with serviceIDs: [String]) -> AnyPublisher<[ExploreSubscItem], Error>
     func loadJoinedData()
     func loadJoinedData(with serviceID: String) -> AnyPublisher<ExploreItemJoinedData, Error>
@@ -79,6 +80,30 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
         .eraseToAnyPublisher()
     }
 
+    func loadData(with category: [SubscCategory]) -> AnyPublisher<[ExploreItemJoinedData], Error> {
+
+        let categoryIDs = category.map { $0.categoryID }
+        let categories = subscCategoryRepository.categories
+
+        return db
+            .collection(FirestorePathComponent.subscriptionServices.rawValue)
+            .document(FirestorePathComponent.version.rawValue)
+            .collection(FirestorePathComponent.services.rawValue)
+            .whereField("mainCategoryID", in: categoryIDs)
+            .getDocuments()
+            .map { snapshot in
+                let items =  snapshot.documents
+                    .compactMap { document -> ExploreSubscItem? in
+                        try? document.data(as: ExploreSubscItem.self)
+                    }
+                return items
+            }
+            .map { [weak self] items -> [ExploreItemJoinedData] in
+                self?.makeJoinedData(items: items, categories: categories) ?? []
+            }
+            .eraseToAnyPublisher()
+    }
+
     func loadData(with serviceIDs: [String]) -> AnyPublisher<[ExploreSubscItem], Error> {
         let cachedItems = loadDataFromCache(with: serviceIDs)
 
@@ -126,38 +151,40 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
     func loadJoinedData() {
         $exploreSubscItems
             .combineLatest(subscCategoryRepository.$categories)
-            .map { (items, categories) -> [ExploreItemJoinedData] in
-
-                return items.map { item -> ExploreItemJoinedData in
-
-                    let mainCategoryName = categories.first {
-                        $0.id == item.mainCategoryID
-                    }?.name ?? ""
-
-                    var subCategoryName: String?
-                    if let subCategoryID = item.subCategoryID {
-                        subCategoryName = categories.first {
-                            $0.id == subCategoryID
-                        }?.name
-                    }
-
-                    return ExploreItemJoinedData(
-                        createdTime: item.createdTime,
-                        description: item.description,
-                        id: item.id,
-                        iconImageURL: item.iconImageURL, mainCategoryID: item.mainCategoryID,
-                        mainCategoryName: mainCategoryName,
-                        name: item.name,
-                        subCategoryID: item.subCategoryID,
-                        subCategoryName: subCategoryName,
-                        serviceID: item.serviceID,
-                        serviceURL: item.serviceURL
-                    )
-
-                }
+            .map { [weak self] (items, categories) -> [ExploreItemJoinedData] in
+                self?.makeJoinedData(items: items, categories: categories) ?? []
             }
             .assign(to: \.exploreItemJoinedDatas, on: self)
             .store(in: &cancellables)
+    }
+
+    func makeJoinedData(items: [ExploreSubscItem], categories: [SubscCategory]) -> [ExploreItemJoinedData] {
+        return items.map { item -> ExploreItemJoinedData in
+
+            let mainCategoryName = categories.first {
+                $0.id == item.mainCategoryID
+            }?.name ?? ""
+
+            var subCategoryName: String?
+            if let subCategoryID = item.subCategoryID {
+                subCategoryName = categories.first {
+                    $0.id == subCategoryID
+                }?.name
+            }
+
+            return ExploreItemJoinedData(
+                createdTime: item.createdTime,
+                description: item.description,
+                id: item.id,
+                iconImageURL: item.iconImageURL, mainCategoryID: item.mainCategoryID,
+                mainCategoryName: mainCategoryName,
+                name: item.name,
+                subCategoryID: item.subCategoryID,
+                subCategoryName: subCategoryName,
+                serviceID: item.serviceID,
+                serviceURL: item.serviceURL
+            )
+        }
     }
 
     /// 任意のサービスIDのデータを取得する

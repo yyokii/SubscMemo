@@ -14,9 +14,7 @@ struct ExploreSubscView: View {
     var columns: [GridItem] = Array(repeating: .init(.flexible(), spacing: 0), count: 2)
 
     var body: some View {
-
         NavigationView {
-
             ScrollView {
                 VStack(alignment: .leading) {
                     SubscCategoryRowView()
@@ -32,7 +30,6 @@ struct ExploreSubscView: View {
                             })
                     }
                 }
-                .font(.largeTitle)
             }
             .navigationBarTitle("見つける")
             .sheet(item: $presentContent, content: { $0 })

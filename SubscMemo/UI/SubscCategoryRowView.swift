@@ -16,8 +16,13 @@ struct SubscCategoryRowView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .firstTextBaseline, spacing: 10) {
                 ForEach(subscCategoryRowVM.categories) { category in
-                    SubscCategoryItemView(category: category)
-                        .padding(.bottom, 20)
+                    let searchResultVM = SearchResultViewModel(category: category)
+                    NavigationLink(
+                        destination: SearchResultView(vm: searchResultVM),
+                        label: {
+                            SubscCategoryItemView(category: category)
+                                .padding(.bottom, 20)
+                        })
                 }
             }
         }

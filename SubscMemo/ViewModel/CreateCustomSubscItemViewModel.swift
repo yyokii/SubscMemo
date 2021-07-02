@@ -11,14 +11,19 @@ import FirebaseFirestore
 import Resolver
 
 final class CreateCustomSubscItemViewModel: ObservableObject {
+
+    // Dialog Manager
     @Published var alertProvider = AlertProvider()
+
+    // Repository
+    @Injected var subscCategoryRepository: SubscCategoryRepository
+    @Injected var subscribedServiceRepository: SubscribedServiceRepository
+
     @Published var categories: [SubscCategory] = []
     @Published var mainCategory: SubscCategory = SubscCategory.makeEmptyData()
     @Published var payAtDate: Date?
     @Published var subCategory: SubscCategory = SubscCategory.makeEmptyData()
-    @Injected var subscCategoryRepository: SubscCategoryRepository
     @Published var subscItem: SubscribedItem = SubscribedItem.makeEmptyData()
-    @Published var userProfileRepository: UserProfileRepository = Resolver.resolve()
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -42,7 +47,7 @@ final class CreateCustomSubscItemViewModel: ObservableObject {
         subscItem.categoryIDs[0] = mainCategory.categoryID
         subscItem.categoryIDs[1] = subCategory.categoryID
 
-        userProfileRepository.addSubscribedService(data: subscItem)
+        subscribedServiceRepository.addSubscribedItem(data: subscItem)
             .sink(receiveCompletion: { [weak self] completion in
 
                 switch completion {

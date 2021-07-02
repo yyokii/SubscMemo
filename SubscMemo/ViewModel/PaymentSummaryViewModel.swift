@@ -11,7 +11,8 @@ import Resolver
 
 final class PaymentSummaryViewModel: ObservableObject {
 
-    @Published var subscRepository: SubscRepository = Resolver.resolve()
+    // Repository
+    @Injected var subscribedServiceRepository: SubscribedServiceRepository
 
     @Published var yearlyPayment: Int = 0
     @Published var monthlyPayment: Int = 0
@@ -19,7 +20,7 @@ final class PaymentSummaryViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     init() {
-        subscRepository.$items
+        subscribedServiceRepository.$subscribedItems
             .map { items in
                 items
                     .map {
@@ -32,7 +33,7 @@ final class PaymentSummaryViewModel: ObservableObject {
             .assign(to: \.yearlyPayment, on: self)
             .store(in: &cancellables)
 
-        subscRepository.$items
+        subscribedServiceRepository.$subscribedItems
             .map { items in
                 items
                     .map {
@@ -44,10 +45,6 @@ final class PaymentSummaryViewModel: ObservableObject {
             }
             .assign(to: \.monthlyPayment, on: self)
             .store(in: &cancellables)
-    }
-
-    func addItem(item: SubscribedItem) {
-        subscRepository.addItem(item)
     }
 }
 

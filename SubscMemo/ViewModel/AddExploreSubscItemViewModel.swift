@@ -11,14 +11,19 @@ import FirebaseFirestore
 import Resolver
 
 final class AddExploreSubscItemViewModel: ObservableObject {
+
+    // Dialog Manager
     @Published var alertProvider = AlertProvider()
-    @Published var exploreSubscRepository: ExploreSubscRepository = Resolver.resolve()
+
+    // Repository
+    @Injected var exploreSubscRepository: ExploreSubscRepository
+    @Injected var subscribedServiceRepository: SubscribedServiceRepository
+
     @Published var payAtDate: Date?
     @Published var planDatas: [SubscPlanViewData] = []
     let serviceID: String
     @Published var selectSubscPlanViewModel = SelectSubscPlanViewModel()
     @Published var subscItem: SubscribedItem = SubscribedItem.makeEmptyData()
-    @Published var userProfileRepository: UserProfileRepository = Resolver.resolve()
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -90,7 +95,7 @@ final class AddExploreSubscItemViewModel: ObservableObject {
             subscItem.payAt = Timestamp(date: payAt)
         }
 
-        userProfileRepository.addSubscribedService(data: subscItem)
+        subscribedServiceRepository.addSubscribedItem(data: subscItem)
             .sink(receiveCompletion: { [weak self] completion in
 
                 switch completion {

@@ -11,16 +11,17 @@ import Resolver
 
 final class CategoryPieChartViewModel: ObservableObject {
 
-    @Published var subscRepository: SubscRepository = Resolver.resolve()
-    @Published var subscCategoryRepository: SubscCategoryRepository = Resolver.resolve()
+    // Repository
+    @Injected var subscribedServiceRepository: SubscribedServiceRepository
 
+    @Published var subscCategoryRepository: SubscCategoryRepository = Resolver.resolve()
     @Published var pieChartDatas: [PieChartData] = []
 
     private var cancellables = Set<AnyCancellable>()
 
     init() {
 
-        subscRepository.$items
+        subscribedServiceRepository.$subscribedItems
             .combineLatest(subscCategoryRepository.$categories)
             .map { [weak self] (items, categories) in
 

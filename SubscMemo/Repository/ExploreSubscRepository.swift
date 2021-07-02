@@ -30,13 +30,6 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
     var db: Firestore = Firestore.firestore()
     @Injected var subscCategoryRepository: SubscCategoryRepository
 
-    enum FirestorePathComponent: String {
-        case plans = "plans"
-        case subscriptionServices = "subscription_services"
-        case services = "services"
-        case version = "v1"
-    }
-
     private var cancellables = Set<AnyCancellable>()
 
     override init() {

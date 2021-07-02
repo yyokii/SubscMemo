@@ -22,12 +22,6 @@ final class FirestoreSubscCategoryRepository: BaseSubscCategoryRepository, Subsc
 
     var db: Firestore = Firestore.firestore()
 
-    enum FirestorePathComponent: String {
-        case subscriptionServices = "subscription_services"
-        case version = "v1"
-        case categories = "categories"
-    }
-
     private var cancellables = Set<AnyCancellable>()
 
     override init() {

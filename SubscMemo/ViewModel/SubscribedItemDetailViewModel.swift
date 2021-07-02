@@ -33,7 +33,7 @@ final class SubscribedItemDetailViewModel: ObservableObject {
     }
 
     func loadItemData(serviceID: String) {
-        subscribedServiceRepository.loadData(with: serviceID)
+        subscribedServiceRepository.loadJoinedData(with: serviceID)
             .sink(receiveCompletion: { [weak self] completion in
 
                 switch completion {

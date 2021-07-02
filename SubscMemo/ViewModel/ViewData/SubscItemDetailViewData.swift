@@ -58,7 +58,7 @@ struct SubscItemDetailViewData {
             price: input.price.modifyToPriceStringData(),
             serviceName: input.name,
             serviceURL: url,
-            subCategoryName: input.categoryNames[1]
+            subCategoryName: input.categoryNames[safe: 1]
         )
     }
 }

@@ -36,7 +36,7 @@ struct ExploreSubscItemDetailViewData {
             mainCategoryName: input.categoryNames[0],
             serviceName: input.name,
             serviceURL: url,
-            subCategoryName: input.categoryNames[1]
+            subCategoryName: input.categoryNames[safe: 1]
         )
     }
 }

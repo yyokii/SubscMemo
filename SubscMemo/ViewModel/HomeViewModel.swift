@@ -16,7 +16,7 @@ final class HomeViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     init() {
-        subscribedServiceRepository.$items
+        subscribedServiceRepository.$joinedDatas
             .map { items in
                 items.map { SubscribedItemViewModel(item: $0) }
             }

@@ -22,26 +22,24 @@ class ExploreSubscRepositoryTests: XCTestCase {
         let repository = FirestoreExploreSubscRepository()
         let cachedItems = [
             ExploreSubscItem(
+                categoryIDs: ["demo-id"],
                 createdTime: nil,
                 description: "demo-description",
                 iconImageURL: "https://via.placeholder.com/150",
                 id: "1",
-                mainCategoryID: "demo",
                 name: "demo-name01",
-                serviceID: "1",
-                serviceURL: "https://www.google.com/?hl=ja",
-                subCategoryID: "demo"
+                serviceID: "demo-serviceID",
+                serviceURL: "https://www.google.com/?hl=ja"
             ),
             ExploreSubscItem(
+                categoryIDs: ["demo-id"],
                 createdTime: nil,
                 description: "demo-description",
                 iconImageURL: "https://via.placeholder.com/150",
                 id: "2",
-                mainCategoryID: "demo",
-                name: "demo-name02",
-                serviceID: "2",
-                serviceURL: "https://www.google.com/?hl=ja",
-                subCategoryID: "demo"
+                name: "demo-name01",
+                serviceID: "demo-serviceID",
+                serviceURL: "https://www.google.com/?hl=ja"
             )
         ]
         repository.exploreSubscItems = cachedItems

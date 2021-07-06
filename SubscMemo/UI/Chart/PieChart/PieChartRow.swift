@@ -29,7 +29,14 @@ public struct PieChartRow: View {
         GeometryReader { geometry in
             ZStack {
                 ForEach(0..<slices.count) { index in
-                    PieChartCell(rect: geometry.frame(in: .local), startDeg: slices[index].startDeg, endDeg: slices[index].endDeg, index: index, backgroundColor: backgroundColor, accentColor: slices[index].color)
+                    PieChartCell(
+                        rect: geometry.frame(in: .local),
+                        startDeg: slices[index].startDeg,
+                        endDeg: slices[index].endDeg,
+                        index: index,
+                        backgroundColor: backgroundColor,
+                        accentColor: slices[index].color
+                    )
                 }
             }
         }

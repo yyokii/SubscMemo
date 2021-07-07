@@ -5,7 +5,6 @@
 //  Created by 東原与生 on 2020/10/14.
 //
 
-import Foundation
 import Resolver
 
 extension Resolver: ResolverRegistering {

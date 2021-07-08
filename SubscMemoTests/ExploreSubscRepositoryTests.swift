@@ -26,9 +26,9 @@ class ExploreSubscRepositoryTests: XCTestCase {
                 createdTime: nil,
                 description: "demo-description",
                 iconImageURL: "https://via.placeholder.com/150",
-                id: "1",
+                id: "demo-id-01",
                 name: "demo-name01",
-                serviceID: "demo-serviceID",
+                serviceID: "1",
                 serviceURL: "https://www.google.com/?hl=ja"
             ),
             ExploreSubscItem(
@@ -36,9 +36,9 @@ class ExploreSubscRepositoryTests: XCTestCase {
                 createdTime: nil,
                 description: "demo-description",
                 iconImageURL: "https://via.placeholder.com/150",
-                id: "2",
+                id: "demo-id-02",
                 name: "demo-name01",
-                serviceID: "demo-serviceID",
+                serviceID: "2",
                 serviceURL: "https://www.google.com/?hl=ja"
             )
         ]

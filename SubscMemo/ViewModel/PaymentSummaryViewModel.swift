@@ -24,26 +24,34 @@ final class PaymentSummaryViewModel: ObservableObject {
             .map { items in
                 items
                     .map {
-                        $0.price * 12
+                        let cycle = PaymentCycle.init(rawValue: $0.cycle)
+                        return cycle?.perMonthValue(price: $0.price) ?? 0
                     }
-                    .reduce(0) {
-                        $0 + $1
+                    .reduce(0) { res, data in
+                        res + data
                     }
             }
-            .assign(to: \.yearlyPayment, on: self)
+            .handleEvents(receiveOutput: { [weak self] in
+                self?.monthlyPayment = $0
+            })
+            .assign(to: \.monthlyPayment, on: self)
             .store(in: &cancellables)
 
         subscribedServiceRepository.$subscribedItems
             .map { items in
                 items
                     .map {
-                        $0.price
+                        let cycle = PaymentCycle.init(rawValue: $0.cycle)
+                        return cycle?.perYearValue(price: $0.price) ?? 0
                     }
-                    .reduce(0) {
-                        $0 + $1
+                    .reduce(0) { res, data in
+                        res + data
                     }
             }
-            .assign(to: \.monthlyPayment, on: self)
+            .handleEvents(receiveOutput: { [weak self] in
+                self?.yearlyPayment = $0
+            })
+            .assign(to: \.yearlyPayment, on: self)
             .store(in: &cancellables)
     }
 }

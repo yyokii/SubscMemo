@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Binding var tabSelection: MainTabView.TabItem
     @ObservedObject var homeVM = HomeViewModel()
     @State var presentContent: PresentContent?
 
     var body: some View {
         NavigationView {
-
             ScrollView {
                 VStack(alignment: .leading) {
                     PaymentSummaryView()
@@ -37,14 +37,16 @@ struct HomeView: View {
                     }
 
                     HStack {
-                        Button("さがす") {
-
-                        }
-                        Button("自分で追加する") {
+                        Spacer()
+                        AddSubscribedItemView {
                             presentContent = .createCustomSubscItem
+                        } searchAction: {
+                            tabSelection = .search
                         }
+                        Spacer()
                     }
-                    .buttonStyle(ActionButtonStyle())
+                    .padding([.horizontal], 8)
+                    .padding([.bottom], 48)
                 }
             }
             .navigationBarTitle("App")
@@ -75,10 +77,10 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         return
             Group {
-                HomeView(homeVM: demoHomeVM)
+                HomeView(tabSelection: .constant(.home), homeVM: demoHomeVM)
                     .environment(\.colorScheme, .light)
 
-                HomeView(homeVM: demoHomeVM)
+                HomeView(tabSelection: .constant(.home), homeVM: demoHomeVM)
                     .environment(\.colorScheme, .dark)
             }
     }

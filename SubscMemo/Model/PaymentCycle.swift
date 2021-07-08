@@ -31,4 +31,38 @@ enum PaymentCycle: String, CaseIterable, Identifiable {
             return "1年毎"
         }
     }
+
+    func perMonthValue(price: Int) -> Int {
+        switch self {
+        case .daily:
+            return price * 30
+        case .weekly:
+            return price * 4
+        case .monthly:
+            return price
+        case .every3months:
+            return price / 3
+        case .every6months:
+            return price / 6
+        case .yearly:
+            return price / 12
+        }
+    }
+
+    func perYearValue(price: Int) -> Int {
+        switch self {
+        case .daily:
+            return perMonthValue(price: price) * 12
+        case .weekly:
+            return perMonthValue(price: price) * 12
+        case .monthly:
+            return price * 12
+        case .every3months:
+            return price * 4
+        case .every6months:
+            return price * 2
+        case .yearly:
+            return price
+        }
+    }
 }

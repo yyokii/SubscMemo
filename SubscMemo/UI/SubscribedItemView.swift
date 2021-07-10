@@ -9,7 +9,7 @@ import SwiftUI
 
 /// 加入済みサービスの情報を表示するView
 struct SubscribedItemView: View {
-    @ObservedObject var subscribedItemVM: SubscribedItemViewModel
+    @StateObject var subscribedItemVM: SubscribedItemViewModel
 
     var body: some View {
         return

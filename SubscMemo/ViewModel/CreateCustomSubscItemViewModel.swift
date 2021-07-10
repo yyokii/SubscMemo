@@ -45,7 +45,7 @@ final class CreateCustomSubscItemViewModel: ObservableObject {
         }
 
         subscItem.categoryIDs[0] = mainCategory.categoryID
-        subscItem.categoryIDs[1] = subCategory.categoryID
+        subscItem.categoryIDs.insert(subCategory.categoryID, at: 1)
 
         subscribedServiceRepository.addSubscribedItem(data: subscItem)
             .sink(receiveCompletion: { [weak self] completion in

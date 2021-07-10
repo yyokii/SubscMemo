@@ -40,12 +40,10 @@ struct PieChartView: View {
                 .padding()
 
                 HStack {
-
                     PieChartRow(data: data, backgroundColor: Color.adaptiveWhite)
 
                     VStack(alignment: .leading) {
                         ForEach(data, id: \.id) { chartData in
-
                             HStack {
                                 Rectangle()
                                     .fill(chartData.color)

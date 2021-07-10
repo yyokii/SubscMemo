@@ -40,7 +40,14 @@ private struct AdaptiveFont: ViewModifier {
     let configure: (Font) -> Font
 
     func body(content: Content) -> some View {
-        content.font(self.configure(.custom(self.name, size: self.size + self.adaptiveSize.padding)))
+        content.font(
+            self.configure(
+                .custom(
+                    self.name,
+                    size: self.size + self.adaptiveSize.padding
+                )
+            )
+        )
     }
 }
 

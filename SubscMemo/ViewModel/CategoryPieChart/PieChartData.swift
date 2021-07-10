@@ -15,6 +15,7 @@ public struct PieChartData: ChartData {
     var label: String
 }
 
+#warning("同じ色味からとるようにしたいね")
 let pieChartColors: [Color] = [
     Color.hex(0xCD6155),
     Color.hex(0xEC7063),

@@ -28,7 +28,7 @@ public struct PieChartRow: View {
     public var body: some View {
         GeometryReader { geometry in
             ZStack {
-                ForEach(0..<slices.count) { index in
+                ForEach(0..<slices.count, id: \.self) { index in
                     PieChartCell(
                         rect: geometry.frame(in: .local),
                         startDeg: slices[index].startDeg,
@@ -47,8 +47,16 @@ public struct PieChartRow: View {
 struct PieChartRow_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            PieChartRow(data: demoPieChartDatas, backgroundColor: Color(red: 252.0/255.0, green: 236.0/255.0, blue: 234.0/255.0))
-                .frame(width: 100, height: 100)
+            PieChartRow(
+                data: demoPieChartDatas,
+                backgroundColor:
+                    Color(
+                        red: 252.0/255.0,
+                        green: 236.0/255.0,
+                        blue: 234.0/255.0
+                    )
+            )
+            .frame(width: 100, height: 100)
         }
     }
 }

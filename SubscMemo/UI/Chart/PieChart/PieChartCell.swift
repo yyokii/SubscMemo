@@ -27,7 +27,13 @@ public struct PieChartCell: View {
     var path: Path {
         var path = Path()
         // https://developer.apple.com/documentation/coregraphics/1455756-cgcontextaddarc
-        path.addArc(center: rect.mid, radius: self.radius, startAngle: Angle(degrees: self.startDeg), endAngle: Angle(degrees: self.endDeg), clockwise: false)
+        path.addArc(
+            center: rect.mid,
+            radius: self.radius,
+            startAngle: Angle(degrees: self.startDeg - 90),
+            endAngle: Angle(degrees: self.endDeg - 90),
+            clockwise: false
+        )
         path.addLine(to: rect.mid)
         path.closeSubpath()
         return path
@@ -59,7 +65,24 @@ struct PieChartCell_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader { geometry in
             // swiftlint:disable line_length
-            PieChartCell(rect: geometry.frame(in: .local), startDeg: 0.0, endDeg: 90.0, index: 0, backgroundColor: Color(red: 252.0/255.0, green: 236.0/255.0, blue: 234.0/255.0), accentColor: Color(red: 225.0/255.0, green: 97.0/255.0, blue: 76.0/255.0))
+            PieChartCell(
+                rect: geometry.frame(in: .local),
+                startDeg: 0.0,
+                endDeg: 90.0,
+                index: 0,
+                backgroundColor:
+                    Color(
+                        red: 252.0/255.0,
+                        green: 236.0/255.0,
+                        blue: 234.0/255.0
+                    ),
+                accentColor:
+                    Color(
+                        red: 225.0/255.0,
+                        green: 97.0/255.0,
+                        blue: 76.0/255.0
+                    )
+            )
         }
         .frame(width: 100, height: 100)
 

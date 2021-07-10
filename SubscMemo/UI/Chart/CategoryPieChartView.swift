@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct CategoryPieChartView: View {
-    @ObservedObject var categoryPieChartVM = CategoryPieChartViewModel()
+    @StateObject var categoryPieChartVM = CategoryPieChartViewModel()
 
     var body: some View {
-        PieChartView(data: categoryPieChartVM.pieChartDatas, title: "demo")
+        PieChartView(data: categoryPieChartVM.pieChartDatas, title: "利用カテゴリー率")
     }
 }
 

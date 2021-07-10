@@ -8,35 +8,44 @@
 import SwiftUI
 
 struct PaymentSummaryView: View {
-    @ObservedObject var paymentSummaryVM = PaymentSummaryViewModel()
+    @StateObject var paymentSummaryVM = PaymentSummaryViewModel()
 
     var body: some View {
-        VStack {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("Yearly")
-                        .font(.title)
-                        .fontWeight(.heavy)
+        ZStack {
+            Rectangle()
+                .fill(Color.adaptiveWhite)
+                .cornerRadius(20)
+                .adaptiveShadow()
+            
+            VStack {
+                PaymentSummaryItemView(title: "月額平均", payment: paymentSummaryVM.monthlyPayment)
+                .padding([.bottom], 10)
+                
+                PaymentSummaryItemView(title: "年額平均", payment: paymentSummaryVM.yearlyPayment)
+            }
+        }
+        .frame(height: 160)
+    }
+}
 
-                    Text("¥\(paymentSummaryVM.yearlyPayment)")
-                        .foregroundColor(.gray)
-                }
+struct PaymentSummaryItemView: View {
+    let title: String
+    let payment: Int
+    
+    var body: some View {
+        VStack(alignment: .center) {
+            HStack {
+                Text(title)
+                    .adaptiveFont(.matterSemiBold, size: 13)
+                    .foregroundColor(.gray)
                 Spacer()
             }
-            .padding(.leading, 60.0)
-
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("Monthly")
-                        .font(.title)
-                        .fontWeight(.heavy)
-
-                    Text("¥\(paymentSummaryVM.monthlyPayment)")
-                        .foregroundColor(.gray)
-                }
-                Spacer()
-            }
-            .padding(.leading, 60.0)
+            .padding([.leading], 10)
+            .padding([.bottom], 2)
+            
+            Text("¥\(payment)")
+                .adaptiveFont(.matterSemiBold, size: 24)
+                .padding([.leading], 20)
         }
     }
 }

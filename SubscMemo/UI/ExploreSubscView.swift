@@ -34,6 +34,7 @@ struct ExploreSubscView: View {
             .navigationBarTitle("見つける")
             .sheet(item: $presentContent, content: { $0 })
         }
+        .navigationViewStyle(.stack)
     }
 }
 

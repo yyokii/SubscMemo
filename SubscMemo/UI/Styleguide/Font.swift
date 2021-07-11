@@ -28,7 +28,13 @@ extension View {
         size: CGFloat,
         configure: @escaping (Font) -> Font = { $0 }
     ) -> some View {
-        self.modifier(AdaptiveFont(name: name.rawValue, size: size, configure: configure))
+        self.modifier(
+            AdaptiveFont(
+                name: name.rawValue,
+                size: size,
+                configure: configure
+            )
+        )
     }
 }
 

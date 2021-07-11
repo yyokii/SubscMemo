@@ -26,36 +26,40 @@ struct SubscribedItemView: View {
                         .frame(width: 50, height: 50)
                         .padding()
 
-                    VStack(alignment: .leading) {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(subscribedItemVM.item.serviceName)
-                                    .adaptiveFont(.matterSemiBold, size: 12)
-                                    .padding(.bottom, 10)
-                                    .foregroundColor(.appBlack)
+                    HStack(alignment: .top) {
+                        VStack(alignment: .leading) {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(subscribedItemVM.item.serviceName)
+                                        .adaptiveFont(.matterSemiBold, size: 12)
+                                        .padding(.bottom, 5)
+                                        .foregroundColor(.appBlack)
 
-                                Text(subscribedItemVM.item.planName ?? "")
-                                    .adaptiveFont(.matterMedium, size: 12)
-                                    .foregroundColor(.appBlack)
+                                    Text(subscribedItemVM.item.planName ?? "")
+                                        .adaptiveFont(.matterMedium, size: 12)
+                                        .foregroundColor(.appBlack)
+                                }
                             }
                         }
-                    }
 
-                    Spacer()
+                        Spacer()
 
-                    VStack(alignment: .leading) {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(subscribedItemVM.item.price)
-                                    .adaptiveFont(.matterSemiBold, size: 12)
-                                    .padding(.bottom, 10)
-                                    .foregroundColor(.green)
+                        VStack(alignment: .leading) {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(subscribedItemVM.item.price)
+                                        .padding(.bottom, 5)
+                                        .adaptiveFont(.matterSemiBold, size: 12
+                                        )
+                                        .foregroundColor(.green)
+                                        .padding([.bottom])
 
-                                Text("monthly")
-                                    .adaptiveFont(.matter, size: 12)
-                                    .lineLimit(2)
-                                    .foregroundColor(.appBlack)
-
+                                    #warning("固定値になっている")
+                                    Text("monthly")
+                                        .adaptiveFont(.matter, size: 12)
+                                        .foregroundColor(.appBlack)
+                                        .lineLimit(2)
+                                }
                             }
                         }
                     }

@@ -156,7 +156,7 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
 
             let categoryNames = item.categoryIDs.compactMap { id in
                 categories.first {
-                    $0.id == id
+                    $0.categoryID == id
                 }?.name
             }
 

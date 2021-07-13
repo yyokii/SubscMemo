@@ -21,12 +21,10 @@ struct SubscCategoryRowView: View {
                         destination: SearchResultView(vm: searchResultVM),
                         label: {
                             SubscCategoryItemView(category: category)
-                                .padding(.bottom, 20)
                         })
                 }
             }
         }
-        .padding()
     }
 }
 
@@ -37,24 +35,28 @@ struct SubscCategoryItemView: View {
     var body: some View {
         return
             VStack {
-
-                AsyncImage(url: URL(string: category.iconImageURL)!) {
-                    Color.gray
+                ZStack {
+                    RoundedRectangle(cornerRadius: 50)
+                        .fill(Color.white)
+                        .adaptiveShadow()
+                    
+                    AsyncImage(url: URL(string: category.iconImageURL)!) {
+                        Color.gray
+                    }
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 30, height: 30)
                 }
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 50, height: 50)
-                .padding(.top)
-                .shadow(radius: 0, x: 0.0, y: 0.0)
+                .frame(width: 60, height: 60)
 
                 Text(category.name)
                     .adaptiveFont(.matterMedium, size: 12)
                     .foregroundColor(.adaptiveBlack)
                     .frame(maxWidth: 120)
                     .fixedSize(horizontal: false, vertical: true)
-                    .padding(10)
+                    .padding([.top], 5)
 
             }
-            .frame(minWidth: 100, minHeight: 120)
+            .frame(minWidth: 100, minHeight: 150)
     }
 }
 

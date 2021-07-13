@@ -9,18 +9,12 @@ import SwiftUI
 
 struct PaymentCyclePickerView: View {
 
-    @Binding var isPresented: Bool
     @Binding var selectedCycleText: String
     @State private var selectedCycle = PaymentCycle.monthly
 
     var body: some View {
         VStack {
-            Text(selectedCycle.rawValue)
-                .adaptiveFont(.matterSemiBold, size: 16)
-                .foregroundColor(.adaptiveBlack)
-                .padding(.top, 20)
-
-            Picker("設定して下さい", selection: $selectedCycle) {
+            Picker("支払いサイクル", selection: $selectedCycle) {
                 ForEach(PaymentCycle.allCases, id: \.self) { cycle in
                     Text(cycle.rawValue.capitalized)
                         .adaptiveFont(.matterSemiBold, size: 8)
@@ -28,21 +22,8 @@ struct PaymentCyclePickerView: View {
                 }
             }
             .adaptiveFont(.matterSemiBold, size: 8)
-            .foregroundColor(.adaptiveBlack)
-            .pickerStyle(InlinePickerStyle())
-
-            Button(action: {
-                selectedCycleText = selectedCycle.rawValue
-                isPresented = false
-            }) {
-                Text("閉じる")
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .padding(.bottom, 20)
-            }
-
+            .foregroundColor(.placeholderGray)
         }
-        .background(Color.adaptiveWhite)
-        .cornerRadius(8)
     }
 }
 
@@ -53,7 +34,7 @@ struct PaymentCyclePickerView_Previews: PreviewProvider {
     struct ContentView: View {
         var body: some View {
             NavigationView {
-                PaymentCyclePickerView(isPresented: .constant(false), selectedCycleText: .constant("demo"))
+                PaymentCyclePickerView( selectedCycleText: .constant("demo"))
             }
         }
     }

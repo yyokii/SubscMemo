@@ -20,17 +20,19 @@ struct ValidationStateView: View {
     func view(with state: ValidationStateViewModel.ValidationResult) -> some View {
         switch state {
         case .invalid(let message):
-            return HStack {
+            return HStack(alignment: .top) {
                 Image(systemName: "xmark.circle")
                     .foregroundColor(Color.red)
                 Text(message)
             }
+            .adaptiveFont(.matterMedium, size: 10)
         case .valid(let message):
-            return HStack {
+            return HStack(alignment: .top) {
                 Image(systemName: "checkmark.circle")
                     .foregroundColor(Color.green)
                 Text(message)
             }
+            .adaptiveFont(.matterMedium, size: 10)
         }
     }
 }
@@ -41,7 +43,7 @@ struct ValidationStateView_Previews: PreviewProvider {
     
     static let validVM: ValidationStateViewModel = {
         let vm = ValidationStateViewModel()
-        vm.state = .valid("OK!")
+        vm.state = .valid("Nice\nOK!\nCool")
         return vm
     }()
     
@@ -52,7 +54,7 @@ struct ValidationStateView_Previews: PreviewProvider {
     }()
     
     static var previews: some View {
-        VStack {
+        VStack(spacing: 20) {
             ValidationStateView(vm: invalidVM)
             ValidationStateView(vm: validVM)
         }

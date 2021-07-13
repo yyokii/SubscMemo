@@ -26,14 +26,14 @@ struct SubscribedItem: Codable, Identifiable {
     var serviceURL: String?
     @ServerTimestamp var createdTime: Timestamp?
 
-    static func makeEmptyData() -> SubscribedItem {
+    static func makeEmptyData(isUserOriginal: Bool) -> SubscribedItem {
         return SubscribedItem(
-            categoryIDs: [""],
+            categoryIDs: [],
             cycle: "",
             description: "",
             iconImageURL: "",
             id: nil,
-            isUserOriginal: false,
+            isUserOriginal: isUserOriginal,
             memo: "",
             name: "",
             planID: nil,

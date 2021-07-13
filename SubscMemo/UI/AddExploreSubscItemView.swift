@@ -59,18 +59,21 @@ struct AddExploreSubscItemView: View {
 
                         // 支払いサイクル選択
                         HStack {
-                            Text("支払いサイクル")
-                                .adaptiveFont(.matterSemiBold, size: 8)
-                                .foregroundColor(.placeholderGray)
-
-                            Spacer()
-
-                            Button(action: {
-                                dialogPresentation.show(
-                                    content: .selectPaymentCycle(isPresented: $dialogPresentation.isPresented, text: $addExploreSubscItemVM.subscItem.cycle))
-                            }) {
-                                Text(addExploreSubscItemVM.subscItem.cycle)
-                            }
+                            PaymentCyclePickerView(
+                                selectedCycleText: $addExploreSubscItemVM.subscItem.cycle)
+                            
+//                            Text("支払いサイクル")
+//                                .adaptiveFont(.matterSemiBold, size: 8)
+//                                .foregroundColor(.placeholderGray)
+//
+//                            Spacer()
+//
+//                            Button(action: {
+//                                dialogPresentation.show(
+//                                    content: .selectPaymentCycle(isPresented: $dialogPresentation.isPresented, text: $addExploreSubscItemVM.subscItem.cycle))
+//                            }) {
+//                                Text(addExploreSubscItemVM.subscItem.cycle)
+//                            }
                         }
 
                         SubscItemTextField(isDisabled: true, placeholder: "プラン名", text: $addExploreSubscItemVM.subscItem.planName ?? "")

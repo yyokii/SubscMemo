@@ -23,7 +23,7 @@ final class AddExploreSubscItemViewModel: ObservableObject {
     @Published var planDatas: [SubscPlanViewData] = []
     let serviceID: String
     @Published var selectSubscPlanViewModel = SelectSubscPlanViewModel()
-    @Published var subscItem: SubscribedItem = SubscribedItem.makeEmptyData()
+    @Published var subscItem: SubscribedItem = SubscribedItem.makeEmptyData(isUserOriginal: false)
 
     private var cancellables = Set<AnyCancellable>()
 

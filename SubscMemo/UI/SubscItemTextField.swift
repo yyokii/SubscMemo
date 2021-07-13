@@ -15,7 +15,7 @@ struct SubscItemTextField: View {
     var body: some View {
         TextField(placeholder, text: _text)
             .disabled(isDisabled)
-            .multilineTextAlignment(.trailing)
+            .multilineTextAlignment(.leading)
             .adaptiveFont(.matterSemiBold, size: 8)
             .foregroundColor(isDisabled ? .gray : .adaptiveBlack)
             .textFieldStyle(PlainTextFieldStyle())

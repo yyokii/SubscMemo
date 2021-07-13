@@ -10,7 +10,7 @@ import SwiftUI
 /// 既存のサブスクリプションサービス探すときのアイテムView
 struct ExploreSubscListItemView: View {
 
-    @ObservedObject var exploreSubscItemVM: ExploreSubscItemViewModel
+    @ObservedObject var vm: ExploreSubscItemViewModel
 
     let width: CGFloat = UIScreen.main.bounds.width/2 - 20
 
@@ -19,7 +19,7 @@ struct ExploreSubscListItemView: View {
 
             HStack {
                 Spacer()
-                Text("カテゴリー")
+                Text(vm.item.mainCategoryName)
                     .adaptiveFont(.matter, size: 8)
                     .lineLimit(1)
                     .foregroundColor(.appBlack)
@@ -31,14 +31,14 @@ struct ExploreSubscListItemView: View {
                 .frame(width: 50, height: 50)
                 .padding(.leading)
 
-            Text("サブスクリプションサービス")
+            Text(vm.item.serviceName)
                 .adaptiveFont(.matterSemiBold, size: 16)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(2)
                 .padding([.leading, .top])
                 .foregroundColor(.appBlack)
 
-            Text("せつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめい")
+            Text(vm.item.description)
                 .adaptiveFont(.matter, size: 10)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(4)
@@ -58,10 +58,10 @@ struct ExploreSubscListItemView_Previews: PreviewProvider {
 
     static var previews: some View {
 
-        ExploreSubscListItemView(exploreSubscItemVM: demoExploreSubscItemVMs[0])
+        ExploreSubscListItemView(vm: demoExploreSubscItemVMs[0])
             .environment(\.colorScheme, .light)
 
-        ExploreSubscListItemView(exploreSubscItemVM: demoExploreSubscItemVMs[1])
+        ExploreSubscListItemView(vm: demoExploreSubscItemVMs[1])
             .environment(\.colorScheme, .dark)
     }
 }

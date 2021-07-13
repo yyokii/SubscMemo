@@ -13,7 +13,7 @@ struct ServiceNameView: View {
     let linkTapAction: ((URL) -> Void)?
 
     var body: some View {
-        HStack {
+        VStack(alignment: .leading) {
             Text(serviceName)
                 .adaptiveFont(.matterSemiBold, size: 24)
                 .fixedSize(horizontal: false, vertical: true)
@@ -28,9 +28,9 @@ struct ServiceNameView: View {
                         .resizable()
                         .renderingMode(.template)
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 24, height: 24)
+                        .frame(width: 20, height: 20)
                         .foregroundColor(.adaptiveBlack)
-                        .padding()
+                    Text(serviceURL.absoluteString)
                 })
             }
         }

@@ -27,7 +27,6 @@ struct SubscCategoryRowView: View {
             }
         }
         .padding()
-        .background(Color.adaptiveWhite)
     }
 }
 

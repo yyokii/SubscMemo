@@ -26,7 +26,7 @@ struct SearchResultView: View {
                         NavigationLink(
                             destination: ExploreSubscItemDetailView(exploreSubscItemDetailVM: exploreSubscItemDetailVM),
                             label: {
-                                ExploreSubscListItemView(exploreSubscItemVM: vm)
+                                ExploreSubscListItemView(vm: vm)
                             })
                     }
                 }

@@ -174,6 +174,7 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
         }
     }
 
+    #warning("取得し直すようにしたい")
     /// 任意のサービスIDのデータを取得する
     func loadJoinedData(with serviceID: String) -> AnyPublisher<ExploreItemJoinedData, Error> {
         let targetData = exploreItemJoinedDatas.first { item in

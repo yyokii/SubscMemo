@@ -73,7 +73,7 @@ struct HomeView: View {
                         Button(action: {
                             presentContent = .userSetting
                         }, label: {
-                            Image(systemName: "person.crop.circle")
+                            Image(systemName: "gearshape")
                                 .resizable()
                                 .frame(width: 20, height: 20)
                         })

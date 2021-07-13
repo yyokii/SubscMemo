@@ -18,14 +18,15 @@ struct MainTabView: View {
         TabView(selection: $selectedItem) {
             HomeView(tabSelection: $selectedItem)
                 .tabItem {
-                    Image(systemName: "1.circle.fill")
+                    Image(systemName: "person.crop.circle")
                     Text("マイページ")
+                    
                 }
                 .tag(TabItem.home)
 
             ExploreSubscView()
                 .tabItem {
-                    Image(systemName: "2.square.fill")
+                    Image(systemName: "magnifyingglass")
                     Text("さがす")
                 }
                 .tag(TabItem.search)

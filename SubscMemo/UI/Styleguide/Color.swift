@@ -20,6 +20,12 @@ extension Color {
     }
 
     public static let appBlack = hex(0x121212)
+
+    /// 任意のトーンの色をランダムに生成する
+    public static func randomColor(saturation: Double = 0.8, brightness: Double = 1) -> Self {
+        let hueValue = Double.random(in: 0...1)
+        return Color.init(hue: hueValue, saturation: saturation, brightness: brightness)
+    }
 }
 
 #if canImport(UIKit)
@@ -33,6 +39,45 @@ extension Color {
     }
 
     public static let placeholderGray = Color(UIColor.placeholderText)
+}
+
+#endif
+
+#if DEBUG
+
+struct DemoColorView_Previews: PreviewProvider {
+
+    static var content: some View {
+        NavigationView {
+            VStack {
+                RoundedRectangle(cornerRadius: 20)
+                    .foregroundColor(.adaptiveBlack)
+                RoundedRectangle(cornerRadius: 20)
+                    .foregroundColor(.adaptiveWhite)
+                RoundedRectangle(cornerRadius: 20)
+                    .foregroundColor(.appBlack)
+                RoundedRectangle(cornerRadius: 20)
+                    .foregroundColor(.placeholderGray)
+                RoundedRectangle(cornerRadius: 20)
+                    .foregroundColor(.randomColor())
+                RoundedRectangle(cornerRadius: 20)
+                    .foregroundColor(.randomColor())
+                RoundedRectangle(cornerRadius: 20)
+                    .foregroundColor(.randomColor())
+            }
+            .shadow(radius: 10)
+        }
+    }
+
+    static var previews: some View {
+        Group {
+            content
+                .environment(\.colorScheme, .light)
+
+            content
+                .environment(\.colorScheme, .dark)
+        }
+    }
 }
 
 #endif

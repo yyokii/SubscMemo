@@ -28,15 +28,15 @@ struct CreateCustomSubscItemView: View {
             VStack {
                 ValidationStateView(vm: createCustomSubscItemVM.validationVM)
                     .padding(.top)
-                
+
                 Form {
                     Section(header: Text("🗒 サービス概要")) {
                         SubscItemTextField(placeholder: "サービス名", text: $createCustomSubscItemVM.subscItem.name)
-                        
+
                         SubscItemTextField(placeholder: "サービスのURL", text: $createCustomSubscItemVM.subscItem.serviceURL ?? "")
                         SubscItemTextField(placeholder: "サービス情報", text: $createCustomSubscItemVM.subscItem.description)
                     }
-                    
+
                     Section(header: Text("🎨 カテゴリー")) {
                         // カテゴリー選択
                         SubscCategoryPickerView(
@@ -44,49 +44,49 @@ struct CreateCustomSubscItemView: View {
                             selectedData: $createCustomSubscItemVM.mainCategory,
                             title: "メインカテゴリー"
                         )
-                        
+
                         SubscCategoryPickerView(
                             datas: createCustomSubscItemVM.categories,
                             selectedData: $createCustomSubscItemVM.subCategory,
                             title: "サブカテゴリー"
                         )
                     }
-                    
+
                     Section(header: Text("💰 支払い")) {
                         SubscItemTextField(placeholder: "料金", text: $createCustomSubscItemVM.subscItem.price.intToString(0))
-                        
+
                         // 支払いサイクル選択
                         HStack {
                             PaymentCyclePickerView(
                                 selectedCycleText: $createCustomSubscItemVM.subscItem.cycle)
                         }
-                        
+
                         SubscItemTextField(placeholder: "プラン名", text: $createCustomSubscItemVM.subscItem.planName ?? "")
-                        
-//                        // 日付選択
-//                        HStack {
-//                            Text("次回支払い日")
-//                                .adaptiveFont(.matterSemiBold, size: 8)
-//                                .foregroundColor(.placeholderGray)
-//
-//                            Spacer()
-//
-//                            Button(action: {
-//                                dialogPresentation.show(
-//                                    content: .selectDate(
-//                                        isPresented: $dialogPresentation.isPresented,
-//                                        dateRange: nextPaymentDateRange,
-//                                        savedDate: $createCustomSubscItemVM.payAtDate,
-//                                        selectingDate: createCustomSubscItemVM.payAtDate ?? Date())
-//                                )
-//                            }, label: {
-//                                let date = createCustomSubscItemVM.payAtDate?.toString(format: .yMd, timeZone: .japan) ?? "設定されていません"
-//                                Text(date)
-//                            })
-//                        }
+
+                        //                        // 日付選択
+                        //                        HStack {
+                        //                            Text("次回支払い日")
+                        //                                .adaptiveFont(.matterSemiBold, size: 8)
+                        //                                .foregroundColor(.placeholderGray)
+                        //
+                        //                            Spacer()
+                        //
+                        //                            Button(action: {
+                        //                                dialogPresentation.show(
+                        //                                    content: .selectDate(
+                        //                                        isPresented: $dialogPresentation.isPresented,
+                        //                                        dateRange: nextPaymentDateRange,
+                        //                                        savedDate: $createCustomSubscItemVM.payAtDate,
+                        //                                        selectingDate: createCustomSubscItemVM.payAtDate ?? Date())
+                        //                                )
+                        //                            }, label: {
+                        //                                let date = createCustomSubscItemVM.payAtDate?.toString(format: .yMd, timeZone: .japan) ?? "設定されていません"
+                        //                                Text(date)
+                        //                            })
+                        //                        }
                     }
                 }
-                
+
                 Button(action: {
                     createCustomSubscItemVM.addItem()
                 }) {

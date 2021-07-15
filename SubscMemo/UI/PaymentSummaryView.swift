@@ -16,11 +16,11 @@ struct PaymentSummaryView: View {
                 .fill(Color.adaptiveWhite)
                 .cornerRadius(20)
                 .adaptiveShadow()
-            
+
             VStack {
                 PaymentSummaryItemView(title: "月額平均", payment: paymentSummaryVM.monthlyPayment)
-                .padding([.bottom], 10)
-                
+                    .padding([.bottom], 10)
+
                 PaymentSummaryItemView(title: "年額平均", payment: paymentSummaryVM.yearlyPayment)
             }
         }
@@ -31,7 +31,7 @@ struct PaymentSummaryView: View {
 struct PaymentSummaryItemView: View {
     let title: String
     let payment: Int
-    
+
     var body: some View {
         VStack(alignment: .center) {
             HStack {
@@ -42,7 +42,7 @@ struct PaymentSummaryItemView: View {
             }
             .padding([.leading], 10)
             .padding([.bottom], 2)
-            
+
             Text("¥\(payment)")
                 .adaptiveFont(.matterSemiBold, size: 24)
                 .padding([.leading], 20)

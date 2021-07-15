@@ -20,14 +20,14 @@ struct HomeView: View {
                         Text("支払い額の概算")
                             .adaptiveFont(.matterSemiBold, size: 12)
                             .padding()
-                        
+
                         PaymentSummaryView()
                             .padding()
-                        
+
                         Text("データ")
                             .adaptiveFont(.matterSemiBold, size: 12)
                             .padding()
-                        
+
                         // グラフデータ
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(alignment: .firstTextBaseline, spacing: 10) {

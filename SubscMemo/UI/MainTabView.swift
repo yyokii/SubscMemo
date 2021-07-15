@@ -20,7 +20,7 @@ struct MainTabView: View {
                 .tabItem {
                     Image(systemName: "person.crop.circle")
                     Text("マイページ")
-                    
+
                 }
                 .tag(TabItem.home)
 

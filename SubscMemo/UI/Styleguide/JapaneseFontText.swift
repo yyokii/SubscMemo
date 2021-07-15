@@ -15,7 +15,7 @@ extension Text {
             .baselineOffset(descent)
             .offset(y: descent / 2)
     }
-    
+
     public func adaptiveFont(
         _ name: FontName,
         size: CGFloat,
@@ -27,7 +27,7 @@ extension Text {
             size: size
         )
     }
-    
+
     private struct AdaptiveFontText: View {
         @Environment(\.adaptiveSize) var adaptiveSize
 
@@ -48,5 +48,5 @@ extension Text {
                 .offset(y: descent / 2)
         }
     }
-    
+
 }

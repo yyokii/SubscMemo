@@ -39,7 +39,7 @@ struct SubscCategoryItemView: View {
                     RoundedRectangle(cornerRadius: 50)
                         .fill(Color.white)
                         .adaptiveShadow()
-                    
+
                     AsyncImage(url: URL(string: category.iconImageURL)!) {
                         Color.gray
                     }

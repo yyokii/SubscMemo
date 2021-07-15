@@ -42,12 +42,12 @@ final class CreateCustomSubscItemViewModel: ObservableObject {
 
     func addItem() {
         let validation = validate(item: subscItem)
-        
+
         guard validation.result else {
             validationVM.state = .invalid(validation.message)
             return
         }
-        
+
         if let payAt = payAtDate {
             subscItem.payAt = Timestamp(date: payAt)
         }
@@ -68,22 +68,22 @@ final class CreateCustomSubscItemViewModel: ObservableObject {
             }, receiveValue: { })
             .store(in: &cancellables)
     }
-    
+
     func validate(item: SubscribedItem) -> (result: Bool, message: String) {
         var message = ""
-        
+
         if item.name.isEmpty {
             message += "「サービス名」を入力してくださいさい\n"
         }
-        
+
         if item.cycle.isEmpty {
             message += "「支払いサイクル」を入力してくださいさい\n"
         }
-        
+
         if item.categoryIDs.isEmpty {
             message += "「メインカテゴリー」を入力してくださいさい\n"
         }
-        
+
         return (message.isEmpty, message)
     }
 }

@@ -16,7 +16,7 @@ struct ValidationStateView: View {
         }
         .adaptiveFont(.matterMedium, size: 12)
     }
-    
+
     func view(with state: ValidationStateViewModel.ValidationResult) -> some View {
         switch state {
         case .invalid(let message):
@@ -40,19 +40,19 @@ struct ValidationStateView: View {
 #if DEBUG
 
 struct ValidationStateView_Previews: PreviewProvider {
-    
+
     static let validVM: ValidationStateViewModel = {
         let vm = ValidationStateViewModel()
         vm.state = .valid("Nice\nOK!\nCool")
         return vm
     }()
-    
+
     static let invalidVM: ValidationStateViewModel = {
         let vm = ValidationStateViewModel()
         vm.state = .invalid("No...")
         return vm
     }()
-    
+
     static var previews: some View {
         VStack(spacing: 20) {
             ValidationStateView(vm: invalidVM)

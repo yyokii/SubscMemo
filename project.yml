@@ -25,9 +25,6 @@ targets:
     platform: iOS
     sources:
       - SubscMemo
-      - path: "SubscMemo/Generated/R.generated.swift"
-        optional: true
-        type: file
     settings:
       base:
         CODE_SIGN_ENTITLEMENTS: SubscMemo/SubscMemo.entitlements

@@ -24,7 +24,7 @@ struct ExploreSubscView: View {
                     ForEach(exploreSubscVM.exploreSubscItemVMs) { vm in
                         let exploreSubscItemDetailVM = ExploreSubscItemDetailViewModel(serviceID: vm.item.serviceID)
                         NavigationLink(
-                            destination: ExploreSubscItemDetailView(exploreSubscItemDetailVM: exploreSubscItemDetailVM),
+                            destination: ExploreSubscItemDetailView(vm: exploreSubscItemDetailVM),
                             label: {
                                 ExploreSubscListItemView(vm: vm)
                             })

@@ -22,7 +22,7 @@ extension Color {
     public static let appBlack = hex(0x121212)
 
     /// 任意のトーンの色をランダムに生成する
-    public static func randomColor(saturation: Double = 0.8, brightness: Double = 1) -> Self {
+    public static func randomColor(saturation: Double = 0.9, brightness: Double = 0.9) -> Self {
         let hueValue = Double.random(in: 0...1)
         return Color.init(hue: hueValue, saturation: saturation, brightness: brightness)
     }

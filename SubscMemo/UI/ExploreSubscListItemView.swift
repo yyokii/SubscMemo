@@ -26,9 +26,9 @@ struct ExploreSubscListItemView: View {
             }
             .padding()
 
-            Image(systemName: "scribble.variable")
-                .resizable()
+            ServiceIconImageView(iconImageURL: vm.item.iconImageURL, serviceName: vm.item.serviceName)
                 .frame(width: 50, height: 50)
+                .cornerRadius(25)
                 .padding(.leading)
 
             Text(vm.item.serviceName)

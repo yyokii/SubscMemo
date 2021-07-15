@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExploreSubscItemDetailView: View {
-    @ObservedObject var exploreSubscItemDetailVM: ExploreSubscItemDetailViewModel
+    @ObservedObject var vm: ExploreSubscItemDetailViewModel
     @State var presentContent: PresentContent?
 
     var body: some View {
@@ -21,32 +21,32 @@ struct ExploreSubscItemDetailView: View {
                 ScrollView {
                     VStack(alignment: .leading) {
                         HStack {
-                            Image(systemName: "scribble.variable")
-                                .resizable()
+                            ServiceIconImageView(iconImageURL: vm.subscItem.iconImageURL, serviceName: vm.subscItem.serviceName)
                                 .frame(width: 70, height: 70)
+                                .cornerRadius(35)
                         }
                         .frame(maxWidth: .infinity)
 
                         ServiceNameView(
-                            serviceName: exploreSubscItemDetailVM.subscItem.serviceName,
-                            serviceURL: exploreSubscItemDetailVM.subscItem.serviceURL,
+                            serviceName: vm.subscItem.serviceName,
+                            serviceURL: vm.subscItem.serviceURL,
                             linkTapAction: { url in
                                 presentContent = .safariView(url: url)
                             }
                         )
                         .padding([.top], 40)
 
-                        Text(exploreSubscItemDetailVM.subscItem.mainCategoryName)
+                        Text(vm.subscItem.mainCategoryName)
                             .adaptiveFont(.matterSemiBold, size: 16)
                             .fixedSize(horizontal: false, vertical: true)
                             .lineLimit(2)
                             .padding(.top)
                             .foregroundColor(.gray)
 
-                        SubscPlanListView(plans: exploreSubscItemDetailVM.plans)
+                        SubscPlanListView(plans: vm.plans)
                             .padding(.top, 20)
 
-                        Text(exploreSubscItemDetailVM.subscItem.description)
+                        Text(vm.subscItem.description)
                             .adaptiveFont(.matterSemiBold, size: 16)
                             .fixedSize(horizontal: false, vertical: true)
                             .padding(.top, 40)
@@ -76,7 +76,7 @@ struct ExploreSubscItemDetailView: View {
             }
         }
         .onAppear(perform: {
-            exploreSubscItemDetailVM.loadData()
+            vm.loadData()
         })
         .sheet(item: $presentContent, content: { $0 })
     }
@@ -87,10 +87,10 @@ struct ExploreSubscItemDetailView: View {
 struct SubscItemDetailView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ExploreSubscItemDetailView(exploreSubscItemDetailVM: demoExploreSubscItemDetailVM)
+            ExploreSubscItemDetailView(vm: demoExploreSubscItemDetailVM)
                 .environment(\.colorScheme, .light)
 
-            ExploreSubscItemDetailView(exploreSubscItemDetailVM: demoExploreSubscItemDetailVM)
+            ExploreSubscItemDetailView(vm: demoExploreSubscItemDetailVM)
                 .environment(\.colorScheme, .dark)
         }
     }

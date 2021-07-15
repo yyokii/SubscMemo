@@ -9,7 +9,7 @@ import SwiftUI
 
 /// 加入済みサービスの情報を表示するView
 struct SubscribedItemView: View {
-    @StateObject var subscribedItemVM: SubscribedItemViewModel
+    @StateObject var vm: SubscribedItemViewModel
 
     var body: some View {
         return
@@ -19,23 +19,21 @@ struct SubscribedItemView: View {
                     .cornerRadius(20)
 
                 HStack(alignment: .center) {
-                    Image(systemName: "scribble")
-                        .resizable()
-                        .renderingMode(.original)
-                        .aspectRatio(contentMode: .fit)
+                    ServiceIconImageView(iconImageURL: vm.item.iconImageURL, serviceName: vm.item.serviceName)
                         .frame(width: 50, height: 50)
+                        .cornerRadius(25)
                         .padding()
 
                     HStack(alignment: .top) {
                         VStack(alignment: .leading) {
                             HStack {
                                 VStack(alignment: .leading) {
-                                    Text(subscribedItemVM.item.serviceName)
+                                    Text(vm.item.serviceName)
                                         .adaptiveFont(.matterSemiBold, size: 12)
                                         .padding(.bottom, 5)
                                         .foregroundColor(.appBlack)
 
-                                    Text(subscribedItemVM.item.planName ?? "")
+                                    Text(vm.item.planName ?? "")
                                         .adaptiveFont(.matterMedium, size: 12)
                                         .foregroundColor(.appBlack)
                                 }
@@ -47,7 +45,7 @@ struct SubscribedItemView: View {
                         VStack(alignment: .leading) {
                             HStack {
                                 VStack(alignment: .leading) {
-                                    Text(subscribedItemVM.item.price)
+                                    Text(vm.item.price)
                                         .padding(.bottom, 5)
                                         .adaptiveFont(.matterSemiBold, size: 12
                                         )
@@ -79,10 +77,10 @@ struct SubscribedItemView_Previews: PreviewProvider {
     static var previews: some View {
         return
             Group {
-                SubscribedItemView(subscribedItemVM: demoSubscribedItemVMs[0])
+                SubscribedItemView(vm: demoSubscribedItemVMs[0])
                     .environment(\.colorScheme, .light)
 
-                SubscribedItemView(subscribedItemVM: demoSubscribedItemVMs[0])
+                SubscribedItemView(vm: demoSubscribedItemVMs[0])
                     .environment(\.colorScheme, .dark)
             }
     }

@@ -47,9 +47,9 @@ struct HomeView: View {
                         ForEach(homeVM.subscribedItemVMs) { vm in
                             let subscribedItemDetailVM = SubscribedItemDetailViewModel(serviceID: vm.item.serviceID)
                             NavigationLink(
-                                destination: SubscribedItemDetailView(subscribedItemDetailVM: subscribedItemDetailVM),
+                                destination: SubscribedItemDetailView(vm: subscribedItemDetailVM),
                                 label: {
-                                    SubscribedItemView(subscribedItemVM: vm)
+                                    SubscribedItemView(vm: vm)
                                         .padding()
                                 })
                         }

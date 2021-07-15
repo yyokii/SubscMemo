@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SubscribedItemDetailView: View {
-    @ObservedObject var subscribedItemDetailVM: SubscribedItemDetailViewModel
+    @ObservedObject var vm: SubscribedItemDetailViewModel
     @State var presentContent: PresentContent?
 
     var body: some View {
@@ -20,33 +20,33 @@ struct SubscribedItemDetailView: View {
             ScrollView {
                 VStack {
                     HStack {
-                        Image(systemName: "scribble.variable")
-                            .resizable()
+                        ServiceIconImageView(iconImageURL: vm.subscItem.iconImageURL, serviceName: vm.subscItem.serviceName)
                             .frame(width: 70, height: 70)
+                            .cornerRadius(35)
                     }
                     .frame(maxWidth: .infinity)
 
                     VStack(alignment: .leading) {
 
                         ServiceNameView(
-                            serviceName: subscribedItemDetailVM.subscItem.serviceName,
-                            serviceURL: subscribedItemDetailVM.subscItem.serviceURL,
+                            serviceName: vm.subscItem.serviceName,
+                            serviceURL: vm.subscItem.serviceURL,
                             linkTapAction: { url in
                                 presentContent = .safariView(url: url)
                             }
                         )
 
-                        Text(subscribedItemDetailVM.subscItem.mainCategoryName)
+                        Text(vm.subscItem.mainCategoryName)
                             .adaptiveFont(.matterSemiBold, size: 16)
                             .fixedSize(horizontal: false, vertical: true)
                             .lineLimit(2)
                             .padding(.top)
                             .foregroundColor(.gray)
 
-                        SubscPlanListView(plans: [subscribedItemDetailVM.plan])
+                        SubscPlanListView(plans: [vm.plan])
                             .padding(.top, 20)
 
-                        Text(subscribedItemDetailVM.subscItem.description)
+                        Text(vm.subscItem.description)
                             .adaptiveFont(.matterSemiBold, size: 16)
                             .fixedSize(horizontal: false, vertical: true)
                             .padding(.top, 40)
@@ -54,7 +54,7 @@ struct SubscribedItemDetailView: View {
 
                         Text("メモ📝")
                             .padding(.top)
-                        ServiceMemoView(memo: $subscribedItemDetailVM.subscItem.memo)
+                        ServiceMemoView(memo: $vm.subscItem.memo)
                     }
                     .padding()
                     .padding(.top, 40)
@@ -62,7 +62,7 @@ struct SubscribedItemDetailView: View {
             }
         }
         .onAppear(perform: {
-            subscribedItemDetailVM.loadItemData()
+            vm.loadItemData()
         })
         .sheet(item: $presentContent, content: { $0 })
     }
@@ -73,10 +73,10 @@ struct SubscribedItemDetailView: View {
 struct SubscribedItemDetailView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            SubscribedItemDetailView(subscribedItemDetailVM: demoSubscribedItemDetailVM)
+            SubscribedItemDetailView(vm: demoSubscribedItemDetailVM)
                 .environment(\.colorScheme, .light)
 
-            SubscribedItemDetailView(subscribedItemDetailVM: demoSubscribedItemDetailVM)
+            SubscribedItemDetailView(vm: demoSubscribedItemDetailVM)
                 .environment(\.colorScheme, .dark)
         }
     }

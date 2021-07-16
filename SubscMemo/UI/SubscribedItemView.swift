@@ -52,8 +52,7 @@ struct SubscribedItemView: View {
                                         .foregroundColor(.green)
                                         .padding([.bottom])
 
-                                    #warning("固定値になっている")
-                                    Text("monthly")
+                                    Text(vm.item.cycle)
                                         .adaptiveFont(.matter, size: 12)
                                         .foregroundColor(.appBlack)
                                         .lineLimit(2)

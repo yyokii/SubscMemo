@@ -28,5 +28,4 @@ struct SubscribedItemViewData {
             serviceName: input.name
         )
     }
-
 }

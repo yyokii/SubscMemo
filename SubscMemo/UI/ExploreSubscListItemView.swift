@@ -22,7 +22,7 @@ struct ExploreSubscListItemView: View {
                 Text(vm.item.mainCategoryName)
                     .adaptiveFont(.matter, size: 8)
                     .lineLimit(1)
-                    .foregroundColor(.appBlack)
+                    .foregroundColor(.adaptiveBlack)
             }
             .padding()
 
@@ -36,19 +36,19 @@ struct ExploreSubscListItemView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(2)
                 .padding([.leading, .top])
-                .foregroundColor(.appBlack)
+                .foregroundColor(.adaptiveBlack)
 
             Text(vm.item.description)
                 .adaptiveFont(.matter, size: 10)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(4)
                 .padding([.leading, .top, .bottom])
-                .foregroundColor(.appBlack)
+                .foregroundColor(.adaptiveBlack)
         }
-        .background(Color.white)
+        .background(Color.adaptiveWhite)
         .cornerRadius(30)
         .frame(width: width)
-        .shadow(color: Color.gray, radius: 6, x: 0, y: 5)
+        .adaptiveShadow()
     }
 }
 
@@ -56,12 +56,18 @@ struct ExploreSubscListItemView: View {
 
 struct ExploreSubscListItemView_Previews: PreviewProvider {
 
+    static var content: some View {
+        NavigationView {
+            ExploreSubscListItemView(vm: demoExploreSubscItemVMs[0])
+        }
+    }
+
     static var previews: some View {
 
-        ExploreSubscListItemView(vm: demoExploreSubscItemVMs[0])
+        content
             .environment(\.colorScheme, .light)
 
-        ExploreSubscListItemView(vm: demoExploreSubscItemVMs[1])
+        content
             .environment(\.colorScheme, .dark)
     }
 }

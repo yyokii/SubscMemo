@@ -25,7 +25,6 @@ struct PieChartView: View {
             Rectangle()
                 .fill(Color.adaptiveWhite)
                 .cornerRadius(20)
-                .shadow(color: Color.gray, radius: self.dropShadow ? 12 : 0)
 
             VStack(alignment: .leading) {
                 HStack {

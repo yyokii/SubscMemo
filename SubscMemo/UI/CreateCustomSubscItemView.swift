@@ -98,7 +98,7 @@ struct CreateCustomSubscItemView: View {
                         .background(
                             RoundedRectangle(cornerRadius: 24)
                                 .fill(Color.white)
-                                .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                                .adaptiveShadow()
                         )
                         .padding()
                 }

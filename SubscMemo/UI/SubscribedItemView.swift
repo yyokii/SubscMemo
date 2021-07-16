@@ -17,6 +17,7 @@ struct SubscribedItemView: View {
                 Rectangle()
                     .fill(Color.white)
                     .cornerRadius(20)
+                    .adaptiveShadow()
 
                 HStack(alignment: .center) {
                     ServiceIconImageView(iconImageURL: vm.item.iconImageURL, serviceName: vm.item.serviceName)
@@ -64,8 +65,6 @@ struct SubscribedItemView: View {
                 }
             }
             .frame(height: 120)
-            .shadow(color: .gray, radius: 20, x: 0, y: 20)
-
     }
 }
 
@@ -73,13 +72,20 @@ struct SubscribedItemView: View {
 
 struct SubscribedItemView_Previews: PreviewProvider {
 
+    static var content: some View {
+        NavigationView {
+            SubscribedItemView(vm: demoSubscribedItemVMs[0])
+                .environment(\.colorScheme, .light)
+        }
+    }
+
     static var previews: some View {
         return
             Group {
-                SubscribedItemView(vm: demoSubscribedItemVMs[0])
+                content
                     .environment(\.colorScheme, .light)
 
-                SubscribedItemView(vm: demoSubscribedItemVMs[0])
+                content
                     .environment(\.colorScheme, .dark)
             }
     }

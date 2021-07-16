@@ -62,13 +62,13 @@ struct ExploreSubscItemDetailView: View {
                 }) {
                     Text("追加する")
                         .adaptiveFont(.matterMedium, size: 16)
-                        .foregroundColor(.appBlack)
+                        .foregroundColor(.adaptiveBlack)
                         .frame(minWidth: 0, maxWidth: 300)
                         .padding()
                         .background(
                             RoundedRectangle(cornerRadius: 24)
-                                .fill(Color.white)
-                                .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                                .fill(Color.adaptiveWhite)
+                                .adaptiveShadow()
                         )
                         .padding()
                 }

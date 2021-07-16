@@ -64,7 +64,6 @@ extension CGRect {
 struct PieChartCell_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader { geometry in
-            // swiftlint:disable line_length
             PieChartCell(
                 rect: geometry.frame(in: .local),
                 startDeg: 0.0,

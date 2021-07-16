@@ -50,9 +50,10 @@ final class CategoryPieChartViewModel: ObservableObject {
         let chartDatas = datas.keys
             .enumerated()
             .map { key in
-                PieChartData(data: Double(datas[key.element] ?? 0),
-                             color: pieChartColors[key.offset],
-                             label: key.element)
+                PieChartData(
+                    data: Double(datas[key.element] ?? 0),
+                    label: key.element
+                )
             }
 
         return chartDatas

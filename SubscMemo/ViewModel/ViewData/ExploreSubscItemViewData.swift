@@ -18,7 +18,7 @@ struct ExploreSubscItemViewData {
         return ExploreSubscItemViewData(
             description: input.description,
             iconImageURL: input.iconImageURL,
-            mainCategoryName: input.categoryNames[0],
+            mainCategoryName: input.categoryNames[safe: 0] ?? "",
             serviceID: input.serviceID,
             serviceName: input.name
         )

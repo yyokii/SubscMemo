@@ -8,9 +8,9 @@
 import SwiftUI
 
 extension View {
-    public func adaptiveShadow(radius: CGFloat = 8) -> some View {
+    public func adaptiveShadow(radius: CGFloat = 8, positionX: CGFloat = 0, positionY: CGFloat = 5) -> some View {
         self.modifier(
-            AdaptiveShadow(radius: radius)
+            AdaptiveShadow(radius: radius, positionX: positionX, positionY: positionY)
         )
     }
 }
@@ -18,10 +18,12 @@ extension View {
 struct AdaptiveShadow: ViewModifier {
     @Environment(\.colorScheme) var colorScheme
     let radius: CGFloat
+    let positionX: CGFloat
+    let positionY: CGFloat
 
     func body(content: Content) -> some View {
         content
-            .shadow(color: colorScheme == .light ?  Color.gray : Color.gray, radius: radius, x: 0, y: 5)
+            .shadow(color: colorScheme == .light ?  Color.gray : Color.gray, radius: radius, x: positionX, y: positionY)
     }
 }
 

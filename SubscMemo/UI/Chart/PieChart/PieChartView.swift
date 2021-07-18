@@ -25,6 +25,9 @@ struct PieChartView: View {
             Rectangle()
                 .fill(Color.adaptiveWhite)
                 .cornerRadius(20)
+                .if(dropShadow) { view in
+                    view.adaptiveShadow()
+                }
 
             VStack(alignment: .leading) {
                 HStack {
@@ -70,7 +73,7 @@ struct PieChartView_Previews: PreviewProvider {
                   "iPhone XS Max",
                   "iPad Pro (9.7-inch)"],
                  id: \.self) { deviceName in
-            PieChartView(data: demoPieChartDatas, title: "たいとる")
+            PieChartView(data: demoPieChartDatas, title: "たいとる", dropShadow: true)
                 .previewDevice(PreviewDevice(rawValue: deviceName))
                 .previewDisplayName(deviceName)
         }

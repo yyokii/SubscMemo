@@ -60,7 +60,7 @@ struct AddExploreSubscItemView: View {
                         // 支払いサイクル選択
                         HStack {
                             PaymentCyclePickerView(
-                                selectedCycleText: $addExploreSubscItemVM.subscItem.cycle)
+                                selectedCycle: $addExploreSubscItemVM.subscItem.cycle)
 
                             //                            Text("支払いサイクル")
                             //                                .adaptiveFont(.matterSemiBold, size: 8)

@@ -9,14 +9,14 @@ import SwiftUI
 
 struct PaymentCyclePickerView: View {
 
-    @Binding var selectedCycleText: String
-    @State private var selectedCycle = PaymentCycle.monthly
+    @Binding var selectedCycle: String
 
     var body: some View {
         VStack {
             Picker("支払いサイクル", selection: $selectedCycle) {
-                ForEach(PaymentCycle.allCases, id: \.self) { cycle in
-                    Text(cycle.rawValue.capitalized)
+                ForEach(PaymentCycle.allCases) { cycle in
+                    Text(cycle.title)
+                        .tag(cycle.rawValue)
                         .adaptiveFont(.matterSemiBold, size: 8)
                         .foregroundColor(.adaptiveBlack)
                 }
@@ -34,7 +34,7 @@ struct PaymentCyclePickerView_Previews: PreviewProvider {
     struct ContentView: View {
         var body: some View {
             NavigationView {
-                PaymentCyclePickerView( selectedCycleText: .constant("demo"))
+                PaymentCyclePickerView(selectedCycle: .constant("demo"))
             }
         }
     }

@@ -58,7 +58,7 @@ struct CreateCustomSubscItemView: View {
                         // 支払いサイクル選択
                         HStack {
                             PaymentCyclePickerView(
-                                selectedCycleText: $createCustomSubscItemVM.subscItem.cycle)
+                                selectedCycle: $createCustomSubscItemVM.subscItem.cycle)
                         }
 
                         SubscItemTextField(placeholder: "プラン名", text: $createCustomSubscItemVM.subscItem.planName ?? "")

@@ -22,6 +22,10 @@ struct SubscCategory: Codable, Identifiable, Hashable {
             name: ""
         )
     }
+
+    func isValidData() -> Bool {
+        return !categoryID.isEmpty && !name.isEmpty
+    }
 }
 
 #if DEBUG

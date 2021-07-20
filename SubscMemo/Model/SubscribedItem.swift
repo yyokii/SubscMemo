@@ -28,7 +28,7 @@ struct SubscribedItem: Codable, Identifiable {
 
     static func makeEmptyData(isUserOriginal: Bool) -> SubscribedItem {
         return SubscribedItem(
-            categoryIDs: [],
+            categoryIDs: ["", ""],
             cycle: "",
             description: "",
             iconImageURL: "",
@@ -63,6 +63,14 @@ struct SubscribedItem: Codable, Identifiable {
             serviceURL: input.serviceURL,
             createdTime: nil
         )
+    }
+
+    mutating func setMainCategoryID(categoryID: String) {
+        categoryIDs[0] = categoryID
+    }
+
+    mutating func setSubCategoryID(categoryID: String) {
+        categoryIDs[1] = categoryID
     }
 }
 

@@ -21,7 +21,6 @@ final class CreateCustomSubscItemViewModel: ObservableObject {
 
     @Published var categories: [SubscCategory] = []
     @Published var mainCategory: SubscCategory = SubscCategory.makeEmptyData()
-    @Published var payAtDate: Date?
     @Published var subCategory: SubscCategory = SubscCategory.makeEmptyData()
     @Published var subscItem: SubscribedItem = SubscribedItem.makeEmptyData(isUserOriginal: true)
     @Published var validationVM = ValidationStateViewModel()
@@ -48,12 +47,8 @@ final class CreateCustomSubscItemViewModel: ObservableObject {
             return
         }
 
-        if let payAt = payAtDate {
-            subscItem.payAt = Timestamp(date: payAt)
-        }
-
-        subscItem.categoryIDs[0] = mainCategory.categoryID
-        subscItem.categoryIDs.insert(subCategory.categoryID, at: 1)
+        subscItem.setMainCategoryID(categoryID: mainCategory.categoryID)
+        subscItem.setSubCategoryID(categoryID: subCategory.categoryID)
 
         subscribedServiceRepository.addSubscribedItem(data: subscItem)
             .sink(receiveCompletion: { [weak self] completion in
@@ -80,8 +75,8 @@ final class CreateCustomSubscItemViewModel: ObservableObject {
             message += "「支払いサイクル」を入力してくださいさい\n"
         }
 
-        if item.categoryIDs.isEmpty {
-            message += "「メインカテゴリー」を入力してくださいさい\n"
+        if !mainCategory.isValidData() {
+            message += "「メインカテゴリー」を入力してください\n"
         }
 
         return (message.isEmpty, message)

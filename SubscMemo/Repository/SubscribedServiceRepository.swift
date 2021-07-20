@@ -87,9 +87,9 @@ final class FirestoreSubscribedServiceRepository: BaseSubscribedServiceRepositor
 
                 return services.map { service -> SubscribedItemJoinedData in
 
-                    let categoryNames = service.categoryIDs.compactMap { id in
+                    let categoryNames = service.categoryIDs.compactMap { categoryID in
                         categories.first {
-                            $0.id == id
+                            $0.categoryID == categoryID
                         }?.name
                     }
 

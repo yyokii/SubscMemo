@@ -14,7 +14,7 @@ struct SubscCategoryRowView: View {
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(alignment: .firstTextBaseline, spacing: 10) {
+            HStack(alignment: .firstTextBaseline, spacing: 0) {
                 ForEach(subscCategoryRowVM.categories) { category in
                     let searchResultVM = SearchResultViewModel(category: category)
                     NavigationLink(

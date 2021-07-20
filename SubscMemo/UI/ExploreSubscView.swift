@@ -20,7 +20,7 @@ struct ExploreSubscView: View {
                     SubscCategoryRowView()
                 }
 
-                LazyVGrid(columns: columns, spacing: 30) {
+                LazyVGrid(columns: columns) {
                     ForEach(exploreSubscVM.exploreSubscItemVMs) { vm in
                         let exploreSubscItemDetailVM = ExploreSubscItemDetailViewModel(serviceID: vm.item.serviceID)
                         NavigationLink(

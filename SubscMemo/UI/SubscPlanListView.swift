@@ -11,17 +11,23 @@ struct SubscPlanListView: View {
     var plans: [SubscPlanViewData]
 
     var body: some View {
-        VStack {
+        VStack(spacing: 10) {
             ForEach(plans) { plan in
                 SubscPlanItemView(
                     planName: plan.planName,
                     price: plan.priceText,
                     cycle: plan.cycle
                 )
-                .padding(8)
             }
         }
+        .padding()
         .background(Color.adaptiveWhite)
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.adaptiveBlack, lineWidth: 2)
+        )
+
     }
 }
 
@@ -33,7 +39,7 @@ struct SubscPlanItemView: View {
     var body: some View {
         HStack {
             Text(planName)
-                .adaptiveFont(.matterSemiBold, size: 16)
+                .adaptiveFont(.matterSemiBold, size: 12)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(3)
                 .foregroundColor(.adaptiveBlack)
@@ -41,13 +47,13 @@ struct SubscPlanItemView: View {
             Spacer()
 
             Text(price)
-                .adaptiveFont(.matterSemiBold, size: 22)
+                .adaptiveFont(.matterSemiBold, size: 16)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(2)
                 .foregroundColor(.adaptiveBlack)
 
             Text("/" + cycle)
-                .adaptiveFont(.matterSemiBold, size: 16)
+                .adaptiveFont(.matterSemiBold, size: 12)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(2)
                 .foregroundColor(.adaptiveBlack)

@@ -19,7 +19,6 @@ final class AddExploreSubscItemViewModel: ObservableObject {
     @Injected var exploreSubscRepository: ExploreSubscRepository
     @Injected var subscribedServiceRepository: SubscribedServiceRepository
 
-    @Published var payAtDate: Date?
     @Published var planDatas: [SubscPlanViewData] = []
     let serviceID: String
     @Published var selectSubscPlanViewModel = SelectSubscPlanViewModel()
@@ -27,6 +26,7 @@ final class AddExploreSubscItemViewModel: ObservableObject {
 
     private var cancellables = Set<AnyCancellable>()
 
+    #warning("ここは検索ではなくてデータもらうだけとかでいいかも、いや取り直してキャッシュあるから通信されないのが無難か")
     init(serviceID: String) {
         self.serviceID = serviceID
 
@@ -91,10 +91,6 @@ final class AddExploreSubscItemViewModel: ObservableObject {
     }
 
     func addItem() {
-        if let payAt = payAtDate {
-            subscItem.payAt = Timestamp(date: payAt)
-        }
-
         subscribedServiceRepository.addSubscribedItem(data: subscItem)
             .sink(receiveCompletion: { [weak self] completion in
 
@@ -114,7 +110,6 @@ final class AddExploreSubscItemViewModel: ObservableObject {
 
 let demoAddExploreSubscItemVM: AddExploreSubscItemViewModel = {
     let vm = AddExploreSubscItemViewModel(serviceID: "")
-    vm.payAtDate = Date()
     vm.subscItem = demoSubscItems[0]
     return vm
 }()

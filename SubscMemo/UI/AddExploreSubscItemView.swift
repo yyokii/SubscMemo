@@ -11,18 +11,6 @@ struct AddExploreSubscItemView: View {
     @ObservedObject var addExploreSubscItemVM: AddExploreSubscItemViewModel
     @State private var dialogPresentation = DialogPresentation()
 
-    let nextPaymentDateRange: ClosedRange<Date> = {
-        let now = Date()
-
-        let calendar = Calendar.japanCalendar
-        let oneYearAgoDate = calendar.date(
-            byAdding: .year,
-            value: 3,
-            to: now)
-
-        return now ... oneYearAgoDate!
-    }()
-
     var body: some View {
         NavigationView {
             VStack {
@@ -61,44 +49,9 @@ struct AddExploreSubscItemView: View {
                         HStack {
                             PaymentCyclePickerView(
                                 selectedCycle: $addExploreSubscItemVM.subscItem.cycle)
-
-                            //                            Text("支払いサイクル")
-                            //                                .adaptiveFont(.matterSemiBold, size: 8)
-                            //                                .foregroundColor(.placeholderGray)
-                            //
-                            //                            Spacer()
-                            //
-                            //                            Button(action: {
-                            //                                dialogPresentation.show(
-                            //                                    content: .selectPaymentCycle(isPresented: $dialogPresentation.isPresented, text: $addExploreSubscItemVM.subscItem.cycle))
-                            //                            }) {
-                            //                                Text(addExploreSubscItemVM.subscItem.cycle)
-                            //                            }
                         }
 
                         SubscItemTextField(isDisabled: true, placeholder: "プラン名", text: $addExploreSubscItemVM.subscItem.planName ?? "")
-
-                        // 日付選択
-                        HStack {
-                            Text("次回支払い日")
-                                .adaptiveFont(.matterSemiBold, size: 8)
-                                .foregroundColor(.placeholderGray)
-
-                            Spacer()
-
-                            Button(action: {
-                                dialogPresentation.show(
-                                    content: .selectDate(
-                                        isPresented: $dialogPresentation.isPresented,
-                                        dateRange: nextPaymentDateRange,
-                                        savedDate: $addExploreSubscItemVM.payAtDate,
-                                        selectingDate: addExploreSubscItemVM.payAtDate ?? Date())
-                                )
-                            }, label: {
-                                let date = addExploreSubscItemVM.payAtDate?.toString(format: .yMd, timeZone: .japan) ?? "設定されていません"
-                                Text(date)
-                            })
-                        }
                     }
                 }
                 .padding(.top, 10)

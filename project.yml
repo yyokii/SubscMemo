@@ -33,6 +33,7 @@ targets:
         MARKETING_VERSION: 1.0.0 
         OTHER_LDFLAGS: -fprofile-instr-generate
     dependencies:
+      - target: SubscMemoWidget
       - package: Tagged
     preBuildScripts:
       - script: |
@@ -47,6 +48,7 @@ targets:
                   echo "warning: Mint not installed, download from https://github.com/yonaskolb/Mint"
                 fi
         name: Run SwiftLint
+
   SubscMemoTests:
     type: bundle.unit-test
     platform: iOS
@@ -70,6 +72,25 @@ targets:
         # PRODUCT_BUNDLE_IDENTIFIER: {Bundle ID Prefix}.SubscMemoUITests
     dependencies:
       - target: SubscMemo
+
+  SubscMemoWidget: # Widget Extension
+    type: app-extension
+    platform: iOS
+    settings:
+      base:
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME: WidgetBackground
+        CURRENT_PROJECT_VERSION: 1
+        INFOPLIST_FILE: SubscMemoWidget/Info.plist
+        MARKETING_VERSION: 1.0.0 
+        PRODUCT_BUNDLE_IDENTIFIER: com.yyokii.SubscMemo.SubscMemoWidget
+        PRODUCT_NAME: $(TARGET_NAME)
+        SKIP_INSTALL: true
+    sources:
+      - SubscMemoWidget
+    dependencies:
+      - sdk: SwiftUI.framework
+      - sdk: WidgetKit.framework
 
 schemes:
   SubscMemo:

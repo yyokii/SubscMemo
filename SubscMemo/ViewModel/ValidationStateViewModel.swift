@@ -10,7 +10,7 @@ import Combine
 final class ValidationStateViewModel: ObservableObject {
 
     enum ValidationResult: Hashable {
-        case valid(_ text: String)
+        case valid(_ message: String)
         case invalid(_ message: String)
     }
 

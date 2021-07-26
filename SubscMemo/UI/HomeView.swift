@@ -82,7 +82,7 @@ struct HomeView: View {
                 .sheet(item: $presentContent, content: { $0 })
             }
         }
-        .navigationViewStyle(.stack)
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

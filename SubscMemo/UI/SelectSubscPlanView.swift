@@ -12,18 +12,16 @@ struct SelectSubscPlanView: View {
     @ObservedObject var selectSubscPlanVM: SelectSubscPlanViewModel
 
     var body: some View {
-        VStack {
+        VStack(spacing: 8) {
             ForEach(plans) { plan in
                 SelectSubscPlanItemView(
                     plan: plan,
                     selectedPlanID: $selectSubscPlanVM.selectedPlanID
                 )
-                .padding([.bottom], 8)
             }
 
             SelectNoneSubscPlanItemView(selectedPlanID: $selectSubscPlanVM.selectedPlanID)
         }
-        .background(Color.adaptiveWhite)
     }
 }
 
@@ -40,7 +38,7 @@ struct SelectSubscPlanItemView: View {
             Image(systemName: isSelected ? "checkmark.circle.fill" : "checkmark.circle")
                 .renderingMode(.template)
                 .resizable()
-                .frame(width: 25, height: 25)
+                .frame(width: 20, height: 20)
                 .foregroundColor(isSelected ? Color.green : Color.gray)
 
             Spacer()
@@ -48,7 +46,7 @@ struct SelectSubscPlanItemView: View {
             Text(plan.planName)
                 .adaptiveFont(.matterSemiBold, size: 12)
                 .fixedSize(horizontal: false, vertical: true)
-                .lineLimit(3)
+                .lineLimit(2)
                 .foregroundColor(isSelected ? .adaptiveBlack : Color.gray)
 
             Text(plan.priceText)
@@ -57,7 +55,7 @@ struct SelectSubscPlanItemView: View {
                 .lineLimit(2)
                 .foregroundColor(isSelected ? .adaptiveBlack : Color.gray)
 
-            Text("/" + plan.cycle)
+            Text("/" + (plan.cycle?.title ?? ""))
                 .adaptiveFont(.matterSemiBold, size: 12)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(2)
@@ -83,7 +81,7 @@ struct SelectNoneSubscPlanItemView: View {
             Image(systemName: isSelected ? "checkmark.circle.fill" : "checkmark.circle")
                 .renderingMode(.template)
                 .resizable()
-                .frame(width: 25, height: 25)
+                .frame(width: 20, height: 20)
                 .foregroundColor(isSelected ? Color.green : Color.gray)
 
             Spacer()

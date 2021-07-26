@@ -45,7 +45,7 @@ struct SubscribedItem: Codable, Identifiable {
         )
     }
 
-    static func translate(from input: ExploreSubscItem) -> Self {
+    static func translate(from input: ExploreItemJoinedData) -> Self {
         SubscribedItem(
             categoryIDs: input.categoryIDs,
             cycle: "",

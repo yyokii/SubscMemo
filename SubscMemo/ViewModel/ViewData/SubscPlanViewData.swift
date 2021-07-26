@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct SubscPlanViewData: Identifiable {
-    var cycle: String
+struct SubscPlanViewData: Identifiable, Equatable, Hashable {
+    var cycle: PaymentCycle?
     var id = UUID()
     var planID: String?
     var planName: String
@@ -17,7 +17,7 @@ struct SubscPlanViewData: Identifiable {
 
     static func makeEmptyData() -> SubscPlanViewData {
         return  SubscPlanViewData(
-            cycle: "",
+            cycle: nil,
             planName: "",
             price: 0,
             priceText: ""
@@ -25,7 +25,7 @@ struct SubscPlanViewData: Identifiable {
     }
 
     static func translate(from input: ExploreSubscItem.SubscPlan) -> Self {
-        let paymentCycle = PaymentCycle(rawValue: input.cycle)?.title ?? ""
+        let paymentCycle = PaymentCycle(rawValue: input.cycle)
 
         return SubscPlanViewData(
             cycle: paymentCycle,
@@ -38,7 +38,7 @@ struct SubscPlanViewData: Identifiable {
     }
 
     static func translate(from input: SubscribedItemJoinedData) -> Self {
-        let paymentCycle = PaymentCycle(rawValue: input.cycle)?.title ?? ""
+        let paymentCycle = PaymentCycle(rawValue: input.cycle)
 
         return SubscPlanViewData(
             cycle: paymentCycle,
@@ -55,21 +55,21 @@ struct SubscPlanViewData: Identifiable {
 
 let demoSubscPlanViewDatas = [
     SubscPlanViewData(
-        cycle: "月々",
+        cycle: .monthly,
         planID: "planID-01",
         planName: "スタンダードプラン",
         price: 1000,
         priceText: "¥1200"
     ),
     SubscPlanViewData(
-        cycle: "月々",
+        cycle: .monthly,
         planID: "planID-02",
         planName: "ゴールドプラン",
         price: 2000,
         priceText: "¥1300"
     ),
     SubscPlanViewData(
-        cycle: "月々",
+        cycle: .monthly,
         planID: "planID-03",
         planName: "プラチナプラン",
         price: 3000,

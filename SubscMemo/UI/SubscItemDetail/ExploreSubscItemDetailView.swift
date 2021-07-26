@@ -58,7 +58,7 @@ struct ExploreSubscItemDetailView: View {
                 }
 
                 Button(action: {
-
+                    presentContent = .addExploreSubscItem(exploreItemJoinedData: vm.exploreItemJoinedData, plans: vm.plans)
                 }) {
                     Text("追加する")
                         .adaptiveFont(.matterMedium, size: 16)

@@ -14,7 +14,7 @@ extension Identifiable where Self: Hashable {
 }
 
 enum PresentContent: View, Hashable, Identifiable {
-
+    case addExploreSubscItem(exploreItemJoinedData: ExploreItemJoinedData, plans: [SubscPlanViewData])
     case createCustomSubscItem
     case loginAndSignUp
     case safariView(url: URL)
@@ -23,6 +23,9 @@ enum PresentContent: View, Hashable, Identifiable {
     @ViewBuilder
     var body: some View {
         switch self {
+        case .addExploreSubscItem(let exploreItemJoinedData, let plans):
+            let vm = AddExploreSubscItemViewModel(exploreItemJoinedData: exploreItemJoinedData, plans: plans)
+            AddExploreSubscItemView(vm: vm)
         case .createCustomSubscItem:
             CreateCustomSubscItemView()
         case .loginAndSignUp:

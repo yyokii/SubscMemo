@@ -16,7 +16,7 @@ struct SubscPlanListView: View {
                 SubscPlanItemView(
                     planName: plan.planName,
                     price: plan.priceText,
-                    cycle: plan.cycle
+                    cycle: plan.cycle?.title ?? ""
                 )
             }
         }

@@ -9,16 +9,29 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 /// アプリが提供しているサービス群の任意のものの情報とその関連情報（カテゴリー情報）を結合したデータ
-struct ExploreItemJoinedData {
+struct ExploreItemJoinedData: Equatable, Hashable {
     var categoryIDs: [String]
     var categoryNames: [String]
     var createdTime: Timestamp?
     var description: String
+    var iconImageURL: String
     var id: String?
-    var iconImageURL: String?
     var name: String
     var serviceID: String
     var serviceURL: String?
+
+    static func makeEmptyData() -> ExploreItemJoinedData {
+        return ExploreItemJoinedData(
+            categoryIDs: ["", ""],
+            categoryNames: ["", ""],
+            description: "",
+            iconImageURL: "",
+            id: nil,
+            name: "",
+            serviceID: "",
+            serviceURL: ""
+        )
+    }
 }
 
 #if DEBUG
@@ -28,8 +41,8 @@ let demoExploreItemJoinedDatas = [
         categoryNames: ["demo-name"],
         createdTime: nil,
         description: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        id: "demo-01",
         iconImageURL: "https://via.placeholder.com/150",
+        id: "demo-01",
         name: "demo-name",
         serviceID: "demo-service-id",
         serviceURL: ""
@@ -39,8 +52,8 @@ let demoExploreItemJoinedDatas = [
         categoryNames: ["demo-name"],
         createdTime: nil,
         description: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-        id: "demo-01",
         iconImageURL: "https://via.placeholder.com/150",
+        id: "demo-01",
         name: "demo-name",
         serviceID: "demo-service-id",
         serviceURL: ""

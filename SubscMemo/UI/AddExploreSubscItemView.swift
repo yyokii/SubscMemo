@@ -8,56 +8,55 @@
 import SwiftUI
 
 struct AddExploreSubscItemView: View {
-    @ObservedObject var addExploreSubscItemVM: AddExploreSubscItemViewModel
+    @ObservedObject var vm: AddExploreSubscItemViewModel
     @State private var dialogPresentation = DialogPresentation()
 
     var body: some View {
         NavigationView {
             VStack {
-                HStack {
-                    Image(systemName: "scribble.variable")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .padding([.trailing], 8)
+                Text(vm.subscItem.name)
+                    .adaptiveFont(.matterSemiBold, size: 16)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .lineLimit(2)
+                    .foregroundColor(.adaptiveBlack)
+                    .padding(.top, 16)
 
-                    TextField("サービス名", text: $addExploreSubscItemVM.subscItem.name)
-                        .adaptiveFont(.matterSemiBold, size: 16)
-                        .disabled(true)
-                        .foregroundColor(.adaptiveBlack)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                }
-                .padding(.horizontal)
+                ValidationStateView(vm: vm.validationVM)
+                    .padding(.top)
 
                 Form {
-                    Section(header: Text("🗒 サービス概要")) {
-
-                        SubscItemTextField(isDisabled: true, placeholder: "サービスのURL", text: $addExploreSubscItemVM.subscItem.serviceURL ?? "")
-
-                        SubscItemTextField(isDisabled: true, placeholder: "サービス情報", text: $addExploreSubscItemVM.subscItem.description)
-                            .disabled(true)
-                    }
-
                     Section(header: Text("💎 プラン")) {
-                        SelectSubscPlanView(plans: addExploreSubscItemVM.planDatas, selectSubscPlanVM: addExploreSubscItemVM.selectSubscPlanViewModel)
+                        SelectSubscPlanView(
+                            plans: vm.planDatas,
+                            selectSubscPlanVM: vm.selectSubscPlanViewModel
+                        )
+                        .padding(.vertical, 8)
                     }
 
                     Section(header: Text("💰 支払い")) {
 
-                        SubscItemTextField(isDisabled: false, placeholder: "料金", text: $addExploreSubscItemVM.subscItem.price.intToString(0))
+                        SubscItemTextField(
+                            isDisabled: false,
+                            placeholder: "料金",
+                            text: $vm.subscItem.price.intToString(0)
+                        )
 
                         // 支払いサイクル選択
-                        HStack {
-                            PaymentCyclePickerView(
-                                selectedCycle: $addExploreSubscItemVM.subscItem.cycle)
-                        }
+                        PaymentCyclePickerView(
+                            selectedCycle: $vm.subscItem.cycle
+                        )
 
-                        SubscItemTextField(isDisabled: true, placeholder: "プラン名", text: $addExploreSubscItemVM.subscItem.planName ?? "")
+                        SubscItemTextField(
+                            isDisabled: true,
+                            placeholder: "プラン名",
+                            text: $vm.subscItem.planName ?? ""
+                        )
                     }
                 }
                 .padding(.top, 10)
 
                 Button(action: {
-
+                    vm.addItem()
                 }) {
                     Text("追加する")
                         .adaptiveFont(.matterMedium, size: 16)
@@ -85,9 +84,9 @@ struct AddExploreSubscItemView_Previews: PreviewProvider {
 
     static var previews: some View {
         Group {
-            AddExploreSubscItemView(addExploreSubscItemVM: demoAddExploreSubscItemVM)
+            AddExploreSubscItemView(vm: demoAddExploreSubscItemVM)
                 .environment(\.colorScheme, .light)
-            AddExploreSubscItemView(addExploreSubscItemVM: demoAddExploreSubscItemVM)
+            AddExploreSubscItemView(vm: demoAddExploreSubscItemVM)
                 .environment(\.colorScheme, .dark)
         }
     }

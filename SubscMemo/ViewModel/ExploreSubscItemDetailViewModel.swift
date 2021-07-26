@@ -10,11 +10,17 @@ import Combine
 import Resolver
 
 final class ExploreSubscItemDetailViewModel: ObservableObject {
+
+    // Dialog Manager
     @Published var alertProvider = AlertProvider()
+
+    // Repository
     @Published var exploreSubscRepository: ExploreSubscRepository = Resolver.resolve()
+
+    var exploreItemJoinedData: ExploreItemJoinedData = .makeEmptyData() // 「追加」画面に渡すデータ
     @Published var plans: [SubscPlanViewData] = [] // サブスクリプションサービスのプラン情報一覧
     var serviceID: String
-    @Published var subscItem: ExploreSubscItemDetailViewData = ExploreSubscItemDetailViewData.makeEmptyData()
+    @Published var subscItem: ExploreSubscItemDetailViewData = .makeEmptyData()
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -46,6 +52,7 @@ final class ExploreSubscItemDetailViewModel: ObservableObject {
                 }
 
             }, receiveValue: { [weak self] item in
+                self?.exploreItemJoinedData = item
                 self?.subscItem = ExploreSubscItemDetailViewData.translate(from: item)
             })
             .store(in: &cancellables)

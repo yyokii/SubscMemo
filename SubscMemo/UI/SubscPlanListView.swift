@@ -11,22 +11,24 @@ struct SubscPlanListView: View {
     var plans: [SubscPlanViewData]
 
     var body: some View {
-        VStack(spacing: 10) {
-            ForEach(plans) { plan in
-                SubscPlanItemView(
-                    planName: plan.planName,
-                    price: plan.priceText,
-                    cycle: plan.cycle?.title ?? ""
-                )
+        if plans.count > 0 {
+            VStack(spacing: 10) {
+                ForEach(plans) { plan in
+                    SubscPlanItemView(
+                        planName: plan.planName,
+                        price: plan.priceText,
+                        cycle: plan.cycle?.title ?? ""
+                    )
+                }
             }
+            .padding()
+            .background(Color.adaptiveWhite)
+            .cornerRadius(10)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.adaptiveBlack, lineWidth: 2)
+            )
         }
-        .padding()
-        .background(Color.adaptiveWhite)
-        .cornerRadius(10)
-        .overlay(
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.adaptiveBlack, lineWidth: 2)
-        )
 
     }
 }
@@ -71,12 +73,26 @@ struct SubscPlanListView_Previews: PreviewProvider {
         }
     }
 
+    static var contentNoData: some View {
+        NavigationView {
+            SubscPlanListView(plans: [])
+        }
+    }
+
     static var previews: some View {
         Group {
             content
                 .environment(\.colorScheme, .light)
 
             content
+                .environment(\.colorScheme, .dark)
+        }
+
+        Group {
+            contentNoData
+                .environment(\.colorScheme, .light)
+
+            contentNoData
                 .environment(\.colorScheme, .dark)
         }
     }

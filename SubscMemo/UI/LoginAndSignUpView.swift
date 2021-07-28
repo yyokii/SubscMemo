@@ -144,7 +144,7 @@ struct LoginView: View {
             guard let alert = loginAndSignUpVM.alertProvider.alert else { fatalError("💔: Alert not available") }
             return Alert(alert)
         }
-        .onReceive(loginAndSignUpVM.viewDismissalModePublisher) { shouldDismiss in
+        .onReceive(loginAndSignUpVM.dismissViewPublisher) { shouldDismiss in
             if shouldDismiss {
                 parentPresentationMode.dismiss()
             }
@@ -226,7 +226,7 @@ struct SignUpView: View {
             guard let alert = loginAndSignUpVM.alertProvider.alert else { fatalError("💔: Alert not available") }
             return Alert(alert)
         }
-        .onReceive(loginAndSignUpVM.viewDismissalModePublisher) { shouldDismiss in
+        .onReceive(loginAndSignUpVM.dismissViewPublisher) { shouldDismiss in
             if shouldDismiss {
                 parentPresentationMode.dismiss()
             }

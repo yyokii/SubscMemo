@@ -106,7 +106,6 @@ struct CreateCustomSubscItemView: View {
             }
             .navigationTitle("追加する")
         }
-        .customDialog(presentationManager: dialogPresentation)
     }
 }
 

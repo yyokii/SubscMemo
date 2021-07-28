@@ -26,10 +26,10 @@ final class LoginAndSignUpViewModel: ObservableObject {
     @Published var passwordValidationVM = ValidationStateViewModel()
 
     // Manage View Presentation
-    var viewDismissalModePublisher = PassthroughSubject<Bool, Never>()
+    var dismissViewPublisher = PassthroughSubject<Bool, Never>()
     private var shouldDismissView = false {
         didSet {
-            viewDismissalModePublisher.send(shouldDismissView)
+            dismissViewPublisher.send(shouldDismissView)
         }
     }
 
@@ -165,7 +165,7 @@ final class LoginAndSignUpViewModel: ObservableObject {
 
 #if DEBUG
 
-var loginAndSignUpVM: LoginAndSignUpViewModel {
+var demoLoginAndSignUpVM: LoginAndSignUpViewModel {
 
     let vm = LoginAndSignUpViewModel()
     return vm

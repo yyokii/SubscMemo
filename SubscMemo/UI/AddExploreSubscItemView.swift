@@ -10,6 +10,7 @@ import SwiftUI
 struct AddExploreSubscItemView: View {
     @ObservedObject var vm: AddExploreSubscItemViewModel
     @State private var dialogPresentation = DialogPresentation()
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         NavigationView {
@@ -74,7 +75,16 @@ struct AddExploreSubscItemView: View {
             }
             .navigationBarHidden(true) // バックグラウンドから戻ってきたら表示されてるかも？  https://filipmolcik.com/how-to-hide-swiftui-navigationbar/
         }
-        .customDialog(presentationManager: dialogPresentation)
+        .alert(isPresented: $vm.alertProvider.shouldShowAlert ) {
+            guard let alert = vm.alertProvider.alert else { fatalError("💔: Alert not available")
+            }
+            return Alert(alert)
+        }
+        .onReceive(vm.dismissViewPublisher) { shouldDismiss in
+            if shouldDismiss {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
     }
 }
 

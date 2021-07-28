@@ -19,6 +19,14 @@ final class AddExploreSubscItemViewModel: ObservableObject {
     @Injected var exploreSubscRepository: ExploreSubscRepository
     @Injected var subscribedServiceRepository: SubscribedServiceRepository
 
+    // Manage View Presentation
+    var dismissViewPublisher = PassthroughSubject<Bool, Never>()
+    private var shouldDismissView = false {
+        didSet {
+            dismissViewPublisher.send(shouldDismissView)
+        }
+    }
+
     @Published var planDatas: [SubscPlanViewData] = []
     @Published var selectSubscPlanViewModel = SelectSubscPlanViewModel()
     @Published var subscItem: SubscribedItem = .makeEmptyData(isUserOriginal: false)
@@ -71,7 +79,12 @@ final class AddExploreSubscItemViewModel: ObservableObject {
                 case .failure:
                     self?.alertProvider.showErrorAlert(message: nil)
                 case .finished:
-                    break
+                    self?.alertProvider.showSuccessAlert(
+                        message: "追加しました！",
+                        action: { [weak self] in
+                            self?.shouldDismissView = true
+                        }
+                    )
                 }
 
             }, receiveValue: { })

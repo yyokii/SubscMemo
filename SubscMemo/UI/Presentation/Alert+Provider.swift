@@ -37,6 +37,16 @@ extension AlertProvider {
             secondaryButtonText: ""
         )
     }
+
+    func showSuccessAlert(message: String, action: (() -> Void)?) {
+        alert = AlertProvider.Alert(
+            title: "😊",
+            message: message,
+            primaryButtomText: "OK",
+            primaryButtonAction: action,
+            secondaryButtonText: ""
+        )
+    }
 }
 
 extension Alert {
@@ -51,7 +61,8 @@ extension Alert {
             self.init(
                 title: Text(alert.title),
                 message: Text(alert.message),
-                dismissButton: .default(Text(alert.primaryButtomText))
+                dismissButton: .default(Text(alert.primaryButtomText),
+                                        action: alert.primaryButtonAction)
             )
         }
     }

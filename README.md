@@ -2,13 +2,6 @@
 
 ## エラーとその対処法
 
-### Embedded binary's bundle identifier is not prefixed with the parent app's bundle identifier.
-
-> TARGETS -> Build Phases -> Embed App Extensions
-> and check: Copy only when installing
-
-[ios8 - Xcode 6 error: "Embedded binary's bundle identifier is not prefixed with the parent app's bundle identifier." - Stack Overflow](https://stackoverflow.com/questions/24045417/xcode-6-error-embedded-binarys-bundle-identifier-is-not-prefixed-with-the-par/64874934#64874934)
-
 ### unable to load standard library for target 'x86_64-apple-macosx10.15'
 
 （原因）

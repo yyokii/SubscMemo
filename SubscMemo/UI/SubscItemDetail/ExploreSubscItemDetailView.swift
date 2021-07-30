@@ -12,68 +12,62 @@ struct ExploreSubscItemDetailView: View {
     @State var presentContent: PresentContent?
 
     var body: some View {
-        ZStack {
-            // ベースカラー
-            Color.adaptiveWhite
-                .ignoresSafeArea()
-
-            VStack {
-                ScrollView {
-                    VStack(alignment: .leading) {
-                        HStack {
-                            ServiceIconImageView(iconImageURL: vm.subscItem.iconImageURL, serviceName: vm.subscItem.serviceName)
-                                .frame(width: 70, height: 70)
-                                .cornerRadius(35)
-                        }
-                        .frame(maxWidth: .infinity)
-
-                        ServiceNameView(
-                            serviceName: vm.subscItem.serviceName,
-                            serviceURL: vm.subscItem.serviceURL,
-                            linkTapAction: { url in
-                                presentContent = .safariView(url: url)
-                            }
-                        )
-                        .padding([.top], 40)
-
-                        Text(vm.subscItem.mainCategoryName)
-                            .adaptiveFont(.matterSemiBold, size: 16)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .lineLimit(2)
-                            .padding(.top)
-                            .foregroundColor(.gray)
-
-                        SubscPlanListView(plans: vm.plans)
-                            .padding(.top, 20)
-
-                        Text(vm.subscItem.description)
-                            .adaptiveFont(.matterSemiBold, size: 16)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .padding(.top, 40)
-                            .foregroundColor(.gray)
-
+        VStack {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    HStack {
+                        ServiceIconImageView(iconImageURL: vm.subscItem.iconImageURL, serviceName: vm.subscItem.serviceName)
+                            .frame(width: 70, height: 70)
+                            .cornerRadius(35)
                     }
-                    .padding([.leading, .trailing, .bottom])
+                    .frame(maxWidth: .infinity)
+
+                    ServiceNameView(
+                        serviceName: vm.subscItem.serviceName,
+                        serviceURL: vm.subscItem.serviceURL,
+                        linkTapAction: { url in
+                            presentContent = .safariView(url: url)
+                        }
+                    )
+                    .padding([.top], 40)
+
+                    Text(vm.subscItem.mainCategoryName)
+                        .adaptiveFont(.matterSemiBold, size: 16)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .lineLimit(2)
+                        .padding(.top)
+                        .foregroundColor(.gray)
+
+                    SubscPlanListView(plans: vm.plans)
+                        .padding(.top, 20)
+
+                    Text(vm.subscItem.description)
+                        .adaptiveFont(.matterSemiBold, size: 16)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.top, 40)
+                        .foregroundColor(.gray)
 
                 }
+                .padding([.leading, .trailing, .bottom])
 
-                Button(action: {
-                    presentContent = .addExploreSubscItem(exploreItemJoinedData: vm.exploreItemJoinedData, plans: vm.plans)
-                }) {
-                    Text("追加する")
-                        .adaptiveFont(.matterMedium, size: 16)
-                        .foregroundColor(.adaptiveBlack)
-                        .frame(minWidth: 0, maxWidth: 300)
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 24)
-                                .fill(Color.adaptiveWhite)
-                                .adaptiveShadow()
-                        )
-                        .padding()
-                }
-                .padding(8)
             }
+
+            Button(action: {
+                presentContent = .addExploreSubscItem(exploreItemJoinedData: vm.exploreItemJoinedData, plans: vm.plans)
+            }) {
+                Text("追加する")
+                    .adaptiveFont(.matterMedium, size: 16)
+                    .foregroundColor(.adaptiveBlack)
+                    .frame(minWidth: 0, maxWidth: 300)
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 24)
+                            .fill(Color.adaptiveWhite)
+                            .adaptiveShadow()
+                    )
+                    .padding()
+            }
+            .padding(8)
         }
         .onAppear(perform: {
             vm.loadData()

@@ -15,7 +15,7 @@ struct SubscribedItemView: View {
         return
             ZStack {
                 Rectangle()
-                    .fill(Color.white)
+                    .fill(Color.adaptiveWhite)
                     .cornerRadius(20)
                     .adaptiveShadow()
 
@@ -32,11 +32,11 @@ struct SubscribedItemView: View {
                                     Text(vm.item.serviceName)
                                         .adaptiveFont(.matterSemiBold, size: 12)
                                         .padding(.bottom, 5)
-                                        .foregroundColor(.appBlack)
+                                        .foregroundColor(.adaptiveBlack)
 
                                     Text(vm.item.planName ?? "")
                                         .adaptiveFont(.matterMedium, size: 12)
-                                        .foregroundColor(.appBlack)
+                                        .foregroundColor(.adaptiveBlack)
                                 }
                             }
                         }
@@ -55,7 +55,7 @@ struct SubscribedItemView: View {
 
                                     Text(vm.item.cycle)
                                         .adaptiveFont(.matter, size: 12)
-                                        .foregroundColor(.appBlack)
+                                        .foregroundColor(.adaptiveBlack)
                                         .lineLimit(2)
                                 }
                             }
@@ -75,7 +75,6 @@ struct SubscribedItemView_Previews: PreviewProvider {
     static var content: some View {
         NavigationView {
             SubscribedItemView(vm: demoSubscribedItemVMs[0])
-                .environment(\.colorScheme, .light)
         }
     }
 

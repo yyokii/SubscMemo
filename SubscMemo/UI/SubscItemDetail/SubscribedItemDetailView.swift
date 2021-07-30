@@ -13,67 +13,61 @@ struct SubscribedItemDetailView: View {
     @ObservedObject var vm: SubscribedItemDetailViewModel
 
     var body: some View {
-        ZStack {
-            // ベースカラー
-            Color.adaptiveWhite
-                .ignoresSafeArea()
+        ScrollView {
+            VStack {
+                HStack {
+                    Spacer()
 
-            ScrollView {
-                VStack {
-                    HStack {
-                        Spacer()
-
-                        Button(action: {
-                            vm.confirmDelete()
-                        }, label: {
-                            Image(systemName: "trash")
-                                .resizable()
-                                .frame(width: 25, height: 25)
-                        })
-                        .frame(width: 50, height: 50)
-                        .padding(.trailing, 30)
-                    }
-
-                    HStack {
-                        ServiceIconImageView(iconImageURL: vm.subscItem.iconImageURL, serviceName: vm.subscItem.serviceName)
-                            .frame(width: 70, height: 70)
-                            .cornerRadius(35)
-                    }
-                    .frame(maxWidth: .infinity)
-
-                    VStack(alignment: .leading) {
-
-                        ServiceNameView(
-                            serviceName: vm.subscItem.serviceName,
-                            serviceURL: vm.subscItem.serviceURL,
-                            linkTapAction: { url in
-                                presentContent = .safariView(url: url)
-                            }
-                        )
-
-                        Text(vm.subscItem.mainCategoryName)
-                            .adaptiveFont(.matterSemiBold, size: 16)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .lineLimit(2)
-                            .padding(.top)
-                            .foregroundColor(.gray)
-
-                        SubscPlanListView(plans: [vm.plan])
-                            .padding(.top, 20)
-
-                        Text(vm.subscItem.description)
-                            .adaptiveFont(.matterSemiBold, size: 16)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .padding(.top, 40)
-                            .foregroundColor(.gray)
-
-                        Text("メモ📝")
-                            .padding(.top)
-                        ServiceMemoView(memo: $vm.subscItem.memo)
-                    }
-                    .padding()
-                    .padding(.top, 40)
+                    Button(action: {
+                        vm.confirmDelete()
+                    }, label: {
+                        Image(systemName: "trash")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    })
+                    .frame(width: 50, height: 50)
+                    .padding(.trailing, 30)
                 }
+
+                HStack {
+                    ServiceIconImageView(iconImageURL: vm.subscItem.iconImageURL, serviceName: vm.subscItem.serviceName)
+                        .frame(width: 70, height: 70)
+                        .cornerRadius(35)
+                }
+                .frame(maxWidth: .infinity)
+
+                VStack(alignment: .leading) {
+
+                    ServiceNameView(
+                        serviceName: vm.subscItem.serviceName,
+                        serviceURL: vm.subscItem.serviceURL,
+                        linkTapAction: { url in
+                            presentContent = .safariView(url: url)
+                        }
+                    )
+
+                    Text(vm.subscItem.mainCategoryName)
+                        .adaptiveFont(.matterSemiBold, size: 16)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .lineLimit(2)
+                        .padding(.top)
+                        .foregroundColor(.gray)
+
+                    SubscPlanListView(plans: [vm.plan])
+                        .padding(.top, 20)
+
+                    Text(vm.subscItem.description)
+                        .adaptiveFont(.matterSemiBold, size: 16)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.top, 40)
+                        .foregroundColor(.gray)
+
+                    Text("メモ📝")
+                        .padding(.top)
+                    ServiceMemoView(memo: $vm.subscItem.memo)
+                }
+                .padding()
+                .padding(.top, 40)
             }
         }
         .alert(isPresented: $vm.alertProvider.shouldShowAlert ) {

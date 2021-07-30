@@ -11,15 +11,15 @@ extension Color {
 
     /// lightモードの場合に、白を設定し且つカラーテーマに対応する
     public static let adaptiveWhite = Self {
-        $0.userInterfaceStyle == .dark ? .appBlack : .white
+        $0.userInterfaceStyle == .dark ? appBlack : .white
     }
 
     /// lightモードの場合に、黒を設定し且つカラーテーマに対応する
     public static let adaptiveBlack = Self {
-        $0.userInterfaceStyle == .dark ? .white : .appBlack
+        $0.userInterfaceStyle == .dark ? .white : appBlack
     }
 
-    public static let appBlack = hex(0x121212)
+    public static let appBlack = hex(0x2C2C2E)
 
     /// 任意のトーンの色をランダムに生成する
     public static func randomColor(saturation: Double = 0.9, brightness: Double = 0.9) -> Self {

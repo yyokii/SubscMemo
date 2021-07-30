@@ -50,8 +50,20 @@ struct AddSubscribedItemView: View {
 
 #if DEBUG
 struct AddSubscribedItemView_Previews: PreviewProvider {
+    static var content: some View {
+        NavigationView {
+            AddSubscribedItemView()
+        }
+    }
+
     static var previews: some View {
-        AddSubscribedItemView()
+        Group {
+            content
+                .environment(\.colorScheme, .light)
+
+            content
+                .environment(\.colorScheme, .dark)
+        }
     }
 }
 #endif

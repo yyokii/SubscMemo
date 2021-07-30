@@ -2,13 +2,6 @@
 
 ## エラーとその対処法
 
-### Embedded binary's bundle identifier is not prefixed with the parent app's bundle identifier.
-
-> TARGETS -> Build Phases -> Embed App Extensions
-> and check: Copy only when installing
-
-[ios8 - Xcode 6 error: "Embedded binary's bundle identifier is not prefixed with the parent app's bundle identifier." - Stack Overflow](https://stackoverflow.com/questions/24045417/xcode-6-error-embedded-binarys-bundle-identifier-is-not-prefixed-with-the-par/64874934#64874934)
-
 ### unable to load standard library for target 'x86_64-apple-macosx10.15'
 
 （原因）
@@ -18,9 +11,15 @@ macOS 向けにビルドしようとしているのに、利用するSDKがiOS�
 （対応）
 `xcrun --sdk macosx mint run` として明示的にmacOSを指定した。
 
-## Firebase セキュリティルール
+## Firebase
 
-ユーザー
+### Firestore
+
+* ID要素として、DocumentIDとServiceIDが存在しているがそれぞれ別物です。同じサービスの別プランを登録した際にそれは別項目として扱われる仕様なので、DocumentIDをServiceIDと同値にしていません。
+
+### Firestoreのセキュリティルール
+
+* ユーザー情報
 
 |  パス名  | /user_profile/v1/users/{uid}                                 |
 | :------: | ------------------------------------------------------------ |
@@ -29,7 +28,7 @@ macOS 向けにビルドしようとしているのに、利用するSDKがiOS�
 | `update` | Authenticationにより付与された自身の`uid`の値と一致するドキュメントのみ許可 |
 | `delete` | 許可しない。                                                 |
 
-ユーザーが保存しているサブスクサービス
+* ユーザーが保存しているサブスクリプションサービス
 
 |  パス名  | /user_profile/v1/users/{uid}/subscription_services/{id}   |
 | :------: | --------------------------------------------------------- |
@@ -38,16 +37,7 @@ macOS 向けにビルドしようとしているのに、利用するSDKがiOS�
 | `update` | Authenticationにより付与された自身の`uid`配下の場合は許可 |
 | `delete` | Authenticationにより付与された自身の`uid`配下の場合は許可 |
 
-ユーザーが保存しているサブスクサービス（自身が独自で追加したもの）
-
-|  パス名  | /user_profile/v1/users/{uid}/original_subscription_services/{id} |
-| :------: | ------------------------------------------------------------ |
-|  `read`  | Authenticationにより付与された自身の`uid`配下のドキュメントは許可 |
-| `create` | Authenticationにより付与された自身の`uid`の値と一致するドキュメントのみ許可 |
-| `update` | Authenticationにより付与された自身の`uid`の値と一致するドキュメントのみ許可 |
-| `delete` | Authenticationにより付与された自身の`uid`配下の場合は許可    |
-
-既存のサブスクサービス
+* 既存のサブスクリプションサービス
 
 |  パス名  | /subscription_services/v1/services/{id} |
 | :------: | --------------------------------------- |
@@ -56,7 +46,7 @@ macOS 向けにビルドしようとしているのに、利用するSDKがiOS�
 | `update` | 許可しない                              |
 | `delete` | 許可しない                              |
 
-サブスクサービスのカテゴリー
+* サブスクリプションサービスのカテゴリー
 
 |  パス名  | /subscription_services/v1/categories/{id} |
 | :------: | ----------------------------------------- |
@@ -64,5 +54,3 @@ macOS 向けにビルドしようとしているのに、利用するSDKがiOS�
 | `create` | 許可しない                                |
 | `update` | 許可しない                                |
 | `delete` | 許可しない                                |
-
-

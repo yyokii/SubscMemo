@@ -12,6 +12,7 @@ struct SubscItemDetailViewData {
     var cycle: String
     var description: String
     var iconImageURL: String?
+    var id: String
     var isUserOriginal: Bool
     var mainCategoryName: String
     var memo: String = ""
@@ -28,6 +29,7 @@ struct SubscItemDetailViewData {
             cycle: "",
             description: "",
             iconImageURL: nil,
+            id: "",
             isUserOriginal: true,
             mainCategoryName: "",
             payAtDate: nil,
@@ -49,6 +51,7 @@ struct SubscItemDetailViewData {
             cycle: paymentCycle?.title ?? "",
             description: input.description,
             iconImageURL: input.iconImageURL,
+            id: input.id ?? "",
             isUserOriginal: input.isUserOriginal,
             mainCategoryName: input.categoryNames[0],
             memo: input.memo,
@@ -69,6 +72,7 @@ let demoSubscItemDetailViewData = SubscItemDetailViewData(
     cycle: "月々",
     description: "せつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめい",
     iconImageURL: nil,
+    id: "",
     isUserOriginal: true,
     mainCategoryName: "ソーシャルネットワーキング",
     payAtDate: "2020/10/10",

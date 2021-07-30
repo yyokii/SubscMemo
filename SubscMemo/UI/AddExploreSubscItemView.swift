@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct AddExploreSubscItemView: View {
-    @ObservedObject var vm: AddExploreSubscItemViewModel
-    @State private var dialogPresentation = DialogPresentation()
     @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var vm: AddExploreSubscItemViewModel
 
     var body: some View {
         NavigationView {

@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct SubscribedItemDetailView: View {
-    @ObservedObject var vm: SubscribedItemDetailViewModel
     @State var presentContent: PresentContent?
+    @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var vm: SubscribedItemDetailViewModel
 
     var body: some View {
         ZStack {
@@ -19,6 +20,20 @@ struct SubscribedItemDetailView: View {
 
             ScrollView {
                 VStack {
+                    HStack {
+                        Spacer()
+
+                        Button(action: {
+                            vm.confirmDelete()
+                        }, label: {
+                            Image(systemName: "trash")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        })
+                        .frame(width: 50, height: 50)
+                        .padding(.trailing, 30)
+                    }
+
                     HStack {
                         ServiceIconImageView(iconImageURL: vm.subscItem.iconImageURL, serviceName: vm.subscItem.serviceName)
                             .frame(width: 70, height: 70)
@@ -60,6 +75,11 @@ struct SubscribedItemDetailView: View {
                     .padding(.top, 40)
                 }
             }
+        }
+        .alert(isPresented: $vm.alertProvider.shouldShowAlert ) {
+            guard let alert = vm.alertProvider.alert else { fatalError("💔: Alert not available")
+            }
+            return Alert(alert)
         }
         .onAppear(perform: {
             vm.loadItemData()

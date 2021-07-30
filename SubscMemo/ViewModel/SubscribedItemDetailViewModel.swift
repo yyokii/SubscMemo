@@ -10,11 +10,16 @@ import Combine
 import Resolver
 
 final class SubscribedItemDetailViewModel: ObservableObject {
+
+    // Dialog Manager
     @Published var alertProvider = AlertProvider()
+
+    // Repository
+    @Published var subscribedServiceRepository: SubscribedServiceRepository = Resolver.resolve()
+
     @Published var plan: SubscPlanViewData = SubscPlanViewData.makeEmptyData()
     @Published var subscItem: SubscItemDetailViewData = SubscItemDetailViewData.makeEmptyData()
     var serviceID: String!
-    @Published var subscribedServiceRepository: SubscribedServiceRepository = Resolver.resolve()
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -47,6 +52,29 @@ final class SubscribedItemDetailViewModel: ObservableObject {
                 self?.subscItem = SubscItemDetailViewData.translate(from: item)
                 self?.plan = SubscPlanViewData.translate(from: item)
             })
+            .store(in: &cancellables)
+    }
+
+    func confirmDelete() {
+        alertProvider.showConfirmAlert(
+            title: "👋",
+            message: "削除してもよろしいですか？",
+            positiveAction: { [weak self] in
+                self?.deleteItem()
+            }
+        )
+    }
+
+    func deleteItem() {
+        subscribedServiceRepository.deleteItem(dataID: subscItem.id)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .failure:
+                    self?.alertProvider.showErrorAlert(message: nil)
+                case .finished:
+                    break
+                }
+            }, receiveValue: {})
             .store(in: &cancellables)
     }
 }

@@ -20,7 +20,7 @@ class BaseSubscribedServiceRepository {
 /// ユーザーが登録しているサブスクリプションサービスの操作
 protocol SubscribedServiceRepository: BaseSubscribedServiceRepository {
     func addSubscribedItem(data: SubscribedItem) -> AnyPublisher<Void, Error>
-    func deleteItem(_ item: SubscribedItem) -> AnyPublisher<Void, Error>
+    func deleteItem(dataID: String) -> AnyPublisher<Void, Error>
     func loadJoinedData()
     func loadJoinedData(with serviceID: String) -> AnyPublisher<SubscribedItemJoinedData, Error>
     func loadSubscribedItems()
@@ -63,21 +63,16 @@ final class FirestoreSubscribedServiceRepository: BaseSubscribedServiceRepositor
             .eraseToAnyPublisher()
     }
 
-    func deleteItem(_ item: SubscribedItem) -> AnyPublisher<Void, Error> {
-        if let itemID = item.id {
-            let userID = authenticationService.user.id
-            return db
-                .collection(FirestorePathComponent.userProfile.rawValue)
-                .document(FirestorePathComponent.version.rawValue)
-                .collection(FirestorePathComponent.users.rawValue)
-                .document(userID)
-                .collection(FirestorePathComponent.subscribedServices.rawValue)
-                .document(itemID)
-                .delete()
-        } else {
-            return Fail<Void, Error>(error: RepositoryError.other)
-                .eraseToAnyPublisher()
-        }
+    func deleteItem(dataID: String) -> AnyPublisher<Void, Error> {
+        let userID = authenticationService.user.id
+        return db
+            .collection(FirestorePathComponent.userProfile.rawValue)
+            .document(FirestorePathComponent.version.rawValue)
+            .collection(FirestorePathComponent.users.rawValue)
+            .document(userID)
+            .collection(FirestorePathComponent.subscribedServices.rawValue)
+            .document(dataID)
+            .delete()
     }
 
     func loadJoinedData() {

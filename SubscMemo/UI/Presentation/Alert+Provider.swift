@@ -28,6 +28,20 @@ final class AlertProvider: ObservableObject {
 }
 
 extension AlertProvider {
+    func showConfirmAlert(
+        title: String,
+        message: String,
+        positiveAction: (() -> Void)?
+    ) {
+        alert = AlertProvider.Alert(
+            title: title,
+            message: message,
+            primaryButtomText: "OK",
+            primaryButtonAction: positiveAction,
+            secondaryButtonText: "キャンセル"
+        )
+    }
+
     func showErrorAlert(message: String?) {
         alert = AlertProvider.Alert(
             title: "エラー",
@@ -38,9 +52,13 @@ extension AlertProvider {
         )
     }
 
-    func showSuccessAlert(message: String, action: (() -> Void)?) {
+    func showSuccessAlert(
+        title: String,
+        message: String,
+        action: (() -> Void)?
+    ) {
         alert = AlertProvider.Alert(
-            title: "😊",
+            title: title,
             message: message,
             primaryButtomText: "OK",
             primaryButtonAction: action,

@@ -80,6 +80,7 @@ final class AddExploreSubscItemViewModel: ObservableObject {
                     self?.alertProvider.showErrorAlert(message: nil)
                 case .finished:
                     self?.alertProvider.showSuccessAlert(
+                        title: "😊",
                         message: "追加しました！",
                         action: { [weak self] in
                             self?.shouldDismissView = true

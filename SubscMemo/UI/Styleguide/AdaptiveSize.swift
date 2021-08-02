@@ -26,6 +26,17 @@ public enum AdaptiveSize {
             return 8
         }
     }
+
+    public var buttonSize: CGFloat {
+        switch self {
+        case .small:
+            return 200
+        case .medium:
+            return 300
+        case .large:
+            return 300
+        }
+    }
 }
 
 extension EnvironmentValues {

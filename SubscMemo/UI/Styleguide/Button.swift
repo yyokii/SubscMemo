@@ -8,18 +8,22 @@
 import SwiftUI
 
 public struct ActionButtonStyle: ButtonStyle {
+    @Environment(\.adaptiveSize) var adaptiveSize
     let backgroundColor: Color
     let foregroundColor: Color
     let isActive: Bool
+    let isAdaptiveSize: Bool
 
     public init(
         backgroundColor: Color = .adaptiveBlack,
         foregroundColor: Color = .adaptiveWhite,
+        isAdaptiveSize: Bool = true,
         isActive: Bool = true
     ) {
         self.backgroundColor = backgroundColor
         self.foregroundColor = foregroundColor
         self.isActive = isActive
+        self.isAdaptiveSize = isAdaptiveSize
     }
 
     public func makeBody(configuration: Self.Configuration) -> some View {
@@ -28,14 +32,17 @@ public struct ActionButtonStyle: ButtonStyle {
                 self.foregroundColor
                     .opacity(!configuration.isPressed ? 1 : 0.5)
             )
-            .padding([.leading, .trailing], 20)
-            .padding([.top, .bottom], 24)
+            .padding([.top, .bottom], 20)
             .background(
                 RoundedRectangle(cornerRadius: 13)
                     .fill(
                         self.backgroundColor
                             .opacity(self.isActive && !configuration.isPressed ? 1 : 0.5)
                     )
+                    .if(isAdaptiveSize) { view in
+                        view
+                            .frame(width: adaptiveSize.buttonSize)
+                    }
             )
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
             .adaptiveFont(.matterMedium, size: 16)

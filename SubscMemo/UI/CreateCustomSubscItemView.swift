@@ -87,22 +87,11 @@ struct CreateCustomSubscItemView: View {
                     }
                 }
 
-                Button(action: {
+                Button("追加する") {
                     createCustomSubscItemVM.addItem()
-                }) {
-                    Text("追加する")
-                        .adaptiveFont(.matterMedium, size: 16)
-                        .foregroundColor(.appBlack)
-                        .frame(minWidth: 0, maxWidth: 300)
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 24)
-                                .fill(Color.white)
-                                .adaptiveShadow()
-                        )
-                        .padding()
                 }
-                .padding(8)
+                .buttonStyle(ActionButtonStyle())
+                .padding(10)
             }
             .navigationTitle("追加する")
         }

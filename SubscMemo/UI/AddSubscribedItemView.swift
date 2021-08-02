@@ -33,18 +33,17 @@ struct AddSubscribedItemView: View {
                 VStack(alignment: .center) {
                     Image(systemName: "magnifyingglass")
                     Text("さがす")
-                        .foregroundColor(.adaptiveWhite)
                         .adaptiveFont(.matterSemiBold, size: 12)
                         .padding([.top], 1)
                 }
                 .frame(maxWidth: .infinity)
             })
         }
+        .buttonStyle(ActionButtonStyle(isAdaptiveSize: false))
         .frame(
             maxWidth: .infinity,
             minHeight: 0
         )
-        .buttonStyle(ActionButtonStyle())
     }
 }
 

@@ -52,22 +52,11 @@ struct ExploreSubscItemDetailView: View {
 
             }
 
-            Button(action: {
+            Button("追加する") {
                 presentContent = .addExploreSubscItem(exploreItemJoinedData: vm.exploreItemJoinedData, plans: vm.plans)
-            }) {
-                Text("追加する")
-                    .adaptiveFont(.matterMedium, size: 16)
-                    .foregroundColor(.adaptiveBlack)
-                    .frame(minWidth: 0, maxWidth: 300)
-                    .padding()
-                    .background(
-                        RoundedRectangle(cornerRadius: 24)
-                            .fill(Color.adaptiveWhite)
-                            .adaptiveShadow()
-                    )
-                    .padding()
             }
-            .padding(8)
+            .buttonStyle(ActionButtonStyle())
+            .padding(10)
         }
         .onAppear(perform: {
             vm.loadData()

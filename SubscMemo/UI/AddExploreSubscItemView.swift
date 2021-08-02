@@ -55,22 +55,11 @@ struct AddExploreSubscItemView: View {
                 }
                 .padding(.top, 10)
 
-                Button(action: {
+                Button("追加する") {
                     vm.addItem()
-                }) {
-                    Text("追加する")
-                        .adaptiveFont(.matterMedium, size: 16)
-                        .foregroundColor(.adaptiveBlack)
-                        .frame(minWidth: 0, maxWidth: 300)
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 24)
-                                .fill(Color.adaptiveWhite)
-                                .adaptiveShadow()
-                        )
-                        .padding()
                 }
-                .padding(8)
+                .buttonStyle(ActionButtonStyle())
+                .padding(10)
             }
             .navigationBarHidden(true) // バックグラウンドから戻ってきたら表示されてるかも？  https://filipmolcik.com/how-to-hide-swiftui-navigationbar/
         }

@@ -53,7 +53,7 @@ struct CreateCustomSubscItemView: View {
                     }
 
                     Section(header: Text("💰 支払い")) {
-                        SubscItemTextField(placeholder: "料金", text: $createCustomSubscItemVM.subscItem.price.intToString(0))
+                        PriceTextField(placeholder: "料金", text: $createCustomSubscItemVM.subscItem.price.intToString(0))
 
                         // 支払いサイクル選択
                         HStack {

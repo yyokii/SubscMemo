@@ -1,10 +1,8 @@
 name: SubscMemo
 
 options:
-  # プリフィクスを指定すると、各ターゲットのバンドルIDが自動で「{プリフィクス}.{ターゲット名}」に設定される
-  bundleIdPrefix: com.yyokii
   deploymentTarget:
-    iOS: 14.0
+    iOS: 14.3
   xcodeVersion: "12.0"
   # findCarthageFrameworks: true # 余計なフレームワークまで追加されてしまうためコメントアウト
   carthageExecutablePath: mint run Carthage/Carthage carthage
@@ -32,6 +30,7 @@ targets:
         INFOPLIST_FILE: SubscMemo/Info.plist
         MARKETING_VERSION: 1.0.0 
         OTHER_LDFLAGS: -fprofile-instr-generate
+        PRODUCT_BUNDLE_IDENTIFIER: com.yyokii.mysubscmemo
     dependencies:
       - target: SubscMemoWidget
       - package: Tagged
@@ -83,7 +82,7 @@ targets:
         CURRENT_PROJECT_VERSION: 1
         INFOPLIST_FILE: SubscMemoWidget/Info.plist
         MARKETING_VERSION: 1.0.0 
-        PRODUCT_BUNDLE_IDENTIFIER: com.yyokii.SubscMemo.SubscMemoWidget
+        PRODUCT_BUNDLE_IDENTIFIER: com.yyokii.mysubscmemo.SubscMemoWidget
         PRODUCT_NAME: $(TARGET_NAME)
         SKIP_INSTALL: true
     sources:

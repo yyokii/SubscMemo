@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @State var notificationsEnabled: Bool = false
+    let appVersion: AppVersion = AppVersion.current
 
     var body: some View {
         NavigationView {
@@ -22,7 +23,7 @@ struct SettingsView: View {
 
                 Section(header: Text("アプリについて")) {
                     SettingsRow(title: "バージョン") {
-                        Text("2.2.1")
+                        Text(appVersion.productVersion)
                     }
                 }
             }

@@ -8,26 +8,26 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State var notificationsEnabled: Bool = false
-    let appVersion: AppVersion = AppVersion.current
+    @StateObject var vm = SettingsViewModel()
 
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("プッシュ通知")) {
-                    SettingsRow(title: "通知オン/オフ") {
-                        Toggle(isOn: $notificationsEnabled) {
-                        }
-                    }
-                }
-
                 Section(header: Text("アプリについて")) {
                     SettingsRow(title: "バージョン") {
-                        Text(appVersion.productVersion)
+                        Text(vm.appVersion)
                     }
                 }
             }
             .navigationBarTitle("Settings")
+        }
+    }
+
+    private func openSettings() {
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
         }
     }
 }

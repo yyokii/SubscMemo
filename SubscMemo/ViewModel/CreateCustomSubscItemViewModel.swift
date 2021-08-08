@@ -19,6 +19,14 @@ final class CreateCustomSubscItemViewModel: ObservableObject {
     @Injected var subscCategoryRepository: SubscCategoryRepository
     @Injected var subscribedServiceRepository: SubscribedServiceRepository
 
+    // Manage View Presentation
+    var dismissViewPublisher = PassthroughSubject<Bool, Never>()
+    private var shouldDismissView = false {
+        didSet {
+            dismissViewPublisher.send(shouldDismissView)
+        }
+    }
+
     @Published var categories: [SubscCategory] = []
     @Published var mainCategory: SubscCategory = SubscCategory.makeEmptyData()
     @Published var subCategory: SubscCategory = SubscCategory.makeEmptyData()
@@ -57,7 +65,13 @@ final class CreateCustomSubscItemViewModel: ObservableObject {
                 case .failure:
                     self?.alertProvider.showErrorAlert(message: nil)
                 case .finished:
-                    break
+                    self?.alertProvider.showSuccessAlert(
+                        title: "😊",
+                        message: "追加しました！",
+                        action: { [weak self] in
+                            self?.shouldDismissView = true
+                        }
+                    )
                 }
 
             }, receiveValue: { })

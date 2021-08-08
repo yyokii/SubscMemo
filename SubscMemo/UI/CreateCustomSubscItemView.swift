@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct CreateCustomSubscItemView: View {
-    @StateObject var createCustomSubscItemVM = CreateCustomSubscItemViewModel()
+    @Environment(\.presentationMode) var presentationMode
+    @StateObject var vm = CreateCustomSubscItemViewModel()
     @State private var dialogPresentation = DialogPresentation()
 
     let nextPaymentDateRange: ClosedRange<Date> = {
@@ -26,42 +27,42 @@ struct CreateCustomSubscItemView: View {
     var body: some View {
         NavigationView {
             VStack {
-                ValidationStateView(vm: createCustomSubscItemVM.validationVM)
+                ValidationStateView(vm: vm.validationVM)
                     .padding(.top)
 
                 Form {
                     Section(header: Text("🗒 サービス概要")) {
-                        SubscItemTextField(placeholder: "サービス名", text: $createCustomSubscItemVM.subscItem.name)
+                        SubscItemTextField(placeholder: "サービス名", text: $vm.subscItem.name)
 
-                        SubscItemTextField(placeholder: "サービスのURL", text: $createCustomSubscItemVM.subscItem.serviceURL ?? "")
-                        SubscItemTextField(placeholder: "サービス情報", text: $createCustomSubscItemVM.subscItem.description)
+                        SubscItemTextField(placeholder: "サービスのURL", text: $vm.subscItem.serviceURL ?? "")
+                        SubscItemTextField(placeholder: "サービス情報", text: $vm.subscItem.description)
                     }
 
                     Section(header: Text("🎨 カテゴリー")) {
                         // カテゴリー選択
                         SubscCategoryPickerView(
-                            datas: createCustomSubscItemVM.categories,
-                            selectedData: $createCustomSubscItemVM.mainCategory,
+                            datas: vm.categories,
+                            selectedData: $vm.mainCategory,
                             title: "メインカテゴリー"
                         )
 
                         SubscCategoryPickerView(
-                            datas: createCustomSubscItemVM.categories,
-                            selectedData: $createCustomSubscItemVM.subCategory,
+                            datas: vm.categories,
+                            selectedData: $vm.subCategory,
                             title: "サブカテゴリー"
                         )
                     }
 
                     Section(header: Text("💰 支払い")) {
-                        PriceTextField(placeholder: "料金", text: $createCustomSubscItemVM.subscItem.price.intToString(0))
+                        PriceTextField(placeholder: "料金", text: $vm.subscItem.price.intToString(0))
 
                         // 支払いサイクル選択
                         HStack {
                             PaymentCyclePickerView(
-                                selectedCycle: $createCustomSubscItemVM.subscItem.cycle)
+                                selectedCycle: $vm.subscItem.cycle)
                         }
 
-                        SubscItemTextField(placeholder: "プラン名", text: $createCustomSubscItemVM.subscItem.planName ?? "")
+                        SubscItemTextField(placeholder: "プラン名", text: $vm.subscItem.planName ?? "")
 
                         //                        // 日付選択
                         //                        HStack {
@@ -76,11 +77,11 @@ struct CreateCustomSubscItemView: View {
                         //                                    content: .selectDate(
                         //                                        isPresented: $dialogPresentation.isPresented,
                         //                                        dateRange: nextPaymentDateRange,
-                        //                                        savedDate: $createCustomSubscItemVM.payAtDate,
-                        //                                        selectingDate: createCustomSubscItemVM.payAtDate ?? Date())
+                        //                                        savedDate: $vm.payAtDate,
+                        //                                        selectingDate: vm.payAtDate ?? Date())
                         //                                )
                         //                            }, label: {
-                        //                                let date = createCustomSubscItemVM.payAtDate?.toString(format: .yMd, timeZone: .japan) ?? "設定されていません"
+                        //                                let date = vm.payAtDate?.toString(format: .yMd, timeZone: .japan) ?? "設定されていません"
                         //                                Text(date)
                         //                            })
                         //                        }
@@ -88,12 +89,22 @@ struct CreateCustomSubscItemView: View {
                 }
 
                 Button("追加する") {
-                    createCustomSubscItemVM.addItem()
+                    vm.addItem()
                 }
                 .buttonStyle(ActionButtonStyle())
                 .padding(10)
             }
             .navigationTitle("追加する")
+        }
+        .alert(isPresented: $vm.alertProvider.shouldShowAlert ) {
+            guard let alert = vm.alertProvider.alert else { fatalError("💔: Alert not available")
+            }
+            return Alert(alert)
+        }
+        .onReceive(vm.dismissViewPublisher) { shouldDismiss in
+            if shouldDismiss {
+                presentationMode.wrappedValue.dismiss()
+            }
         }
     }
 }
@@ -103,10 +114,10 @@ struct CreateCustomSubscItemView: View {
 struct CreateCustomSubscItemView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CreateCustomSubscItemView(createCustomSubscItemVM: demoCreateCustomSubscItemVM)
+            CreateCustomSubscItemView(vm: demoCreateCustomSubscItemVM)
                 .environment(\.colorScheme, .light)
 
-            CreateCustomSubscItemView(createCustomSubscItemVM: demoCreateCustomSubscItemVM)
+            CreateCustomSubscItemView(vm: demoCreateCustomSubscItemVM)
                 .environment(\.colorScheme, .dark)
         }
     }

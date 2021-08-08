@@ -35,8 +35,7 @@ struct AddExploreSubscItemView: View {
 
                     Section(header: Text("💰 支払い")) {
 
-                        SubscItemTextField(
-                            isDisabled: false,
+                        PriceTextField(
                             placeholder: "料金",
                             text: $vm.subscItem.price.intToString(0)
                         )

@@ -17,6 +17,7 @@ struct PriceTextField: View {
             TextField(placeholder, text: _text)
                 .multilineTextAlignment(.trailing)
                 .foregroundColor(.adaptiveBlack)
+                .keyboardType(.numberPad)
                 .textFieldStyle(PlainTextFieldStyle())
         }
         .adaptiveFont(.matterSemiBold, size: 16)

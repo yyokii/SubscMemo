@@ -61,10 +61,6 @@ struct SubscribedItemDetailView: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .padding(.top, 40)
                         .foregroundColor(.gray)
-
-                    Text("メモ📝")
-                        .padding(.top)
-                    ServiceMemoView(memo: $vm.subscItem.memo)
                 }
                 .padding()
                 .padding(.top, 40)

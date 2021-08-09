@@ -53,11 +53,21 @@ struct ValidationStateView_Previews: PreviewProvider {
         return vm
     }()
 
-    static var previews: some View {
-        VStack(spacing: 20) {
-            ValidationStateView(vm: invalidVM)
-            ValidationStateView(vm: validVM)
+    static var content: some View {
+        NavigationView {
+            VStack(spacing: 20) {
+                ValidationStateView(vm: invalidVM)
+                ValidationStateView(vm: validVM)
+            }
         }
+    }
+
+    static var previews: some View {
+        content
+            .environment(\.colorScheme, .light)
+
+        content
+            .environment(\.colorScheme, .dark)
     }
 }
 

@@ -8,31 +8,58 @@
 import SwiftUI
 
 struct LoginAndSignUpView: View {
-
     @Environment(\.presentationMode) var presentationMode
-
     @State var index = 0
 
+    struct InputTitleView: View {
+        let title: String
+
+        var body: some View {
+            Text(title)
+                .font(.caption)
+                .fontWeight(.bold)
+                .foregroundColor(.gray)
+        }
+    }
+
+    struct InputTextField: View {
+        let placeholder: String
+        @Binding var text: String
+
+        // ちとvstackとかで囲んで広げよう
+        var body: some View {
+
+            VStack {
+                TextField(placeholder, text: _text)
+                    .multilineTextAlignment(.leading)
+                    .adaptiveFont(.matterSemiBold, size: 16)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .padding(16)
+            }
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.gray, lineWidth: 2)
+            )
+
+            //            .background(Color.blue)
+        }
+    }
+
     var body: some View {
-
         VStack {
-
             HStack {
-
                 Button(action: {
                     withAnimation(.spring()) {
                         index = 0
                     }
                 }, label: {
-
                     VStack {
-                        Text("Login")
+                        Text("ログイン")
                             .font(.title2)
                             .fontWeight(.bold)
-                            .foregroundColor(index == 0 ? .black : .gray)
+                            .foregroundColor(index == 0 ? .adaptiveBlack : .gray)
 
                         ZStack {
-
                             Capsule()
                                 .fill( index == 0 ? Color.blue : Color.gray)
                                 .frame(height: 4)
@@ -45,15 +72,13 @@ struct LoginAndSignUpView: View {
                         index = 1
                     }
                 }, label: {
-
                     VStack {
-                        Text("Sign Up")
+                        Text("新規登録")
                             .font(.title2)
                             .fontWeight(.bold)
-                            .foregroundColor(index == 1 ? .black : .gray)
+                            .foregroundColor(index == 1 ? .adaptiveBlack : .gray)
 
                         ZStack {
-
                             Capsule()
                                 .fill( index == 1 ? Color.blue : Color.gray)
                                 .frame(height: 4)
@@ -73,78 +98,44 @@ struct LoginAndSignUpView: View {
 }
 
 struct LoginView: View {
-
     @Binding var parentPresentationMode: PresentationMode
-
-    @ObservedObject var loginAndSignUpVM = LoginAndSignUpViewModel()
+    @StateObject var vm = LoginAndSignUpViewModel()
 
     var body: some View {
-
         VStack {
-
             VStack(alignment: .leading, spacing: 15, content: {
+                Text("アカウントをまだお持ちでない場合は\n「新規登録」より作成できます！")
 
-                Text("email")
-                    .font(.caption)
-                    .fontWeight(.bold)
-                    .foregroundColor(.gray)
+                HStack {
+                    LoginAndSignUpView.InputTitleView(title: "メールアドレス")
+                    ValidationStateView(vm: vm.emailValidationVM)
+                }
+                .padding(.top)
 
-                ValidationStateView(vm: loginAndSignUpVM.emailValidationVM)
+                LoginAndSignUpView.InputTextField(placeholder: "~@aaa.bbb",
+                                                  text: $vm.userLoginAuthData.email)
 
-                TextField("email", text: $loginAndSignUpVM.userLoginAuthData.email)
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(5)
-                    .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0.0, y: 5)
-                    .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0.0, y: -5)
-
-                Text("Password")
-                    .font(.caption)
-                    .fontWeight(.bold)
-                    .foregroundColor(.gray)
-
-                ValidationStateView(vm: loginAndSignUpVM.passwordValidationVM)
-
-                TextField("6文字以上", text: $loginAndSignUpVM.userLoginAuthData.password)
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(5)
-                    .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0.0, y: 5)
-                    .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0.0, y: -5)
-
-                Button(action: {}, label: {
-                    Text("Forget Password")
-                        .fontWeight(.bold)
-                })
+                HStack {
+                    LoginAndSignUpView.InputTitleView(title: "パスワード")
+                    ValidationStateView(vm: vm.passwordValidationVM)
+                }
+                LoginAndSignUpView.InputTextField(placeholder: "6文字以上",
+                                                  text: $vm.userLoginAuthData.password)
             })
             .padding()
 
-            Button(action: {
-                hideKeyboard()
-                loginAndSignUpVM.login()
-            }, label: {
-
-                Text("Login")
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(width: UIScreen.main.bounds.width - 50)
-                    .background(
-                        loginAndSignUpVM.canLogin ?
-                            LinearGradient(gradient: .init(colors: [Color("accent"), Color("accentShadow")]), startPoint: .topLeading, endPoint: .bottomTrailing)
-                            : LinearGradient(gradient: .init(colors: [.gray]), startPoint: .topLeading, endPoint: .bottomTrailing)
-
-                    )
-                    .cornerRadius(8)
-            })
+            Button("ログイン") {
+                vm.login()
+            }
+            .buttonStyle(ActionButtonStyle())
             .padding()
-            .disabled(!loginAndSignUpVM.canLogin)
+            .disabled(!vm.canLogin)
         }
-        .alert(isPresented: $loginAndSignUpVM.alertProvider.shouldShowAlert ) {
-            guard let alert = loginAndSignUpVM.alertProvider.alert else { fatalError("💔: Alert not available") }
+        .alert(isPresented: $vm.alertProvider.shouldShowAlert ) {
+            guard let alert = vm.alertProvider.alert else { fatalError("💔: Alert not available") }
             return Alert(alert)
         }
-        .onReceive(loginAndSignUpVM.dismissViewPublisher) { shouldDismiss in
+        .onReceive(vm.dismissViewPublisher) { shouldDismiss in
             if shouldDismiss {
                 parentPresentationMode.dismiss()
             }
@@ -153,80 +144,41 @@ struct LoginView: View {
 }
 
 struct SignUpView: View {
-
     @Binding var parentPresentationMode: PresentationMode
-
-    @ObservedObject var loginAndSignUpVM = LoginAndSignUpViewModel()
+    @StateObject var vm = LoginAndSignUpViewModel()
 
     var body: some View {
-
         VStack {
-
-            HStack {
-
-                VStack(alignment: .leading, spacing: 12, content: {
-
-                    Text("Create Account")
-                        .font(.title)
-                        .fontWeight(.bold)
-                })
-
-                Spacer(minLength: 0)
-            }
-            .padding()
-
             VStack(alignment: .leading, spacing: 15, content: {
+                HStack {
+                    LoginAndSignUpView.InputTitleView(title: "メールアドレス")
+                    ValidationStateView(vm: vm.emailValidationVM)
+                }
+                LoginAndSignUpView.InputTextField(placeholder: "~@aaa.bbb",
+                                                  text: $vm.userLoginAuthData.email)
 
-                Text("email")
-                    .font(.caption)
-                    .fontWeight(.bold)
-                    .foregroundColor(.gray)
-
-                TextField("email", text: $loginAndSignUpVM.userLoginAuthData.email)
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(5)
-                    .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0.0, y: 5)
-                    .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0.0, y: -5)
-
-                Text("Password")
-                    .font(.caption)
-                    .fontWeight(.bold)
-                    .foregroundColor(.gray)
-
-                TextField("password", text: $loginAndSignUpVM.userLoginAuthData.password)
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(5)
-                    .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0.0, y: 5)
-                    .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0.0, y: -5)
+                HStack {
+                    LoginAndSignUpView.InputTitleView(title: "パスワード")
+                    ValidationStateView(vm: vm.passwordValidationVM)
+                }
+                LoginAndSignUpView.InputTextField(placeholder: "6文字以上",
+                                                  text: $vm.userLoginAuthData.password)
             })
             .padding()
 
-            Button(action: {
-                loginAndSignUpVM.signUpWithEmail()
-            }, label: {
-
-                Text("Sign Up")
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(width: UIScreen.main.bounds.width - 50)
-                    .background(
-                        loginAndSignUpVM.canSignUp ?
-                            LinearGradient(gradient: .init(colors: [Color("accent"), Color("accentShadow")]), startPoint: .topLeading, endPoint: .bottomTrailing)
-                            : LinearGradient(gradient: .init(colors: [.gray]), startPoint: .topLeading, endPoint: .bottomTrailing)
-                    )
-                    .cornerRadius(8)
-            })
+            Button("登録") {
+                hideKeyboard()
+                vm.signUpWithEmail()
+            }
+            .buttonStyle(ActionButtonStyle())
             .padding()
-            .disabled(!loginAndSignUpVM.canSignUp)
+            .disabled(!vm.canSignUp)
         }
-        .alert(isPresented: $loginAndSignUpVM.alertProvider.shouldShowAlert ) {
-            guard let alert = loginAndSignUpVM.alertProvider.alert else { fatalError("💔: Alert not available") }
+        .alert(isPresented: $vm.alertProvider.shouldShowAlert ) {
+            guard let alert = vm.alertProvider.alert else { fatalError("💔: Alert not available") }
             return Alert(alert)
         }
-        .onReceive(loginAndSignUpVM.dismissViewPublisher) { shouldDismiss in
+        .onReceive(vm.dismissViewPublisher) { shouldDismiss in
             if shouldDismiss {
                 parentPresentationMode.dismiss()
             }
@@ -236,9 +188,20 @@ struct SignUpView: View {
 
 #if DEBUG
 struct LoginAndSignUpView_Previews: PreviewProvider {
+
+    static var content: some View {
+        NavigationView {
+            LoginAndSignUpView()
+        }
+    }
+
     static var previews: some View {
         Group {
-            LoginAndSignUpView()
+            content
+                .environment(\.colorScheme, .light)
+
+            content
+                .environment(\.colorScheme, .dark)
         }
     }
 }

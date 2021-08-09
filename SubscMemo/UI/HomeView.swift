@@ -70,13 +70,13 @@ struct HomeView: View {
                 .navigationBarTitle("App")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: {
-                            presentContent = .userSetting
-                        }, label: {
-                            Image(systemName: "gearshape")
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                        })
+                        NavigationLink(
+                            destination: SettingsView(),
+                            label: {
+                                Image(systemName: "gearshape")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                            })
                     }
                 }
                 .sheet(item: $presentContent, content: { $0 })

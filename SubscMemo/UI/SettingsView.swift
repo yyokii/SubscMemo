@@ -9,18 +9,30 @@ import SwiftUI
 
 struct SettingsView: View {
     @StateObject var vm = SettingsViewModel()
+    @State var presentContent: PresentContent?
 
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("アプリについて")) {
-                    SettingsRow(title: "バージョン") {
-                        Text(vm.appVersion)
+        Form {
+            Section(header: Text("ユーザー情報")) {
+                SettingsRow(title: "ユーザーステータス") {
+                    Text(vm.appUser.status.statusName)
+                }
+
+                SettingsRow(title: "") {
+                    Button("ログインする") {
+                        presentContent = .loginAndSignUp
                     }
                 }
             }
-            .navigationBarTitle("Settings")
+
+            Section(header: Text("アプリについて")) {
+                SettingsRow(title: "バージョン") {
+                    Text(vm.appVersion)
+                }
+            }
         }
+        .navigationBarTitle("アプリ設定")
+        .sheet(item: $presentContent, content: { $0 })
     }
 
     private func openSettings() {

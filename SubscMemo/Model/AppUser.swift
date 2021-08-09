@@ -11,6 +11,12 @@ struct AppUser {
     let id: String
     let name: String
     let status: UserStatus
+
+    static func getUninitializedData() -> Self {
+        .init(id: "",
+              name: "",
+              status: .uninitialized)
+    }
 }
 
 enum UserStatus {
@@ -20,11 +26,21 @@ enum UserStatus {
     case authenticated
     // 匿名ログイン状態
     case authenticatedAnonymously
+
+    var statusName: String {
+        switch self {
+        case.uninitialized:
+            return "未ログイン"
+        case.authenticated:
+            return "ログイン済み"
+        case .authenticatedAnonymously:
+            return "ゲスト"
+        }
+    }
 }
 
 extension AppUser {
     init(from firebaseUser: User?) {
-
         if  firebaseUser == nil {
             // 未認証
             id = ""

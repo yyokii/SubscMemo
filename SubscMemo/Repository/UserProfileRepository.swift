@@ -12,7 +12,7 @@ import FirebaseFirestoreSwift
 import Resolver
 
 class BaseUserProfileRepository {
-    @Published var appUser: AppUser!
+    @Published var appUser: AppUser! = AppUser.getUninitializedData()
 }
 
 /// ユーザーのプロフィール情報を操作する
@@ -47,6 +47,10 @@ final class FirestoreUserProfileRepository: BaseUserProfileRepository, UserProfi
 
     func loginWithEmail(email: String, pass: String) -> AnyPublisher<AppUser, Error> {
         return authenticationService.signInWithEmail(email: email, pass: pass)
+            .handleEvents(receiveOutput: { appUser in
+                self.appUser = appUser
+            })
+            .eraseToAnyPublisher()
     }
 
     func signUpWithEmail(email: String, pass: String) -> AnyPublisher<AppUser, Error> {

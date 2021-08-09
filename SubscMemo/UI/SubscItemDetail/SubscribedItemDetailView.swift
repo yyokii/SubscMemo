@@ -10,7 +10,9 @@ import SwiftUI
 struct SubscribedItemDetailView: View {
     @State var presentContent: PresentContent?
     @Environment(\.presentationMode) var presentationMode
+
     @ObservedObject var vm: SubscribedItemDetailViewModel
+    let iconColor: Color
 
     var body: some View {
         ScrollView {
@@ -30,7 +32,9 @@ struct SubscribedItemDetailView: View {
                 }
 
                 HStack {
-                    ServiceIconImageView(iconImageURL: vm.subscItem.iconImageURL, serviceName: vm.subscItem.serviceName)
+                    ServiceIconImageView(iconColor: iconColor,
+                                         iconImageURL: vm.subscItem.iconImageURL,
+                                         serviceName: vm.subscItem.serviceName)
                         .frame(width: 70, height: 70)
                         .cornerRadius(35)
                 }
@@ -83,10 +87,10 @@ struct SubscribedItemDetailView: View {
 struct SubscribedItemDetailView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            SubscribedItemDetailView(vm: demoSubscribedItemDetailVM)
+            SubscribedItemDetailView(vm: demoSubscribedItemDetailVM, iconColor: .orange)
                 .environment(\.colorScheme, .light)
 
-            SubscribedItemDetailView(vm: demoSubscribedItemDetailVM)
+            SubscribedItemDetailView(vm: demoSubscribedItemDetailVM, iconColor: .gray)
                 .environment(\.colorScheme, .dark)
         }
     }

@@ -10,6 +10,7 @@ import SwiftUI
 /// 加入済みサービスの情報を表示するView
 struct SubscribedItemView: View {
     @StateObject var vm: SubscribedItemViewModel
+    let iconColor: Color
 
     var body: some View {
         return
@@ -20,7 +21,9 @@ struct SubscribedItemView: View {
                     .adaptiveShadow()
 
                 HStack(alignment: .center) {
-                    ServiceIconImageView(iconImageURL: vm.item.iconImageURL, serviceName: vm.item.serviceName)
+                    ServiceIconImageView(iconColor: iconColor,
+                                         iconImageURL: vm.item.iconImageURL,
+                                         serviceName: vm.item.serviceName)
                         .frame(width: 50, height: 50)
                         .cornerRadius(25)
                         .padding()
@@ -74,7 +77,8 @@ struct SubscribedItemView_Previews: PreviewProvider {
 
     static var content: some View {
         NavigationView {
-            SubscribedItemView(vm: demoSubscribedItemVMs[0])
+            SubscribedItemView(vm: demoSubscribedItemVMs[0],
+                               iconColor: Color.orange)
         }
     }
 

@@ -45,11 +45,12 @@ struct HomeView: View {
                             .padding()
 
                         ForEach(homeVM.subscribedItemVMs) { vm in
+                            let iconColor = Color.randomColor()
                             let subscribedItemDetailVM = SubscribedItemDetailViewModel(serviceID: vm.item.serviceID)
                             NavigationLink(
-                                destination: SubscribedItemDetailView(vm: subscribedItemDetailVM),
+                                destination: SubscribedItemDetailView(vm: subscribedItemDetailVM, iconColor: iconColor),
                                 label: {
-                                    SubscribedItemView(vm: vm)
+                                    SubscribedItemView(vm: vm, iconColor: iconColor)
                                         .padding()
                                 })
                         }

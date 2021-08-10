@@ -50,7 +50,7 @@ struct SubscItemDetailViewData {
             description: input.description,
             id: input.id ?? "",
             isUserOriginal: input.isUserOriginal,
-            mainCategoryName: input.categoryNames[0],
+            mainCategoryName: input.categoryNames[safe: 0] ?? "",
             memo: input.memo,
             payAtDate: payAtDate,
             planID: input.planID,

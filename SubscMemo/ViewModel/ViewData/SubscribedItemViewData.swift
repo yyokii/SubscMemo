@@ -17,7 +17,6 @@ struct SubscribedItemViewData {
     static func translate(from input: SubscribedItemJoinedData) -> Self {
         let paymentCycle = PaymentCycle.init(rawValue: input.cycle)
 
-        #warning("mainCategoryの取得を修正")
         return SubscribedItemViewData(
             cycle: paymentCycle?.title ?? "",
             mainCategoryName: input.categoryNames[safe: 0] ?? "",

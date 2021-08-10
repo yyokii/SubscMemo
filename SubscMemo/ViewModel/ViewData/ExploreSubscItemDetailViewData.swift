@@ -30,7 +30,7 @@ struct ExploreSubscItemDetailViewData {
 
         return ExploreSubscItemDetailViewData(
             description: input.description,
-            mainCategoryName: input.categoryNames[0],
+            mainCategoryName: input.categoryNames[safe: 0] ?? "",
             serviceName: input.name,
             serviceURL: url,
             subCategoryName: input.categoryNames[safe: 1]

@@ -6,14 +6,13 @@
 //
 
 struct SubscribedItemViewData {
-
     var cycle: String
-    var iconImageURL: String?
     var mainCategoryName: String
     var planName: String?
     var price: String
     var serviceID: String
     var serviceName: String
+    var serviceURL: String?
 
     static func translate(from input: SubscribedItemJoinedData) -> Self {
         let paymentCycle = PaymentCycle.init(rawValue: input.cycle)
@@ -21,12 +20,12 @@ struct SubscribedItemViewData {
         #warning("mainCategoryの取得を修正")
         return SubscribedItemViewData(
             cycle: paymentCycle?.title ?? "",
-            iconImageURL: input.iconImageURL,
             mainCategoryName: input.categoryNames[safe: 0] ?? "",
             planName: input.planName,
             price: input.price.modifyToPriceStringData(),
             serviceID: input.serviceID,
-            serviceName: input.name
+            serviceName: input.name,
+            serviceURL: input.serviceURL
         )
     }
 }

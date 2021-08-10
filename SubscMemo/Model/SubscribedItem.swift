@@ -13,7 +13,6 @@ struct SubscribedItem: Codable, Identifiable {
     var categoryIDs: [String]
     var cycle: String
     var description: String
-    var iconImageURL: String
     @DocumentID var id: String?
     var isUserOriginal: Bool // true: ユーザーが独自に追加したもの, false: アプリが提供しているサービス群から追加したもの
     var memo: String
@@ -31,7 +30,6 @@ struct SubscribedItem: Codable, Identifiable {
             categoryIDs: ["", ""],
             cycle: "",
             description: "",
-            iconImageURL: "",
             id: nil,
             isUserOriginal: isUserOriginal,
             memo: "",
@@ -50,7 +48,6 @@ struct SubscribedItem: Codable, Identifiable {
             categoryIDs: input.categoryIDs,
             cycle: "",
             description: input.description,
-            iconImageURL: input.iconImageURL,
             id: nil,
             isUserOriginal: false,
             memo: "",
@@ -80,7 +77,6 @@ let demoSubscItems = [
         categoryIDs: ["demo-id"],
         cycle: "monthly",
         description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
-        iconImageURL: "https://via.placeholder.com/50",
         id: "demo-01",
 
         isUserOriginal: false,
@@ -97,7 +93,6 @@ let demoSubscItems = [
         categoryIDs: ["demo-id"],
         cycle: "monthly",
         description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
-        iconImageURL: "https://via.placeholder.com/50",
         id: "demo-02",
         isUserOriginal: false,
         memo: "demo-memo",

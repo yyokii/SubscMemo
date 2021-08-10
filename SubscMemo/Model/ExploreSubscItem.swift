@@ -13,7 +13,6 @@ struct ExploreSubscItem: Codable, Identifiable {
     var categoryIDs: [String]
     @ServerTimestamp var createdTime: Timestamp?
     var description: String
-    var iconImageURL: String
     @DocumentID var id: String?
     var name: String
     var serviceID: String
@@ -33,7 +32,6 @@ let demoExploreSubscItems = [
         categoryIDs: ["demo-id"],
         createdTime: nil,
         description: "demo-description",
-        iconImageURL: "https://via.placeholder.com/150",
         id: "demo-id",
         name: "demo-name01",
         serviceID: "demo-serviceID",
@@ -43,7 +41,6 @@ let demoExploreSubscItems = [
         categoryIDs: ["demo-id"],
         createdTime: nil,
         description: "demo-description",
-        iconImageURL: "https://via.placeholder.com/150",
         id: "demo-id",
         name: "demo-name02",
         serviceID: "demo-serviceID",

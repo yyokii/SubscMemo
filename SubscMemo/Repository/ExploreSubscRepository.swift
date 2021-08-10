@@ -165,7 +165,6 @@ final class FirestoreExploreSubscRepository: BaseExploreSubscRepository, Explore
                 categoryNames: categoryNames,
                 createdTime: item.createdTime,
                 description: item.description,
-                iconImageURL: item.iconImageURL,
                 id: item.id,
                 name: item.name,
                 serviceID: item.serviceID,

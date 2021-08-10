@@ -8,19 +8,19 @@
 struct ExploreSubscItemViewData {
 
     var description: String
-    var iconImageURL: String?
     var mainCategoryName: String
     var serviceID: String
     var serviceName: String
+    var serviceURL: String?
 
     static func translate(from input: ExploreItemJoinedData) -> Self {
 
         return ExploreSubscItemViewData(
             description: input.description,
-            iconImageURL: input.iconImageURL,
             mainCategoryName: input.categoryNames[safe: 0] ?? "",
             serviceID: input.serviceID,
-            serviceName: input.name
+            serviceName: input.name,
+            serviceURL: input.serviceURL
         )
     }
 

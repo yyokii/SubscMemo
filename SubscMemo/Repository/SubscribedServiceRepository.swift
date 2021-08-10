@@ -95,7 +95,6 @@ final class FirestoreSubscribedServiceRepository: BaseSubscribedServiceRepositor
                         cycle: service.cycle,
                         description: service.description,
                         id: service.id,
-                        iconImageURL: service.iconImageURL,
                         isUserOriginal: service.isUserOriginal,
                         memo: service.memo,
                         name: service.name,

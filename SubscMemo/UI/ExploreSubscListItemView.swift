@@ -25,7 +25,7 @@ struct ExploreSubscListItemView: View {
             }
             .padding()
 
-            ServiceIconImageView(serviceURL: vm.item.iconImageURL,
+            ServiceIconImageView(serviceURL: vm.item.serviceURL,
                                  serviceName: vm.item.serviceName)
                 .frame(width: 50, height: 50)
                 .cornerRadius(25)

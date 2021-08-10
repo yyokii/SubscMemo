@@ -14,7 +14,6 @@ struct ExploreItemJoinedData: Equatable, Hashable {
     var categoryNames: [String]
     var createdTime: Timestamp?
     var description: String
-    var iconImageURL: String
     var id: String?
     var name: String
     var serviceID: String
@@ -25,7 +24,6 @@ struct ExploreItemJoinedData: Equatable, Hashable {
             categoryIDs: ["", ""],
             categoryNames: ["", ""],
             description: "",
-            iconImageURL: "",
             id: nil,
             name: "",
             serviceID: "",
@@ -41,7 +39,6 @@ let demoExploreItemJoinedDatas = [
         categoryNames: ["demo-name"],
         createdTime: nil,
         description: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        iconImageURL: "https://via.placeholder.com/150",
         id: "demo-01",
         name: "demo-name",
         serviceID: "demo-service-id",
@@ -52,7 +49,6 @@ let demoExploreItemJoinedDatas = [
         categoryNames: ["demo-name"],
         createdTime: nil,
         description: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-        iconImageURL: "https://via.placeholder.com/150",
         id: "demo-01",
         name: "demo-name",
         serviceID: "demo-service-id",

@@ -10,7 +10,6 @@ import Foundation
 // サブスクリプションサービスの詳細画面で表示する基本情報
 struct ExploreSubscItemDetailViewData {
     var description: String
-    var iconImageURL: String?
     var mainCategoryName: String
     var serviceName: String
     var serviceURL: URL?
@@ -19,7 +18,6 @@ struct ExploreSubscItemDetailViewData {
     static func makeEmptyData() -> Self {
         return  ExploreSubscItemDetailViewData(
             description: "",
-            iconImageURL: nil,
             mainCategoryName: "",
             serviceName: "",
             serviceURL: nil,
@@ -32,7 +30,6 @@ struct ExploreSubscItemDetailViewData {
 
         return ExploreSubscItemDetailViewData(
             description: input.description,
-            iconImageURL: input.iconImageURL,
             mainCategoryName: input.categoryNames[0],
             serviceName: input.name,
             serviceURL: url,
@@ -45,7 +42,6 @@ struct ExploreSubscItemDetailViewData {
 
 let demoExploreSubscItemDetailViewData = ExploreSubscItemDetailViewData(
     description: "せつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめい",
-    iconImageURL: nil,
     mainCategoryName: "ソーシャルネットワーキング",
     serviceName: "サービス名",
     serviceURL: nil,

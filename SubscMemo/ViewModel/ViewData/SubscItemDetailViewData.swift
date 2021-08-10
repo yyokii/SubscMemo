@@ -11,7 +11,6 @@ import Foundation
 struct SubscItemDetailViewData {
     var cycle: String
     var description: String
-    var iconImageURL: String?
     var id: String
     var isUserOriginal: Bool
     var mainCategoryName: String
@@ -28,7 +27,6 @@ struct SubscItemDetailViewData {
         return  SubscItemDetailViewData(
             cycle: "",
             description: "",
-            iconImageURL: nil,
             id: "",
             isUserOriginal: true,
             mainCategoryName: "",
@@ -50,7 +48,6 @@ struct SubscItemDetailViewData {
         return SubscItemDetailViewData(
             cycle: paymentCycle?.title ?? "",
             description: input.description,
-            iconImageURL: input.iconImageURL,
             id: input.id ?? "",
             isUserOriginal: input.isUserOriginal,
             mainCategoryName: input.categoryNames[0],
@@ -71,7 +68,6 @@ struct SubscItemDetailViewData {
 let demoSubscItemDetailViewData = SubscItemDetailViewData(
     cycle: "月々",
     description: "せつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめいせつめい",
-    iconImageURL: nil,
     id: "",
     isUserOriginal: true,
     mainCategoryName: "ソーシャルネットワーキング",

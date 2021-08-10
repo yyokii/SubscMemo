@@ -16,7 +16,6 @@ struct SubscribedItemJoinedData {
     var cycle: String
     var description: String
     var id: String?
-    var iconImageURL: String?
     var isUserOriginal: Bool // true: ユーザーが独自に追加したもの, false: アプリが提供しているサービス群か追加したもの
     var memo: String
     var name: String
@@ -37,7 +36,6 @@ let demoSubscItemJoinedDatas = [
         cycle: "monthly",
         description: "",
         id: "demo-01",
-        iconImageURL: "https://via.placeholder.com/150",
         isUserOriginal: false,
         memo: "メモメモメモメモメモメモ",
         name: "demo-name",
@@ -55,7 +53,6 @@ let demoSubscItemJoinedDatas = [
         cycle: "monthly",
         description: "",
         id: "demo-01",
-        iconImageURL: "https://via.placeholder.com/150",
         isUserOriginal: false,
         memo: "メモメモメモメモメモメモ",
         name: "demo-name",

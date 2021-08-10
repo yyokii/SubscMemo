@@ -25,10 +25,6 @@ public class AsyncImageLoader: ObservableObject {
         self.session = session
     }
 
-    deinit {
-        cancel()
-    }
-
     private let cache: Cache<URL, Image>
     private let url: URL
     private let session: URLSession
@@ -48,6 +44,13 @@ public class AsyncImageLoader: ObservableObject {
         print("Unsupported platform")
         return nil
         #endif
+    }
+
+    private func getImageAverageColor(from data: Data?) -> Color? {
+        guard let data = data,
+              let image = CIImage(data: data),
+              let averageColor = image.averageColor else { return nil }
+        return averageColor
     }
 
     public func load() {

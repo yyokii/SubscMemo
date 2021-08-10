@@ -9,19 +9,26 @@ import SwiftUI
 
 struct ServiceIconImageView: View {
     let iconColor: Color?
-    let iconImageURL: String?
+    let serviceURL: String?
     let serviceName: String
 
-    init(iconColor: Color? = nil, iconImageURL: String?, serviceName: String) {
+    init(iconColor: Color? = nil, serviceURL: String?, serviceName: String) {
         self.iconColor = iconColor
-        self.iconImageURL = iconImageURL
+        self.serviceURL = serviceURL
         self.serviceName = serviceName
     }
 
     var body: some View {
-        if let iconImageURL = iconImageURL, !iconImageURL.isEmpty {
-            AsyncImage(url: URL(string: iconImageURL)!) {
-                Color.clear
+        if let serviceURL = serviceURL,
+           !serviceURL.isEmpty,
+           let faviconURL = makeFaviconURL(from: serviceURL) {
+            ZStack {
+                AsyncImageColor(url: faviconURL) {
+                    Color.clear
+                }
+                Text(serviceName.first?.description ?? "")
+                    .adaptiveFont(.matterSemiBold, size: 32)
+                    .foregroundColor(.white)
             }
         } else {
             ZStack {
@@ -31,6 +38,16 @@ struct ServiceIconImageView: View {
                     .adaptiveFont(.matterSemiBold, size: 32)
                     .foregroundColor(.white)
             }
+        }
+    }
+
+    func makeFaviconURL(from serviceURL: String) -> URL? {
+        if let url = URL(string: serviceURL),
+           let host = url.host {
+            let faviconURL = URL(string: "https://www.google.com/s2/favicons")!
+            return faviconURL.addQueryItem(name: "domain_url", value: host)
+        } else {
+            return nil
         }
     }
 }
@@ -43,20 +60,20 @@ struct ServiceIconImageView_Previews: PreviewProvider {
         NavigationView {
             VStack(spacing: 10) {
                 // 非同期で取得
-                ServiceIconImageView(iconImageURL: "https://via.placeholder.com/150",
+                ServiceIconImageView(serviceURL: "http://www.yahoo.com/",
                                      serviceName: "Abcde")
                     .frame(width: 50, height: 50)
                     .cornerRadius(25)
 
                 // ランダム色
-                ServiceIconImageView(iconImageURL: "",
+                ServiceIconImageView(serviceURL: "",
                                      serviceName: "Bcdef")
                     .frame(width: 50, height: 50)
                     .cornerRadius(25)
 
                 // 指定色
                 ServiceIconImageView(iconColor: Color.black,
-                                     iconImageURL: "",
+                                     serviceURL: "",
                                      serviceName: "Bcdef")
                     .frame(width: 50, height: 50)
                     .cornerRadius(25)

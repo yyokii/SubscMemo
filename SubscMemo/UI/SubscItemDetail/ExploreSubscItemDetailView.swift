@@ -16,7 +16,7 @@ struct ExploreSubscItemDetailView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     HStack {
-                        ServiceIconImageView(iconImageURL: vm.subscItem.iconImageURL, serviceName: vm.subscItem.serviceName)
+                        ServiceIconImageView(serviceURL: vm.subscItem.iconImageURL, serviceName: vm.subscItem.serviceName)
                             .frame(width: 70, height: 70)
                             .cornerRadius(35)
                     }

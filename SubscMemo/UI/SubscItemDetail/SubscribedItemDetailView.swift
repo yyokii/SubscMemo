@@ -33,7 +33,7 @@ struct SubscribedItemDetailView: View {
 
                 HStack {
                     ServiceIconImageView(iconColor: iconColor,
-                                         iconImageURL: vm.subscItem.iconImageURL,
+                                         serviceURL: vm.subscItem.iconImageURL,
                                          serviceName: vm.subscItem.serviceName)
                         .frame(width: 70, height: 70)
                         .cornerRadius(35)

@@ -16,7 +16,6 @@ struct ExploreSubscListItemView: View {
 
     var body: some View {
         return VStack(alignment: .leading) {
-
             HStack {
                 Spacer()
                 Text(vm.item.mainCategoryName)
@@ -26,7 +25,8 @@ struct ExploreSubscListItemView: View {
             }
             .padding()
 
-            ServiceIconImageView(iconImageURL: vm.item.iconImageURL, serviceName: vm.item.serviceName)
+            ServiceIconImageView(serviceURL: vm.item.iconImageURL,
+                                 serviceName: vm.item.serviceName)
                 .frame(width: 50, height: 50)
                 .cornerRadius(25)
                 .padding(.leading)

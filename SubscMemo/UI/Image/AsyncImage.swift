@@ -5,7 +5,6 @@
 //  Created by Higashihara Yoki on 2021/05/04.
 //
 
-import Foundation
 import SwiftUI
 
 /**
@@ -55,6 +54,8 @@ public struct AsyncImage<PlaceholderView: View>: View {
     private func loadImage() { loader.load() }
 }
 
+#if DEBUG
+
 @available(iOS 14, macOS 11.0, tvOS 14, watchOS 7.0, *)
 struct AsyncImage_Previews: PreviewProvider {
 
@@ -66,3 +67,5 @@ struct AsyncImage_Previews: PreviewProvider {
         }.aspectRatio(contentMode: .fit)
     }
 }
+
+#endif

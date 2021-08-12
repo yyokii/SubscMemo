@@ -1,15 +1,15 @@
 //
-//  PaymentPerCategoryPieChartViewModel.swift
+//  CategoryPieChartViewModel.swift
 //  SubscMemo
 //
-//  Created by Higashihara Yoki on 2021/07/08.
+//  Created by Higashihara Yoki on 2021/05/08.
 //
 
 import Combine
 
 import Resolver
 
-final class PaymentPerCategoryPieChartViewModel: ObservableObject {
+final class CategoryPieChartViewModel: ObservableObject {
 
     // Repository
     @Injected var subscribedServiceRepository: SubscribedServiceRepository
@@ -20,16 +20,18 @@ final class PaymentPerCategoryPieChartViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     init() {
+
         subscribedServiceRepository.$subscribedItems
             .combineLatest(subscCategoryRepository.$categories)
             .map { [weak self] (items, categories) in
+
                 return self?.arrangePieChartDatas(subscItems: items, categories: categories) ?? []
             }
             .assign(to: \.pieChartDatas, on: self)
             .store(in: &cancellables)
     }
 
-    private func arrangePieChartDatas(subscItems: [SubscribedItem], categories: [SubscCategory]) -> [PieChartData] {
+    func arrangePieChartDatas(subscItems: [SubscribedItem], categories: [SubscCategory]) -> [PieChartData] {
 
         var datas: [String: Int] = [:]
 
@@ -41,9 +43,7 @@ final class PaymentPerCategoryPieChartViewModel: ObservableObject {
                 .name
 
             if let categoryTitle = title {
-                let cycle = PaymentCycle.init(rawValue: item.cycle)
-                let monthlyPayment = cycle?.perMonthValue(price: item.price) ?? 0
-                datas[categoryTitle, default: 0] += monthlyPayment
+                datas[categoryTitle, default: 0] += 1
             }
         }
 
@@ -55,6 +55,9 @@ final class PaymentPerCategoryPieChartViewModel: ObservableObject {
                     label: key.element
                 )
             }
+            .sorted {
+                $0.data > $1.data
+            }
 
         return chartDatas
     }
@@ -62,9 +65,9 @@ final class PaymentPerCategoryPieChartViewModel: ObservableObject {
 
 #if DEBUG
 
-var demoPaymentPerCategoryPieChartVM: PaymentPerCategoryPieChartViewModel {
+var demoCategoryPieChartVM: CategoryPieChartViewModel {
 
-    let vm = PaymentPerCategoryPieChartViewModel()
+    let vm = CategoryPieChartViewModel()
     vm.pieChartDatas = demoPieChartDatas
     return vm
 }

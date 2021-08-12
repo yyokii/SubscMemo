@@ -50,7 +50,7 @@ let demoExploreItemJoinedDatas = [
         createdTime: nil,
         description: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
         id: "demo-01",
-        name: "demo-name",
+        name: "demo-namedemo-namedemo-name",
         serviceID: "demo-service-id",
         serviceURL: ""
     )

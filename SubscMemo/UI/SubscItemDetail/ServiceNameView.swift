@@ -31,6 +31,8 @@ struct ServiceNameView: View {
                         .frame(width: 20, height: 20)
                         .foregroundColor(.adaptiveBlack)
                     Text(serviceURL.absoluteString)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .lineLimit(1)
                 })
             }
         }
@@ -42,11 +44,20 @@ struct ServiceNameView: View {
 struct ServiceNameView_Previews: PreviewProvider {
     static var content: some View {
         NavigationView {
-            ServiceNameView(
-                serviceName: "サービス名",
-                serviceURL: URL(string: "https://www.google.com/?hl=ja")!,
-                linkTapAction: nil
-            )
+
+            VStack(spacing: 50) {
+                ServiceNameView(
+                    serviceName: "サービス名",
+                    serviceURL: URL(string: "https://www.google.com/aaaaaaaa")!,
+                    linkTapAction: nil
+                )
+
+                ServiceNameView(
+                    serviceName: "サービス名",
+                    serviceURL: URL(string: "https://www.google.com/aaaaaaaaaaaaaaaaaaaaa")!,
+                    linkTapAction: nil
+                )
+            }
         }
     }
 

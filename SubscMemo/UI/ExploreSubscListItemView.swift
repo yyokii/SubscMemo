@@ -15,39 +15,46 @@ struct ExploreSubscListItemView: View {
     let width: CGFloat = UIScreen.main.bounds.width/2 - 20
 
     var body: some View {
-        return VStack(alignment: .leading) {
-            HStack {
-                Spacer()
-                Text(vm.item.mainCategoryName)
-                    .adaptiveFont(.matter, size: 8)
-                    .lineLimit(1)
-                    .foregroundColor(.adaptiveBlack)
-            }
-            .padding()
+        VStack(alignment: .leading) {
+            Text(vm.item.mainCategoryName)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .adaptiveFont(.matter, size: 8)
+                .lineLimit(1)
+                .foregroundColor(.adaptiveBlack)
+                .padding(.trailing)
+                .padding(.top, 10)
 
             ServiceIconImageView(serviceURL: vm.item.serviceURL,
                                  serviceName: vm.item.serviceName)
                 .frame(width: 50, height: 50)
                 .cornerRadius(25)
                 .padding(.leading)
+                .padding(.top, 30)
 
             Text(vm.item.serviceName)
                 .adaptiveFont(.matterSemiBold, size: 16)
+                .multilineTextAlignment(.leading)
+                .frame(height: 50)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(2)
-                .padding([.leading, .top])
+                .padding(.horizontal)
                 .foregroundColor(.adaptiveBlack)
 
-            Text(vm.item.description)
-                .adaptiveFont(.matter, size: 10)
-                .fixedSize(horizontal: false, vertical: true)
-                .lineLimit(4)
-                .padding([.leading, .top, .bottom])
-                .foregroundColor(.adaptiveBlack)
+            Group {
+                Text(vm.item.description)
+                    .adaptiveFont(.matter, size: 10)
+                    .multilineTextAlignment(.leading)
+                    .foregroundColor(.adaptiveBlack)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .lineLimit(4)
+            }
+            .frame(height: 50)
+            .padding(.horizontal)
+            .padding(.bottom, 30)
         }
+        .frame(width: width)
         .background(Color.adaptiveWhite)
         .cornerRadius(30)
-        .frame(width: width)
         .adaptiveShadow()
     }
 }
@@ -58,7 +65,10 @@ struct ExploreSubscListItemView_Previews: PreviewProvider {
 
     static var content: some View {
         NavigationView {
-            ExploreSubscListItemView(vm: demoExploreSubscItemVMs[0])
+            HStack {
+                ExploreSubscListItemView(vm: demoExploreSubscItemVMs[0])
+                ExploreSubscListItemView(vm: demoExploreSubscItemVMs[1])
+            }
         }
     }
 

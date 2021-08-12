@@ -36,21 +36,31 @@ struct ExploreItemJoinedData: Equatable, Hashable {
 let demoExploreItemJoinedDatas = [
     ExploreItemJoinedData(
         categoryIDs: ["demo-id"],
-        categoryNames: ["demo-name"],
+        categoryNames: ["demo-category-name"],
         createdTime: nil,
         description: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
         id: "demo-01",
-        name: "demo-name",
+        name: "demo-name01",
         serviceID: "demo-service-id",
         serviceURL: ""
     ),
     ExploreItemJoinedData(
         categoryIDs: ["demo-id"],
-        categoryNames: ["demo-name"],
+        categoryNames: ["demo-category-name"],
         createdTime: nil,
-        description: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        description: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
         id: "demo-01",
-        name: "demo-namedemo-namedemo-name",
+        name: "demo-name02 demo-name02 demo-name02",
+        serviceID: "demo-service-id",
+        serviceURL: ""
+    ),
+    ExploreItemJoinedData(
+        categoryIDs: ["demo-id"],
+        categoryNames: ["demo-category-name"],
+        createdTime: nil,
+        description: "c",
+        id: "demo-01",
+        name: "demo-name03",
         serviceID: "demo-service-id",
         serviceURL: ""
     )

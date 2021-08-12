@@ -28,6 +28,7 @@ struct ExploreSubscView: View {
                             label: {
                                 ExploreSubscListItemView(vm: vm)
                             })
+                            .padding(.bottom, 20)
                     }
                 }
             }

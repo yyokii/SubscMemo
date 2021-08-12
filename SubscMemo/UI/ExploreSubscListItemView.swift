@@ -34,7 +34,7 @@ struct ExploreSubscListItemView: View {
             Text(vm.item.serviceName)
                 .adaptiveFont(.matterSemiBold, size: 16)
                 .multilineTextAlignment(.leading)
-                .frame(height: 50)
+                .frame(height: 70)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(2)
                 .padding(.horizontal)
@@ -50,6 +50,7 @@ struct ExploreSubscListItemView: View {
             }
             .frame(height: 50)
             .padding(.horizontal)
+            .padding(.top, 10)
             .padding(.bottom, 30)
         }
         .frame(width: width)

@@ -22,7 +22,8 @@ final class ExploreSubscItemViewModel: ObservableObject, Identifiable {
 
 let demoExploreSubscItemVMs = [
     ExploreSubscItemViewModel(item: ExploreSubscItemViewData.translate(from: demoExploreItemJoinedDatas[0])),
-    ExploreSubscItemViewModel(item: ExploreSubscItemViewData.translate(from: demoExploreItemJoinedDatas[1]))
+    ExploreSubscItemViewModel(item: ExploreSubscItemViewData.translate(from: demoExploreItemJoinedDatas[1])),
+    ExploreSubscItemViewModel(item: ExploreSubscItemViewData.translate(from: demoExploreItemJoinedDatas[2]))
 ]
 
 #endif

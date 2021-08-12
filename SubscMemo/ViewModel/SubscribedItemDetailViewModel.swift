@@ -19,26 +19,26 @@ final class SubscribedItemDetailViewModel: ObservableObject {
 
     @Published var plan: SubscPlanViewData = SubscPlanViewData.makeEmptyData()
     @Published var subscItem: SubscItemDetailViewData = SubscItemDetailViewData.makeEmptyData()
-    var serviceID: String!
+    var dataID: String!
 
     private var cancellables = Set<AnyCancellable>()
 
-    init(serviceID: String) {
+    init(dataID: String) {
         alertProvider.objectWillChange
             .sink { [weak self] (_) in
                 self?.objectWillChange.send()
             }
             .store(in: &cancellables)
 
-        self.serviceID = serviceID
+        self.dataID = dataID
     }
 
     func loadItemData() {
-        loadItemData(serviceID: serviceID)
+        loadItemData(dataID: dataID)
     }
 
-    func loadItemData(serviceID: String) {
-        subscribedServiceRepository.loadJoinedData(with: serviceID)
+    func loadItemData(dataID: String) {
+        subscribedServiceRepository.loadJoinedData(with: dataID)
             .sink(receiveCompletion: { [weak self] completion in
 
                 switch completion {
@@ -82,7 +82,7 @@ final class SubscribedItemDetailViewModel: ObservableObject {
 #if DEBUG
 
 var demoSubscribedItemDetailVM: SubscribedItemDetailViewModel {
-    let vm = SubscribedItemDetailViewModel(serviceID: "")
+    let vm = SubscribedItemDetailViewModel(dataID: "")
     vm.subscItem = demoSubscItemDetailViewData
     return vm
 }

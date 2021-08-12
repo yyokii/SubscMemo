@@ -17,7 +17,11 @@ class BaseSubscribedServiceRepository {
     @Published var subscribedItems = [SubscribedItem]()
 }
 
-/// ユーザーが登録しているサブスクリプションサービスの操作
+/**
+ ユーザーが登録しているサブスクリプションサービスの操作
+
+ serviceIDをキーにして検索処理などを実行すると、同じサービスを複数登録している場合に一意に決定しないので注意。
+ */
 protocol SubscribedServiceRepository: BaseSubscribedServiceRepository {
     func addSubscribedItem(data: SubscribedItem) -> AnyPublisher<Void, Error>
     func deleteItem(dataID: String) -> AnyPublisher<Void, Error>
@@ -112,9 +116,10 @@ final class FirestoreSubscribedServiceRepository: BaseSubscribedServiceRepositor
     }
 
     /// 任意のサービスIDのデータを取得する
-    func loadJoinedData(with serviceID: String) -> AnyPublisher<SubscribedItemJoinedData, Error> {
+    func loadJoinedData(with dataID: String) -> AnyPublisher<SubscribedItemJoinedData, Error> {
+
         let targetData = joinedDatas.first { item in
-            item.serviceID == serviceID
+            item.id == dataID
         }
 
         if let data = targetData {

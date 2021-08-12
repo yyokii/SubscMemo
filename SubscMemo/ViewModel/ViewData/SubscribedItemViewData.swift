@@ -7,6 +7,7 @@
 
 struct SubscribedItemViewData {
     var cycle: String
+    let id: String
     var mainCategoryName: String
     var planName: String?
     var price: String
@@ -19,6 +20,7 @@ struct SubscribedItemViewData {
 
         return SubscribedItemViewData(
             cycle: paymentCycle?.title ?? "",
+            id: input.id!,
             mainCategoryName: input.categoryNames[safe: 0] ?? "",
             planName: input.planName,
             price: input.price.modifyToPriceStringData(),

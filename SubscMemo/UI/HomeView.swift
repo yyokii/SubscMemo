@@ -46,7 +46,7 @@ struct HomeView: View {
 
                         ForEach(homeVM.subscribedItemVMs) { vm in
                             let iconColor = Color.randomColor()
-                            let subscribedItemDetailVM = SubscribedItemDetailViewModel(serviceID: vm.item.serviceID)
+                            let subscribedItemDetailVM = SubscribedItemDetailViewModel(dataID: vm.item.id)
                             NavigationLink(
                                 destination: SubscribedItemDetailView(vm: subscribedItemDetailVM, iconColor: iconColor),
                                 label: {

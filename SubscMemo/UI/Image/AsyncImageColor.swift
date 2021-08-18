@@ -15,7 +15,7 @@ public struct AsyncImageColor<PlaceholderView: View>: View {
         @ViewBuilder placeholder: @escaping Placeholder) {
         self.contentMode = contentMode
         self.placeholder = placeholder
-        _loader = ObservedObject(wrappedValue: AsyncImageColorLoader(url: url))
+        loader = AsyncImageColorLoader(url: url)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: loadImage)
     }
 

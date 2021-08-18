@@ -10,6 +10,12 @@ import SwiftUI
 import UIKit
 
 public class AsyncImageColorLoader: ObservableObject {
+    static var cache: AnyCache = AnyCache(data: CacheImpl<URL, Color>())
+    private let url: URL
+    private let session: URLSession
+    private var cancellable: AnyCancellable?
+
+    @Published public var averageColor: Color?
 
     public init(
         url: URL,
@@ -17,12 +23,6 @@ public class AsyncImageColorLoader: ObservableObject {
         self.url = url
         self.session = session
     }
-
-    private let url: URL
-    private let session: URLSession
-    private var cancellable: AnyCancellable?
-
-    @Published public var averageColor: Color?
 
     private func getImageAverageColor(from data: Data?) -> Color? {
         guard let data = data,
@@ -32,12 +32,25 @@ public class AsyncImageColorLoader: ObservableObject {
     }
 
     public func load() {
+        if let cached: Color = AsyncImageColorLoader.cache.data[url] {
+            self.averageColor = cached
+            return
+        }
+
         cancellable = session.dataTaskPublisher(for: url)
             .map { $0.data }
+            .map { [weak self] in
+                self?.getImageAverageColor(from: $0)
+            }
             .replaceError(with: nil)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                self?.averageColor = self?.getImageAverageColor(from: $0)
+                guard let self = self else { return }
+
+                self.averageColor = $0
+                if let color = $0 {
+                    AsyncImageColorLoader.cache.data[self.url] = color
+                }
             }
     }
 

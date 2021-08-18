@@ -7,11 +7,23 @@
 
 import Foundation
 
+protocol Cache {
+    associatedtype Key
+    associatedtype Value
+
+    subscript(key: Key) -> Value? { get set }
+    func removeAll()
+}
+
+struct AnyCache<T: Cache> {
+    let data: T
+}
+
 /// キャッシュ管理クラス。任意の値を保存でき、メモリキャッシュのみ対応。
-final public class Cache<Key: Hashable, Value> {
-    private let wrapped = NSCache<WrappedKey, Entry>()
-    private let dateProvider: () -> Date
-    private let entryLifetime: TimeInterval
+final public class CacheImpl<Key: Hashable, Value>: Cache {
+    var wrapped = NSCache<WrappedKey, Entry>()
+    var dateProvider: () -> Date
+    var entryLifetime: TimeInterval
 
     public init(dateProvider: @escaping () -> Date = Date.init,
                 entryLifetime: TimeInterval = 12 * 60 * 60) {
@@ -55,9 +67,15 @@ final public class Cache<Key: Hashable, Value> {
     func removeValue(forKey key: Key) {
         wrapped.removeObject(forKey: WrappedKey(key))
     }
+
+    func removeAll() {
+        wrapped.removeAllObjects()
+    }
 }
 
-private extension Cache {
+extension CacheImpl {
+
+    ///  Wrap our public-facing Key values in order to make them NSCache compatible.
     final class WrappedKey: NSObject {
         let key: Key
 

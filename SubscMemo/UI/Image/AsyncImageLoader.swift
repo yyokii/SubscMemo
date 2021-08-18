@@ -7,17 +7,12 @@
 
 import Combine
 import SwiftUI
-
-#if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
-#elseif os(macOS)
-import Cocoa
-#endif
 
 public class AsyncImageLoader: ObservableObject {
 
     public init(
-        cache: Cache<URL, Image> = Cache(),
+        cache: CacheImpl<URL, Image> = CacheImpl(),
         url: URL,
         session: URLSession = .shared) {
         self.cache = cache
@@ -25,7 +20,7 @@ public class AsyncImageLoader: ObservableObject {
         self.session = session
     }
 
-    private let cache: Cache<URL, Image>
+    private let cache: CacheImpl<URL, Image>
     private let url: URL
     private let session: URLSession
     private var cancellable: AnyCancellable?
@@ -34,27 +29,11 @@ public class AsyncImageLoader: ObservableObject {
 
     private func getImage(from data: Data?) -> Image? {
         guard let data = data else { return nil }
-        #if os(iOS) || os(tvOS) || os(watchOS)
         let image = UIImage(data: data) ?? UIImage()
         return Image(uiImage: image)
-        #elseif os(macOS)
-        let image = NSImage(data: data) ?? NSImage()
-        return Image(nsImage: image)
-        #else
-        print("Unsupported platform")
-        return nil
-        #endif
-    }
-
-    private func getImageAverageColor(from data: Data?) -> Color? {
-        guard let data = data,
-              let image = CIImage(data: data),
-              let averageColor = image.averageColor else { return nil }
-        return averageColor
     }
 
     public func load() {
-
         if let cached = cache[url] {
             self.image = cached
             return
@@ -65,7 +44,11 @@ public class AsyncImageLoader: ObservableObject {
             .replaceError(with: nil)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                self?.image = self?.getImage(from: $0)
+                guard let self = self else { return }
+
+                let image = self.getImage(from: $0)
+                self.cache[self.url] = image
+                self.image = image
             }
     }
 

@@ -6,13 +6,14 @@ target 'SubscMemo' do
   use_frameworks!
 
   # Pods for SubscMemo
+  pod 'CombineFirebase/Firestore'
+  pod 'CombineFirebase/Auth'
   pod 'Firebase/Auth'
   pod 'Firebase/Analytics'
   pod 'Firebase/Firestore'
   pod 'Firebase/Messaging'
   pod 'FirebaseFirestoreSwift', '> 7.0-beta'
-  pod 'CombineFirebase/Firestore'
-  pod 'CombineFirebase/Auth'
+  pod 'Google-Mobile-Ads-SDK'
   pod "Resolver"
   
   target 'SubscMemoTests' do

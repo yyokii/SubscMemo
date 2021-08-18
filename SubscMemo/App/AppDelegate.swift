@@ -10,6 +10,7 @@ import UIKit
 
 import Firebase
 import FirebaseAuth
+import GoogleMobileAds
 import Resolver
 
 @main
@@ -25,13 +26,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().delegate = self
 
-        setUpUserNotification()
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
 
         #if DEBUG
         if isTesting() {
             return true
         }
         #endif
+
+        setUpUserNotification()
 
         _ = authenticationService.signInAnonymously()
         return true

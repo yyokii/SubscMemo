@@ -9,6 +9,9 @@ import SwiftUI
 
 import GoogleMobileAds
 
+/*
+ About Admob Banner : https://developers.google.com/admob/ios/banner
+ */
 struct AdBannerView: UIViewRepresentable {
     typealias UIViewType = GADBannerView
 

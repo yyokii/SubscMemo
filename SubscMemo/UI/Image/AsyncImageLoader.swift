@@ -10,22 +10,19 @@ import SwiftUI
 import UIKit
 
 public class AsyncImageLoader: ObservableObject {
-
-    public init(
-        cache: CacheImpl<URL, Image> = CacheImpl(),
-        url: URL,
-        session: URLSession = .shared) {
-        self.cache = cache
-        self.url = url
-        self.session = session
-    }
-
-    private let cache: CacheImpl<URL, Image>
+    static var cache: AnyCache = AnyCache(data: CacheImpl<URL, Image>())
     private let url: URL
     private let session: URLSession
     private var cancellable: AnyCancellable?
 
     @Published public var image: Image?
+
+    public init(
+        url: URL,
+        session: URLSession = .shared) {
+        self.url = url
+        self.session = session
+    }
 
     private func getImage(from data: Data?) -> Image? {
         guard let data = data else { return nil }
@@ -34,7 +31,7 @@ public class AsyncImageLoader: ObservableObject {
     }
 
     public func load() {
-        if let cached = cache[url] {
+        if let cached = AsyncImageLoader.cache.data[url] {
             self.image = cached
             return
         }
@@ -47,8 +44,10 @@ public class AsyncImageLoader: ObservableObject {
                 guard let self = self else { return }
 
                 let image = self.getImage(from: $0)
-                self.cache[self.url] = image
                 self.image = image
+                if let image = image {
+                    AsyncImageLoader.cache.data[self.url] = image
+                }
             }
     }
 

@@ -11,7 +11,7 @@ import XCTest
 
 class AsyncImageColorLoaderTests: XCTestCase {
 
-    func testLoadL_キャッシュされているものはキャッシュより取得される() {
+    func testLoad_キャッシュされているものはキャッシュより取得される() {
         // given
         let url = URL(string: "demo")!
         let expectedColor: Color = .gray

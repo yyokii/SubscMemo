@@ -25,7 +25,7 @@ struct HomeView: View {
                             .padding()
 
                         PagingBannerView()
-                        
+
                         Text("マイデータ")
                             .adaptiveFont(.matterSemiBold, size: 12)
                             .padding()

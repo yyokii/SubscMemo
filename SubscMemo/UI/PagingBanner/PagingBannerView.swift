@@ -13,7 +13,7 @@ struct PagingBannerView: View {
 
     var body: some View {
         TabView(selection: $selectedIndex) {
-            ForEach(0..<vm.contents.count) { index in
+            ForEach(0..<vm.contents.count, id: \.self) { index in
                 let item = vm.contents[index]
                 item
                     .getView()
@@ -23,7 +23,6 @@ struct PagingBannerView: View {
         }
         .tabViewStyle(PageTabViewStyle())
         .background(Color.black)
-        //        .frame(height: 200)
         .aspectRatio(3.2, contentMode: .fit)
         .onChange(of: selectedIndex, perform: { newValue in
             vm.onChangeBanner(to: newValue)

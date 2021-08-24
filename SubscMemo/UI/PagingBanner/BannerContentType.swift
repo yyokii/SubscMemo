@@ -10,20 +10,24 @@ import SwiftUI
 
 enum BannerContentType {
     case advertisement
-    case announcement(imageURL: String)
-
-    var id: Self { self }
+    case announcement(imageURL: URL)
 
     @ViewBuilder
     func getView() -> some View {
         switch self {
         case .advertisement:
             AdBannerView()
-        case .announcement(let imageURL):
-            ZStack {
-                Color.green
-                Text(imageURL)
+        case .announcement(let url):
+            if let imageData: NSData = NSData(contentsOf: url) {
+                if let image = UIImage(data: imageData as Data) {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                }
+            } else {
+                Color.gray
             }
+
         }
     }
 }

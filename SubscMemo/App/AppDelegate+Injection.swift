@@ -13,6 +13,7 @@ extension Resolver: ResolverRegistering {
         register { AuthenticationService() }.scope(.application)
 
         // Repositoryの登録
+        register { FirestoreAnnouncementBannerRepository() as AnnouncementBannerRepository }.scope(.application)
         register { FirestoreExploreSubscRepository() as ExploreSubscRepository }.scope(.application)
         register { FirestoreUserProfileRepository() as UserProfileRepository }.scope(.application)
         register { FirestoreSubscCategoryRepository() as SubscCategoryRepository }.scope(.application)

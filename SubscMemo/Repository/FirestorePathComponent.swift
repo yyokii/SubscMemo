@@ -6,6 +6,8 @@
 //
 
 enum FirestorePathComponent: String {
+    case announcement = "announcement"
+    case banners = "banners"
     case categories = "categories"
     case plans = "plans"
     case services = "services"

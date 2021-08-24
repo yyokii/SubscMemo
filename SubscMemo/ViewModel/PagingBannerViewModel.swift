@@ -8,16 +8,36 @@
 import Combine
 import Foundation
 
+import Resolver
+
 class PagingBannerViewModel: ObservableObject {
+
+    // Repository
+    @Injected var announcementBannerRepository: AnnouncementBannerRepository
+
     @Published var contents: [BannerContentType] = []
     @Published var selectedIndex: Int
 
     private var cancellables = Set<AnyCancellable>()
 
     init() {
-        contents = [.advertisement, .announcement(imageURL: "hogehoge//")]
-
+        contents = [.advertisement]
         selectedIndex = 0
+
+        announcementBannerRepository.$banners
+            .map { banners in
+                banners
+                    .compactMap {
+                        URL.init(string: $0.imageURL)
+                    }
+                    .map {
+                        BannerContentType.announcement(imageURL: $0)
+                    }
+            }
+            .sink(receiveValue: { contents  in
+                self.contents.append(contentsOf: contents)
+            })
+            .store(in: &cancellables)
 
         Timer.publish(every: 2, on: .main, in: .default)
             .autoconnect()
@@ -29,7 +49,6 @@ class PagingBannerViewModel: ObservableObject {
                 } else {
                     self.selectedIndex = 0
                 }
-                print(self.selectedIndex)
             }
             .store(in: &cancellables)
     }

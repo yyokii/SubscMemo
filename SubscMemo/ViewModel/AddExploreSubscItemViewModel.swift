@@ -84,6 +84,12 @@ final class AddExploreSubscItemViewModel: ObservableObject {
                         message: "追加しました！",
                         action: { [weak self] in
                             self?.shouldDismissView = true
+
+                            let reviewReqManager = ReviewRequestManagerImpl.standard
+                            reviewReqManager.incrementProcessCount()
+                            if reviewReqManager.canRequestReview {
+                                reviewReqManager.requestReview()
+                            }
                         }
                     )
                 }

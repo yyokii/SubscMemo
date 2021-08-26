@@ -11,7 +11,7 @@ protocol ReviewRequestManager {
     var userDefault: KeyValueStore { get }
     var canRequestReview: Bool { get }
 
-    func requestReview(in windowScene: UIWindowScene)
+    func requestReview(in windowScene: UIWindowScene?)
 }
 
 /*
@@ -56,7 +56,7 @@ class ReviewRequestManagerImpl: ReviewRequestManager {
     init(userDefaults: KeyValueStore = UserDefaults.standard,
          currentAppVersion: String,
          thresholdCountForReviewRequest: Int = 2,
-         waitTimeForReviewRequest: Double = 2.0) {
+         waitTimeForReviewRequest: Double = 1.0) {
 
         self.userDefault = userDefaults
         self.currentAppVersion = currentAppVersion
@@ -68,11 +68,23 @@ class ReviewRequestManagerImpl: ReviewRequestManager {
         processCount += 1
     }
 
-    func requestReview(in windowScene: UIWindowScene) {
+    ///  Request Review
+    /// - Parameter windowScene: nil means to use windows first
+    func requestReview(in windowScene: UIWindowScene? = nil) {
+        var targetScene: UIWindowScene
+
+        if let scene = windowScene {
+            targetScene = scene
+        } else if let scene = UIApplication.shared.windows.first?.windowScene {
+            targetScene = scene
+        } else {
+            return
+        }
+
         requestReviewWorkItem?.cancel()
 
         requestReviewWorkItem = DispatchWorkItem(block: { [weak self] in
-            SKStoreReviewController.requestReview(in: windowScene)
+            SKStoreReviewController.requestReview(in: targetScene)
             self?.lastVersionPromptedForReview = self?.currentAppVersion
         })
 

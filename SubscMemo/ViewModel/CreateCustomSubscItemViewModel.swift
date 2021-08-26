@@ -28,6 +28,7 @@ final class CreateCustomSubscItemViewModel: ObservableObject {
     }
 
     @Published var categories: [SubscCategory] = []
+    @Published var isRequestedReview = false
     @Published var mainCategory: SubscCategory = SubscCategory.makeEmptyData()
     @Published var subCategory: SubscCategory = SubscCategory.makeEmptyData()
     @Published var subscItem: SubscribedItem = SubscribedItem.makeEmptyData(isUserOriginal: true)
@@ -70,6 +71,13 @@ final class CreateCustomSubscItemViewModel: ObservableObject {
                         message: "追加しました！",
                         action: { [weak self] in
                             self?.shouldDismissView = true
+
+                            let reviewReqManager = ReviewRequestManagerImpl.standard
+                            reviewReqManager.incrementProcessCount()
+
+                            if reviewReqManager.canRequestReview {
+                                reviewReqManager.requestReview()
+                            }
                         }
                     )
                 }

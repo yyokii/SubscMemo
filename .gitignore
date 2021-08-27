@@ -39,6 +39,11 @@ xcuserdata/
 timeline.xctimeline
 playground.xcworkspace
 
+## Security Information
+GoogleService-Info.plist
+SubscMemo/Info.plist
+SubscMemo/App/Identifiers.swift
+
 # Swift Package Manager
 #
 # Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.

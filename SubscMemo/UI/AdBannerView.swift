@@ -19,7 +19,7 @@ struct AdBannerView: UIViewRepresentable {
         let banner = GADBannerView(adSize: kGADAdSizeBanner)
 
         #if DEBUG
-        banner.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        banner.adUnitID = Identifiers.adUnitID
         #else
         banner.adUnitID = ""
         #endif

@@ -1,0 +1,32 @@
+@startuml
+skinparam componentStyle rectangle
+
+package "SubscMemo"{
+    package "Firebase" {
+        [Firestore]  as fs
+    }
+
+    package "App" {
+        [Model]  as m
+        [Repository]  as repo
+        [Service]  as service
+        [View]  as v
+        [ViewData]  as vd
+        [ViewModel]  as vm
+
+        v - vm
+
+        vm - repo
+        vm -d- vd
+
+        repo - fs
+        repo - service
+        repo --> m
+
+        service - fs
+
+        m --> vm
+    }
+
+}
+@enduml

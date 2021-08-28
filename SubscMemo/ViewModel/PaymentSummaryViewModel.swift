@@ -31,9 +31,6 @@ final class PaymentSummaryViewModel: ObservableObject {
                         res + data
                     }
             }
-            .handleEvents(receiveOutput: { [weak self] in
-                self?.monthlyPayment = $0
-            })
             .assign(to: \.monthlyPayment, on: self)
             .store(in: &cancellables)
 
@@ -48,9 +45,6 @@ final class PaymentSummaryViewModel: ObservableObject {
                         res + data
                     }
             }
-            .handleEvents(receiveOutput: { [weak self] in
-                self?.yearlyPayment = $0
-            })
             .assign(to: \.yearlyPayment, on: self)
             .store(in: &cancellables)
     }

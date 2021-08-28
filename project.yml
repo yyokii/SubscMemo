@@ -27,9 +27,10 @@ targets:
       base:
         CODE_SIGN_ENTITLEMENTS: SubscMemo/SubscMemo.entitlements
         CURRENT_PROJECT_VERSION: 1
+        DEVELOPMENT_TEAM: EAZT2D654U
         INFOPLIST_FILE: SubscMemo/Info.plist
         MARKETING_VERSION: 1.0.0 
-        OTHER_LDFLAGS: -fprofile-instr-generate
+        OTHER_LDFLAGS: -fprofile-instr-generate $(inherited)
         PRODUCT_BUNDLE_IDENTIFIER: com.yyokii.mysubscmemo
     dependencies:
       - target: SubscMemoWidget
@@ -79,7 +80,9 @@ targets:
       base:
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME: WidgetBackground
+        CODE_SIGN_ENTITLEMENTS: SubscMemoWidget/SubscMemoWidget.entitlements
         CURRENT_PROJECT_VERSION: 1
+        DEVELOPMENT_TEAM: EAZT2D654U
         INFOPLIST_FILE: SubscMemoWidget/Info.plist
         MARKETING_VERSION: 1.0.0 
         PRODUCT_BUNDLE_IDENTIFIER: com.yyokii.mysubscmemo.SubscMemoWidget
@@ -87,7 +90,18 @@ targets:
         SKIP_INSTALL: true
     sources:
       - SubscMemoWidget
+      - path: "SubscMemo/Extention/UserDefaults+Base.swift"
+        type: file
+      - path: "SubscMemo/Extention/KeyNameSpaceable.swift"
+        type: file
+      - path: "SubscMemo/UI/Styleguide"
+        type: group
+      - path: "SubscMemo/UI/ViewHelper"
+        excludes: 
+          - "View+HideKeyboard.swift"
+        type: group
     dependencies:
+      - package: Tagged
       - sdk: SwiftUI.framework
       - sdk: WidgetKit.framework
 

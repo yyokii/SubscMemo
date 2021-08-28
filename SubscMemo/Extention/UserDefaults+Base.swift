@@ -7,7 +7,16 @@
 
 import Foundation
 
+enum UserDefaultSuiteName: String {
+    case mysubscmemo = "group.com.yyokii.mysubscmemo"
+}
+
 enum UserDefaultKeys: String {
+    // App Groupsで共有するデータ
+    case cachedMonthlyPayment // 平均月額支払い額
+    case cachedServiceCount // 登録しているサービス数
+    case cachedYearlyPayment // 平均年額支払い額
+
     case processAddSubscribedItemCount // 登録済みのサブスク項目をいくつ追加したか
     case lastVersionPromptedForReview // レビューリクエストを行なった最終バージョン
 }

@@ -25,12 +25,12 @@ struct WidgetSmall: View {
             .font(.caption)
 
             ContainerRelativeShape()
-                .fill(Color.yellow)
+                .fill(Color.appBlack)
                 .overlay(
                     VStack(spacing: 8) {
-                        WidgetPaymentSummaryItemView(title: "月額平均", payment: 10000)
+                        WidgetPaymentSummaryItemView(title: "月額平均", payment: monthlyPayment)
 
-                        WidgetPaymentSummaryItemView(title: "年額平均", payment: 10000)
+                        WidgetPaymentSummaryItemView(title: "年額平均", payment: yearlyPayment)
                     }
                     .padding(.horizontal, 8)
                 )
@@ -43,7 +43,7 @@ struct WidgetPaymentSummaryItemView: View {
     let payment: Int
 
     var body: some View {
-        VStack(alignment: .center) {
+        VStack(alignment: .center, spacing: 5) {
             HStack {
                 Text(title)
                     .foregroundColor(.gray)
@@ -54,6 +54,7 @@ struct WidgetPaymentSummaryItemView: View {
             Text("¥\(payment)")
                 .font(.body)
                 .fontWeight(.bold)
+                .foregroundColor(.white)
         }
     }
 }

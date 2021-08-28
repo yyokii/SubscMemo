@@ -14,6 +14,9 @@ import SwiftUI
  */
 
 struct Provider: TimelineProvider {
+
+    let subscribedServiceDataStore = SubscribedServiceDataStoreImpl()
+
     func placeholder(in context: Context) -> UserDataEntry {
         UserDataEntry(
             date: Date(),
@@ -24,11 +27,12 @@ struct Provider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping (UserDataEntry) -> Void) {
+        // Default  Content
         let entry = UserDataEntry(
             date: Date(),
-            subscribedSurviceCount: 3,
-            monthlyPayment: 1000,
-            yearlyPayment: 12000
+            subscribedSurviceCount: 0,
+            monthlyPayment: 0,
+            yearlyPayment: 0
         )
         completion(entry)
     }
@@ -36,37 +40,32 @@ struct Provider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
         var entries: [UserDataEntry] = []
 
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = UserDataEntry(
-                date: entryDate,
-                subscribedSurviceCount: 5,
-                monthlyPayment: 10000,
-                yearlyPayment: 200000
-            )
-            entries.append(entry)
-        }
+        let entry = UserDataEntry(
+            date: currentDate,
+            subscribedSurviceCount: subscribedServiceDataStore.serviceCount,
+            monthlyPayment: subscribedServiceDataStore.monthlyPayment,
+            yearlyPayment: subscribedServiceDataStore.yearlyPayment)
+        entries.append(entry)
 
-        let timeline = Timeline(entries: entries, policy: .atEnd)
+        let timeline = Timeline(entries: entries, policy: .never)
         completion(timeline)
     }
 }
 
-struct UserDataEntry: TimelineEntry {
-    var date: Date
-
-    let subscribedSurviceCount: Int
-    let monthlyPayment: Int
-    let yearlyPayment: Int
-}
-
 struct SubscMemoWidgetEntryView: View {
+    @Environment(\.widgetFamily) var family: WidgetFamily
+
     var entry: Provider.Entry
 
     var body: some View {
-        Text(entry.date, style: .time)
+        switch family {
+        case .systemSmall: WidgetSmall(serviceCount: entry.subscribedSurviceCount,
+                                       monthlyPayment: entry.monthlyPayment,
+                                       yearlyPayment: entry.yearlyPayment)
+        default:
+            fatalError()
+        }
     }
 }
 

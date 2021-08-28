@@ -6,10 +6,13 @@
 //
 
 import Combine
+import WidgetKit
 
 import Resolver
 
 final class PaymentSummaryViewModel: ObservableObject {
+    // Data Store
+    let dataStore: KeyValueStore
 
     // Repository
     @Injected var subscribedServiceRepository: SubscribedServiceRepository
@@ -19,7 +22,9 @@ final class PaymentSummaryViewModel: ObservableObject {
 
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
+    init(userDataStore: KeyValueStore = UserDefaults.init(suiteName: UserDefaultSuiteName.mysubscmemo.rawValue)!) {
+        dataStore = userDataStore
+
         subscribedServiceRepository.$subscribedItems
             .map { items in
                 items
@@ -31,6 +36,10 @@ final class PaymentSummaryViewModel: ObservableObject {
                         res + data
                     }
             }
+            .handleEvents(receiveOutput: { [weak self] data in
+                self?.dataStore.set(data, forKey: .cachedMonthlyPayment)
+                WidgetCenter.shared.reloadAllTimelines()
+            })
             .assign(to: \.monthlyPayment, on: self)
             .store(in: &cancellables)
 
@@ -45,6 +54,10 @@ final class PaymentSummaryViewModel: ObservableObject {
                         res + data
                     }
             }
+            .handleEvents(receiveOutput: { [weak self] data in
+                self?.dataStore.set(data, forKey: .cachedYearlyPayment)
+                WidgetCenter.shared.reloadAllTimelines()
+            })
             .assign(to: \.yearlyPayment, on: self)
             .store(in: &cancellables)
     }

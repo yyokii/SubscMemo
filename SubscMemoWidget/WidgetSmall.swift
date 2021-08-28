@@ -20,8 +20,8 @@ struct WidgetSmall: View {
                 Spacer()
                 Text("\(serviceCount) 個")
             }
-            .padding(.horizontal, 8)
-            .padding(.top, 8)
+            .padding(.horizontal, 20)
+            .padding(.top, 10)
             .font(.caption)
 
             ContainerRelativeShape()
@@ -62,14 +62,21 @@ struct WidgetPaymentSummaryItemView: View {
 #if DEBUG
 
 struct WidgetSmall_Previews: PreviewProvider {
-    static var previews: some View {
+    static var content: some View {
         WidgetSmall(
             serviceCount: 5,
             monthlyPayment: 10000,
             yearlyPayment: 12000
         )
         .previewContext(WidgetPreviewContext(family: .systemSmall))
+    }
 
+    static var previews: some View {
+        content
+            .environment(\.colorScheme, .light)
+
+        content
+            .environment(\.colorScheme, .dark)
     }
 }
 

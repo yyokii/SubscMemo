@@ -9,8 +9,8 @@ import StoreKit
 
 protocol ReviewRequestManager {
     var userDefault: KeyValueStore { get }
-    var canRequestReview: Bool { get }
 
+    var canRequestReview: Bool { get }
     func requestReview(in windowScene: UIWindowScene?)
 }
 

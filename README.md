@@ -8,6 +8,10 @@ This app manages subscription services.
 
 ## About
 
+### Screenshot
+
+<img width="500" alt="スクリーンショット 2021-08-30 1 02 42" src="https://user-images.githubusercontent.com/20992687/131257125-04ab204d-d09f-4330-8def-12a5496b6506.png">
+
 ### Features
 
 The main functions are as follows.

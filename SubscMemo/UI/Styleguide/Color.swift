@@ -21,8 +21,18 @@ extension Color {
 
     public static let appBlack = hex(0x2C2C2E)
 
+    public static let defaultSaturation: Double = 0.9
+    public static let defaultBrightness: Double = 0.9
+
+    /// 引数で与えられた色相とアプリ固有の彩度、明度を使用して色を生成する
+    init(hue: Double) {
+        self.init(hue: hue,
+                  saturation: Color.defaultSaturation,
+                  brightness: Color.defaultBrightness)
+    }
+
     /// 任意のトーンの色をランダムに生成する
-    public static func randomColor(saturation: Double = 0.9, brightness: Double = 0.9) -> Self {
+    public static func randomColor(saturation: Double = defaultSaturation, brightness: Double = defaultBrightness) -> Self {
         let hueValue = Double.random(in: 0...1)
         return Color.init(hue: hueValue, saturation: saturation, brightness: brightness)
     }

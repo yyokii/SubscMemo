@@ -6,6 +6,7 @@
 //
 
 import Combine
+import SwiftUI
 
 import Resolver
 
@@ -47,12 +48,14 @@ final class CategoryPieChartViewModel: ObservableObject {
             }
         }
 
+        let firstColorHue = Double(datas.count) / 0.9
         let chartDatas = datas.keys
             .enumerated()
-            .map { key in
+            .map { index, key in
                 PieChartData(
-                    data: Double(datas[key.element] ?? 0),
-                    label: key.element
+                    data: Double(datas[key] ?? 0),
+                    color: .init(hue: Double((index + 1))/firstColorHue),
+                    label: key
                 )
             }
             .sorted {

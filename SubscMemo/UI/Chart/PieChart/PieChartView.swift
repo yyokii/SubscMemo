@@ -66,16 +66,111 @@ struct PieChartView: View {
 #if DEBUG
 struct PieChartView_Previews: PreviewProvider {
 
+    static let demoSubscItems = [
+        SubscribedItem(
+            categoryIDs: ["categoryID-01"],
+            cycle: "monthly",
+            description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
+            id: "demo-01",
+
+            isUserOriginal: false,
+            memo: "demo-memo",
+            name: "demo-01",
+            planID: nil,
+            planName: "",
+            price: 100,
+            payAt: nil,
+            serviceID: "",
+            serviceURL: ""
+        ),
+        SubscribedItem(
+            categoryIDs: ["categoryID-02"],
+            cycle: "monthly",
+            description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
+            id: "demo-02",
+            isUserOriginal: false,
+            memo: "demo-memo",
+            name: "demo-01",
+            planID: nil,
+            planName: "",
+            price: 100,
+            payAt: nil,
+            serviceID: "",
+            serviceURL: ""
+        ),
+        SubscribedItem(
+            categoryIDs: ["categoryID-03"],
+            cycle: "monthly",
+            description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
+            id: "demo-02",
+            isUserOriginal: false,
+            memo: "demo-memo",
+            name: "demo-01",
+            planID: nil,
+            planName: "",
+            price: 100,
+            payAt: nil,
+            serviceID: "",
+            serviceURL: ""
+        ),
+
+        SubscribedItem(
+            categoryIDs: ["categoryID-04"],
+            cycle: "monthly",
+            description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
+            id: "demo-02",
+            isUserOriginal: false,
+            memo: "demo-memo",
+            name: "demo-01",
+            planID: nil,
+            planName: "",
+            price: 100,
+            payAt: nil,
+            serviceID: "",
+            serviceURL: ""
+        ),
+        SubscribedItem(
+            categoryIDs: ["categoryID-05"],
+            cycle: "monthly",
+            description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
+            id: "demo-02",
+            isUserOriginal: false,
+            memo: "demo-memo",
+            name: "demo-01",
+            planID: nil,
+            planName: "",
+            price: 100,
+            payAt: nil,
+            serviceID: "",
+            serviceURL: ""
+        )
+    ]
+
+    static let demoSubscCategories = [
+        SubscCategory(id: "id-01", categoryID: "categoryID-01", iconImageURL: "https://via.placeholder.com/50", name: "ソーシャルネットワーキング"),
+        SubscCategory(id: "id-02", categoryID: "categoryID-02", iconImageURL: "https://via.placeholder.com/50", name: "写真/動画"),
+        SubscCategory(id: "id-03", categoryID: "categoryID-03", iconImageURL: "https://via.placeholder.com/50", name: "教育"),
+        SubscCategory(id: "id-04", categoryID: "categoryID-04", iconImageURL: "https://via.placeholder.com/50", name: "ミュージック"),
+        SubscCategory(id: "id-05", categoryID: "categoryID-05", iconImageURL: "https://via.placeholder.com/50", name: "スポーツ")
+    ]
+
     static var previews: some View {
 
-        ForEach( ["iPhone SE (1st generation)",
-                  "iPhone X",
-                  "iPhone XS Max",
-                  "iPad Pro (9.7-inch)"],
-                 id: \.self) { deviceName in
-            PieChartView(data: demoPieChartDatas, title: "たいとる", dropShadow: true)
-                .previewDevice(PreviewDevice(rawValue: deviceName))
-                .previewDisplayName(deviceName)
+        let vm = CategoryPieChartViewModel()
+        PieChartView(data: vm.arrangePieChartDatas(subscItems: demoSubscItems, categories: demoSubscCategories),
+                     title: "たいとる",
+                     dropShadow: true)
+
+        Group {
+            ForEach( ["iPhone SE (1st generation)",
+                      "iPhone X",
+                      "iPhone XS Max",
+                      "iPad Pro (9.7-inch)"],
+                     id: \.self) { deviceName in
+                PieChartView(data: demoPieChartDatas, title: "たいとる", dropShadow: true)
+                    .previewDevice(PreviewDevice(rawValue: deviceName))
+                    .previewDisplayName(deviceName)
+            }
         }
     }
 }

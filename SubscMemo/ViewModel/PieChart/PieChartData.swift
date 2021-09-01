@@ -22,6 +22,5 @@ let demoPieChartDatas = [
     PieChartData(data: 30, label: "data03"),
     PieChartData(data: 40, label: "data04"),
     PieChartData(data: 50, label: "data05")
-
 ]
 #endif

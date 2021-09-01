@@ -74,7 +74,7 @@ struct SubscribedItem: Codable, Identifiable {
 #if DEBUG
 let demoSubscItems = [
     SubscribedItem(
-        categoryIDs: ["demo-id"],
+        categoryIDs: ["categoryID-01"],
         cycle: "monthly",
         description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
         id: "demo-01",
@@ -90,7 +90,7 @@ let demoSubscItems = [
         serviceURL: ""
     ),
     SubscribedItem(
-        categoryIDs: ["demo-id"],
+        categoryIDs: ["categoryID-02"],
         cycle: "monthly",
         description: "descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",
         id: "demo-02",

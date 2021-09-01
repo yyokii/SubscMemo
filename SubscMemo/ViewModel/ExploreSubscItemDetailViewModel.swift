@@ -60,20 +60,17 @@ final class ExploreSubscItemDetailViewModel: ObservableObject {
 
     func loadPlanData(serviceID: String) {
         exploreSubscRepository.loadPlans(of: serviceID)
-            .sink(receiveCompletion: { [weak self] completion in
-
-                switch completion {
-                case .failure:
-                    self?.alertProvider.showErrorAlert(message: nil)
-                case .finished:
-                    break
-                }
-
-            }, receiveValue: { [weak self] plans in
-                self?.plans = plans.map {
-                    SubscPlanViewData.translate(from: $0)
-                }
-            })
+            .replaceError(with: [])
+            .map { plans in
+                plans
+                    .map { plan in
+                        SubscPlanViewData.translate(from: plan)
+                    }
+                    .sorted {
+                        $0.price < $1.price
+                    }
+            }
+            .assign(to: \.plans, on: self)
             .store(in: &cancellables)
     }
 }

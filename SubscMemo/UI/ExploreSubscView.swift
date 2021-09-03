@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct ExploreSubscView: View {
-    @StateObject var exploreSubscVM = ExploreSubscViewModel()
+    @StateObject var vm = ExploreSubscViewModel()
     @State var presentContent: PresentContent?
     var columns: [GridItem] = Array(repeating: .init(.flexible(), spacing: 0), count: 2)
 
     var body: some View {
         NavigationView {
             ScrollView {
-                SearchBarView(text: $exploreSubscVM.searchText)
+                SearchBarView(text: $vm.searchText)
                     .padding(.horizontal, 10)
 
                 LazyVGrid(columns: columns) {
-                    ForEach(exploreSubscVM.displayVMs) { vm in
+                    ForEach(vm.displayVMs) { vm in
                         let exploreSubscItemDetailVM = ExploreSubscItemDetailViewModel(serviceID: vm.item.serviceID)
                         NavigationLink(
                             destination: ExploreSubscItemDetailView(vm: exploreSubscItemDetailVM),
@@ -44,10 +44,10 @@ struct ExploreSubscView_Previews: PreviewProvider {
     static var previews: some View {
 
         Group {
-            ExploreSubscView(exploreSubscVM: demoExploreSubscVM)
+            ExploreSubscView(vm: demoExploreSubscVM)
                 .environment(\.colorScheme, .light)
 
-            ExploreSubscView(exploreSubscVM: demoExploreSubscVM)
+            ExploreSubscView(vm: demoExploreSubscVM)
                 .environment(\.colorScheme, .dark)
         }
     }

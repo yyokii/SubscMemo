@@ -22,6 +22,7 @@ struct ExploreSubscItemDetailView: View {
                             .cornerRadius(35)
                     }
                     .frame(maxWidth: .infinity)
+                    .padding(.top, 16)
 
                     ServiceNameView(
                         serviceName: vm.subscItem.serviceName,
@@ -59,6 +60,7 @@ struct ExploreSubscItemDetailView: View {
             .buttonStyle(ActionButtonStyle())
             .padding(10)
         }
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear(perform: {
             vm.loadData()
         })

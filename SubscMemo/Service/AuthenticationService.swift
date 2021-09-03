@@ -15,8 +15,8 @@ enum AuthenticationServiceError: Error {
 }
 
 protocol BaseAuthenticationService {
-
     func convertToPermanentAccount(with email: String, pass: String) -> AnyPublisher<AppUser, Error>
+    func setup()
     func signInAnonymously() -> AnyPublisher<Void, Error>
     func signInWithEmail(email: String, pass: String) -> AnyPublisher<AppUser, Error>
     func signOut() -> AnyPublisher<Void, Error>
@@ -28,10 +28,7 @@ final class AuthenticationService: BaseAuthenticationService {
 
     private var handle: AuthStateDidChangeListenerHandle?
 
-    init() {
-
-        registerStateListener()
-    }
+    init() {}
 
     func convertToPermanentAccount(with email: String, pass: String) -> AnyPublisher<AppUser, Error> {
 
@@ -50,6 +47,10 @@ final class AuthenticationService: BaseAuthenticationService {
                 promise(.failure(AuthenticationServiceError.other))
             }.eraseToAnyPublisher()
         }
+    }
+
+    func setup() {
+        registerStateListener()
     }
 
     func signInAnonymously() -> AnyPublisher<Void, Error> {
@@ -128,15 +129,16 @@ final class AuthenticationService: BaseAuthenticationService {
         }
 
         self.handle = Auth.auth().addStateDidChangeListener { [weak self] (_, user) in
+            guard let self = self else { return }
 
-            self?.user = AppUser(from: user)
+            self.user = AppUser(from: user)
 
-            if let user = user {
-                let anonymous = user.isAnonymous ? "anonymously " : ""
-                print("✅ User signed in \(anonymous)with user ID \(user.uid). Email: \(user.email ?? "(empty)"), display name: [\(user.displayName ?? "(empty)")]")
+            if self.user.status == .uninitialized {
+                print("✅ User not signed in.")
+                _ = self.signInAnonymously()
             } else {
-                print("✅ User signed out.")
-                _ = self?.signInAnonymously()
+                print("✅ User signed in.\nUser status:\(self.user.status)\nUser ID: \(self.user.id)\n"
+                )
             }
         }
     }

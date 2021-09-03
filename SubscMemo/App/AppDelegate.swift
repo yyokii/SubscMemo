@@ -36,7 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         setUpUserNotification()
 
-        _ = authenticationService.signInAnonymously()
+        authenticationService.setup()
+
         return true
     }
 

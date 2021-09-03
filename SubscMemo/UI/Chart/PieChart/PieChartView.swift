@@ -41,22 +41,31 @@ struct PieChartView: View {
                 }
                 .padding()
 
-                HStack {
-                    PieChartRow(data: data, backgroundColor: Color.adaptiveWhite)
+                if data.count > 0 {
+                    HStack {
+                        PieChartRow(data: data, backgroundColor: Color.adaptiveWhite)
 
-                    VStack(alignment: .leading) {
-                        ForEach(data, id: \.id) { chartData in
-                            HStack {
-                                Rectangle()
-                                    .fill(chartData.color)
-                                    .frame(width: 16, height: 8)
-                                Text("\(chartData.label)")
-                                    .adaptiveFont(.matter, size: 12)
+                        VStack(alignment: .leading) {
+                            ForEach(data, id: \.id) { chartData in
+                                HStack {
+                                    Rectangle()
+                                        .fill(chartData.color)
+                                        .frame(width: 16, height: 8)
+                                    Text("\(chartData.label)")
+                                        .adaptiveFont(.matter, size: 12)
+                                }
                             }
                         }
                     }
+                    .padding()
+                } else {
+                    VStack(alignment: .center) {
+                        Text("📊 サービスを追加するとグラフが表示されます")
+                            .padding()
+
+                        Spacer()
+                    }
                 }
-                .padding()
             }
         }
         .frame(height: 240)
@@ -156,6 +165,12 @@ struct PieChartView_Previews: PreviewProvider {
 
     static var previews: some View {
 
+        // Empty
+        PieChartView(data: [],
+                     title: "たいとる",
+                     dropShadow: true)
+
+        // VMを通してデータが適切に描画されるかの確認
         let vm = CategoryPieChartViewModel()
         PieChartView(data: vm.arrangePieChartDatas(subscItems: demoSubscItems, categories: demoSubscCategories),
                      title: "たいとる",

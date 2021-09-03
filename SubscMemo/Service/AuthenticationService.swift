@@ -39,10 +39,12 @@ final class AuthenticationService: BaseAuthenticationService {
 
         if let user = Auth.auth().currentUser {
             return user.link(with: credential).map { result in
-
                 AppUser(id: result.user.uid, name: result.user.displayName ?? "", status: .authenticated)
-
-            }.eraseToAnyPublisher()
+            }
+            .handleEvents(receiveOutput: { appUser in
+                self.user = appUser
+            })
+            .eraseToAnyPublisher()
         } else {
             return Future<AppUser, Error> { promise in
                 promise(.failure(AuthenticationServiceError.other))
@@ -74,10 +76,12 @@ final class AuthenticationService: BaseAuthenticationService {
 
         return Auth.auth().signIn(withEmail: email, password: pass)
             .map { result in
-
                 AppUser(id: result.user.uid, name: result.user.displayName ?? "", status: .authenticated)
-
-            }.eraseToAnyPublisher()
+            }
+            .handleEvents(receiveOutput: { appUser in
+                self.user = appUser
+            })
+            .eraseToAnyPublisher()
     }
 
     func signOut() -> AnyPublisher<Void, Error> {
@@ -93,6 +97,28 @@ final class AuthenticationService: BaseAuthenticationService {
         return Future<Void, Error> { promise in
             promise(.success(()))
         }.eraseToAnyPublisher()
+    }
+
+    func deleteCurrentUser(email: String, pass: String) {
+        let currentUser = Auth.auth().currentUser
+        let credential = EmailAuthProvider.credential(withEmail: email, password: pass)
+
+        currentUser?.reauthenticate(with: credential, completion: { _, error in
+            if let error = error {
+                print("❌ Fail delete user")
+                print(error.localizedDescription)
+            } else {
+                // Delete User
+                Auth.auth().currentUser?.delete(completion: { error in
+                    if let error = error {
+                        print("❌ Fail delete user")
+                        print(error.localizedDescription)
+                    } else {
+                        print("✅ Delete current user")
+                    }
+                })
+            }
+        })
     }
 
     private func registerStateListener() {

@@ -47,9 +47,6 @@ final class FirestoreUserProfileRepository: BaseUserProfileRepository, UserProfi
 
     func loginWithEmail(email: String, pass: String) -> AnyPublisher<AppUser, Error> {
         return authenticationService.signInWithEmail(email: email, pass: pass)
-            .handleEvents(receiveOutput: { appUser in
-                self.appUser = appUser
-            })
             .eraseToAnyPublisher()
     }
 

@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import Resolver
+
 struct SettingsView: View {
     @StateObject var vm = SettingsViewModel()
     @State var presentContent: PresentContent?
@@ -30,6 +32,24 @@ struct SettingsView: View {
                     Text(vm.appVersion)
                 }
             }
+
+            #if DEBUG
+            Section(header: Text("デバッグ用機能")) {
+                SettingsRow(title: "") {
+                    Button("ログアウト") {
+                        let authenticationService: AuthenticationService = Resolver.resolve()
+                        _ = authenticationService.signOut()
+                    }
+                }
+
+                SettingsRow(title: "") {
+                    Button("ユーザー削除") {
+                        let authenticationService: AuthenticationService = Resolver.resolve()
+                        authenticationService.deleteCurrentUser(email: "", pass: "")
+                    }
+                }
+            }
+            #endif
         }
         .navigationBarTitle("アプリ設定")
         .sheet(item: $presentContent, content: { $0 })

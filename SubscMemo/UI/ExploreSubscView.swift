@@ -8,20 +8,18 @@
 import SwiftUI
 
 struct ExploreSubscView: View {
-
-    @ObservedObject var exploreSubscVM = ExploreSubscViewModel()
+    @StateObject var exploreSubscVM = ExploreSubscViewModel()
     @State var presentContent: PresentContent?
     var columns: [GridItem] = Array(repeating: .init(.flexible(), spacing: 0), count: 2)
 
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(alignment: .leading) {
-                    SubscCategoryRowView()
-                }
+                SearchBarView(text: $exploreSubscVM.searchText)
+                    .padding(.horizontal, 10)
 
                 LazyVGrid(columns: columns) {
-                    ForEach(exploreSubscVM.exploreSubscItemVMs) { vm in
+                    ForEach(exploreSubscVM.displayVMs) { vm in
                         let exploreSubscItemDetailVM = ExploreSubscItemDetailViewModel(serviceID: vm.item.serviceID)
                         NavigationLink(
                             destination: ExploreSubscItemDetailView(vm: exploreSubscItemDetailVM),
@@ -31,6 +29,7 @@ struct ExploreSubscView: View {
                             .padding(.bottom, 20)
                     }
                 }
+                .padding(.top, 10)
             }
             .navigationBarTitle("見つける")
             .sheet(item: $presentContent, content: { $0 })

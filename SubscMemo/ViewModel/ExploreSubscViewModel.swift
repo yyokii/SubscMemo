@@ -11,7 +11,15 @@ import Resolver
 
 final class ExploreSubscViewModel: ObservableObject {
     @Published var exploreSubscRepository: ExploreSubscRepository = Resolver.resolve()
-    @Published var exploreSubscItemVMs = [ExploreSubscItemViewModel]()
+
+    var exploreSubscItemVMs = [ExploreSubscItemViewModel]()
+    @Published var displayVMs = [ExploreSubscItemViewModel]()
+
+    var searchText = "" {
+        didSet {
+            self.searchService(text: searchText)
+        }
+    }
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -20,8 +28,27 @@ final class ExploreSubscViewModel: ObservableObject {
             .map { items in
                 items.map { ExploreSubscItemViewModel(item: ExploreSubscItemViewData.translate(from: $0)) }
             }
+            .handleEvents(receiveOutput: { [weak self] vms in
+                self?.displayVMs = vms
+            })
             .assign(to: \.exploreSubscItemVMs, on: self)
             .store(in: &cancellables)
+
+    }
+
+    func searchService(text: String) {
+        if text.isEmpty {
+            displayVMs = exploreSubscItemVMs
+        } else {
+            let searchText = text.lowercased()
+            let serchedItem = exploreSubscItemVMs
+                .filter { vm in
+                    vm.item.serviceName
+                        .lowercased()
+                        .contains(searchText)
+                }
+            displayVMs = serchedItem
+        }
     }
 }
 

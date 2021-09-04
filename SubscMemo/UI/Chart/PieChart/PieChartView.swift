@@ -8,16 +8,10 @@
 import SwiftUI
 
 struct PieChartView: View {
-    var data: [PieChartData]
+    @Binding var data: [PieChartData]
     var title: String
-    var legend: String?
-    var dropShadow: Bool
-
-    public init(data: [PieChartData], title: String, dropShadow: Bool? = true) {
-        self.data = data
-        self.title = title
-        self.dropShadow = dropShadow!
-    }
+    #warning("これ大丈夫？ダークモードとか")
+    var dropShadow: Bool = true
 
     public var body: some View {
 
@@ -167,13 +161,7 @@ struct PieChartView_Previews: PreviewProvider {
     static var previews: some View {
 
         // Empty
-        PieChartView(data: [],
-                     title: "たいとる",
-                     dropShadow: true)
-
-        // VMを通してデータが適切に描画されるかの確認
-        let vm = CategoryPieChartViewModel()
-        PieChartView(data: vm.arrangePieChartDatas(subscItems: demoSubscItems, categories: demoSubscCategories),
+        PieChartView(data: .constant([]),
                      title: "たいとる",
                      dropShadow: true)
 
@@ -183,7 +171,8 @@ struct PieChartView_Previews: PreviewProvider {
                       "iPhone XS Max",
                       "iPad Pro (9.7-inch)"],
                      id: \.self) { deviceName in
-                PieChartView(data: demoPieChartDatas, title: "たいとる", dropShadow: true)
+
+                PieChartView(data: .constant(demoPieChartDatas), title: "たいとる", dropShadow: true)
                     .previewDevice(PreviewDevice(rawValue: deviceName))
                     .previewDisplayName(deviceName)
             }

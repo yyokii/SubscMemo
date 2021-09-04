@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct CategoryPieChartView: View {
-    @StateObject var categoryPieChartVM = CategoryPieChartViewModel()
+    @StateObject var vm = CategoryPieChartViewModel()
 
     var body: some View {
-        PieChartView(data: categoryPieChartVM.pieChartDatas, title: "利用カテゴリー率")
+        PieChartView(data: $vm.pieChartDatas, title: "利用カテゴリー率")
     }
 }
 
@@ -22,10 +22,10 @@ struct CategoryPieChartView_Previews: PreviewProvider {
     static var previews: some View {
         return
             Group {
-                CategoryPieChartView(categoryPieChartVM: demoCategoryPieChartVM)
+                CategoryPieChartView(vm: demoCategoryPieChartVM)
                     .environment(\.colorScheme, .light)
 
-                CategoryPieChartView(categoryPieChartVM: demoCategoryPieChartVM)
+                CategoryPieChartView(vm: demoCategoryPieChartVM)
                     .environment(\.colorScheme, .dark)
             }
     }

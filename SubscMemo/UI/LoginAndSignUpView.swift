@@ -26,7 +26,6 @@ struct LoginAndSignUpView: View {
         let placeholder: String
         @Binding var text: String
 
-        // ちとvstackとかで囲んで広げよう
         var body: some View {
 
             VStack {
@@ -40,8 +39,6 @@ struct LoginAndSignUpView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.gray, lineWidth: 2)
             )
-
-            //            .background(Color.blue)
         }
     }
 

@@ -61,6 +61,7 @@ struct PieChartView: View {
                 } else {
                     VStack(alignment: .center) {
                         Text("📊 サービスを追加するとグラフが表示されます")
+                            .adaptiveFont(.matterMedium, size: 10)
                             .padding()
 
                         Spacer()

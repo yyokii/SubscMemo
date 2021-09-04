@@ -106,23 +106,16 @@ final class LoginAndSignUpViewModel: ObservableObject {
 
     func login() {
 
+        canLogin = false
         userProfileRepository.loginWithEmail(email: userLoginAuthData.email, pass: userLoginAuthData.password)
             .subscribe(on: DispatchQueue.global())
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
-
+                self?.canLogin = true
                 switch completion {
                 case .failure(let error):
-
-                    self?.alertProvider.alert = AlertProvider.Alert(
-                        title: "エラー",
-                        message: error.localizedDescription,
-                        primaryButtomText: "OK",
-                        primaryButtonAction: {},
-                        secondaryButtonText: ""
-                    )
-
-                // self?.showAlert()
+                    print(error.localizedDescription)
+                    self?.alertProvider.showErrorAlert(message: nil)
 
                 case .finished:
                     break
@@ -136,21 +129,17 @@ final class LoginAndSignUpViewModel: ObservableObject {
 
     func signUpWithEmail() {
 
+        canSignUp = false
         userProfileRepository.signUpWithEmail(email: userLoginAuthData.email, pass: userLoginAuthData.password)
             .subscribe(on: DispatchQueue.global())
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
 
+                self?.canSignUp = true
                 switch completion {
                 case .failure(let error):
-
-                    self?.alertProvider.alert = AlertProvider.Alert(
-                        title: "エラー",
-                        message: error.localizedDescription,
-                        primaryButtomText: "OK",
-                        primaryButtonAction: {},
-                        secondaryButtonText: ""
-                    )
+                    print(error.localizedDescription)
+                    self?.alertProvider.showErrorAlert(message: nil)
 
                 case .finished:
                     break

@@ -25,6 +25,7 @@ struct HomeView: View {
                             .padding()
 
                         AdBannerView()
+                            .aspectRatio(6.4, contentMode: .fit)
 
                         Text("マイデータ")
                             .adaptiveFont(.matterSemiBold, size: 12)
@@ -45,6 +46,16 @@ struct HomeView: View {
                         Text("登録済みのサービス")
                             .adaptiveFont(.matterSemiBold, size: 12)
                             .padding()
+
+                        if homeVM.subscribedItemVMs.isEmpty {
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text("利用しているサービスを追加しましょう！")
+                                Text("「さがす」からサービスを検索して簡単に追加できます😊")
+                                Text("「追加する」からあなた独自のものを追加することもできます👍")
+                            }
+                            .adaptiveFont(.matterMedium, size: 10)
+                            .padding()
+                        }
 
                         ForEach(homeVM.subscribedItemVMs) { vm in
                             let iconColor = Color.randomColor()
@@ -70,7 +81,7 @@ struct HomeView: View {
                         .padding([.bottom], 48)
                     }
                 }
-                .navigationBarTitle("App")
+                .navigationBarTitle("マイサブスク")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         NavigationLink(

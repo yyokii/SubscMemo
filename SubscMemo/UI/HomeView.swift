@@ -25,7 +25,7 @@ struct HomeView: View {
                             .padding()
 
                         AdBannerView()
-                            .aspectRatio(6.4, contentMode: .fit)
+                            .scaledToFit()
 
                         Text("マイデータ")
                             .adaptiveFont(.matterSemiBold, size: 12)

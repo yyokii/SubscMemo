@@ -11,6 +11,9 @@ packages:
   Tagged:
     url: "https://github.com/pointfreeco/swift-tagged.git"
     version: 0.5.0
+  UIPreviewCatalog:
+    url: "https://github.com/yyokii/UIPreviewCatalog"
+    branch: main
 
   # import 効かないのでpodでやる
   # Resolver:
@@ -62,6 +65,7 @@ targets:
         INFOPLIST_FILE: SubscMemoTests/Info.plist
         # PRODUCT_BUNDLE_IDENTIFIER: {Bundle ID Prefix}.SubscMemoTests
     dependencies:
+      - package: UIPreviewCatalog
       - target: SubscMemo
 
   SubscMemoUITests:
@@ -116,6 +120,8 @@ schemes:
         SubscMemo: all
     run:
       config: Debug
+      environmentVariables:
+        PREVIEW_CATALOG_PATH: $(SOURCE_ROOT)
     test:
       config: Debug
       gatherCoverageData: true

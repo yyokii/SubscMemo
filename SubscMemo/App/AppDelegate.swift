@@ -29,12 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         GADMobileAds.sharedInstance().start(completionHandler: nil)
 
-        #if DEBUG
-        if isTesting() {
-            return true
-        }
-        #endif
-
         setUpUserNotification()
         setUpATT()
 

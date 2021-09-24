@@ -21,7 +21,6 @@ let previewItems: [PreviewItem] = [
     .init(name: "HomeView_Previews", previews: HomeView_Previews._allPreviews),
     .init(name: "LoginAndSignUpView_Previews", previews: LoginAndSignUpView_Previews._allPreviews),
     .init(name: "MainTabView_Previews", previews: MainTabView_Previews._allPreviews),
-    .init(name: "NagBanner_Previews", previews: NagBanner_Previews._allPreviews),
     .init(name: "OptionalablePickerView_Previews", previews: OptionalablePickerView_Previews._allPreviews),
     .init(name: "PagingBanner_Previews", previews: PagingBanner_Previews._allPreviews),
     .init(name: "PaymentCyclePickerView_Previews", previews: PaymentCyclePickerView_Previews._allPreviews),

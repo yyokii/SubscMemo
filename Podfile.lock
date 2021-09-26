@@ -354,8 +354,6 @@ PODS:
   - CombineFirebaseFirestore (0.2.5):
     - Firebase/Firestore
     - FirebaseFirestoreSwift
-  - Firebase (8.6.0):
-    - Firebase/Core (= 8.6.0)
   - Firebase/Analytics (8.6.0):
     - Firebase/Core
   - Firebase/Auth (8.6.0):
@@ -510,7 +508,6 @@ PODS:
 DEPENDENCIES:
   - CombineFirebase/Auth
   - CombineFirebase/Firestore
-  - Firebase
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Firestore
@@ -576,6 +573,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   Resolver: c0956ef605a64f63458166653fa4ef71df5acd98
 
-PODFILE CHECKSUM: ebf1fdff7375e4692e97b7d3e0a9176c28f82e2d
+PODFILE CHECKSUM: 93078a8f17e0ac6188f3e3ec04254a9d1382da27
 
 COCOAPODS: 1.10.1

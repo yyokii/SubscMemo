@@ -18,7 +18,7 @@ class GeneratePreviewCatalogTests: XCTestCase {
             try catalog.createCatalog(previewItems: previewItems)
         } catch {
             print(error.localizedDescription)
-            XCTFail()
+            XCTFail("Failed UIPreviewCatalog")
         }
     }
 }

@@ -2,9 +2,9 @@
 
 This is a list of Previews that conform to PreviewProvider.
 
-Number of Views: 41
+Number of Views: 40
 
-Number of preview patterns: 78
+Number of preview patterns: 77
 
 ## Previews
 
@@ -127,10 +127,6 @@ MainTabView_Previews_1
 MainTabView_Previews_2
 
 <img src="Images/MainTabView_Previews_2.jpg" width="200.0" height="">
-
-NagBanner_Previews_1
-
-<img src="Images/NagBanner_Previews_1.jpg" width="200.0" height="">
 
 OptionalablePickerView_Previews_1
 

@@ -17,9 +17,9 @@ target 'SubscMemo' do
   pod "Resolver"
   
   target 'SubscMemoTests' do
-    inherit! :search_paths
-    
-    pod 'Firebase'
+  end
+  
+  target 'SubscMemoUITests' do
   end
 end
 

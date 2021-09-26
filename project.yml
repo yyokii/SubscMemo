@@ -13,7 +13,7 @@ packages:
     version: 0.5.0
   UIPreviewCatalog:
     url: "https://github.com/yyokii/UIPreviewCatalog"
-    branch: main
+    version: 1.0.0
 
   # import 効かないのでpodでやる
   # Resolver:

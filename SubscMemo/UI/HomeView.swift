@@ -12,6 +12,8 @@ struct HomeView: View {
     @StateObject var homeVM = HomeViewModel()
     @State var presentContent: PresentContent?
 
+    @State var didReceiveAd: Bool?
+
     var body: some View {
         NavigationView {
             GeometryReader { geo in
@@ -24,7 +26,8 @@ struct HomeView: View {
                         PaymentSummaryView()
                             .padding()
 
-                        AdBannerView()
+                        AdBannerView(didReceiveAd: $didReceiveAd)
+                            .isHidden(!(didReceiveAd ?? true), remove: true)
                             .scaledToFit()
 
                         Text("マイデータ")

@@ -30,7 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GADMobileAds.sharedInstance().start(completionHandler: nil)
 
         setUpUserNotification()
-        setUpATT()
 
         authenticationService.setup()
 
@@ -60,27 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 } else {
                     // we have permission
                 }
-            }).store(in: &cancellables)
-    }
-
-    func setUpATT() {
-        ATTrackingManager
-            .getAuthorizationStatus()
-            .flatMap { status -> AnyPublisher<ATTrackingManager.AuthorizationStatus, Never> in
-                switch status {
-                case .authorized, .denied, .restricted:
-                    return Just(status).eraseToAnyPublisher()
-                case .notDetermined:
-                    return ATTrackingManager
-                        .requestAuthorization()
-                        .eraseToAnyPublisher()
-                @unknown default:
-                    return Just(status).eraseToAnyPublisher()
-                }
-            }
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { status in
-                print("📝: ATT stauts \(status.description)")
             }).store(in: &cancellables)
     }
 }

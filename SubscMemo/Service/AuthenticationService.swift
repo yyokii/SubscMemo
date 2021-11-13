@@ -16,6 +16,7 @@ enum AuthenticationServiceError: Error {
 
 protocol BaseAuthenticationService {
     func convertToPermanentAccount(with email: String, pass: String) -> AnyPublisher<AppUser, Error>
+    func resetPassword(email: String) -> AnyPublisher<Void, Error>
     func setup()
     func signInAnonymously() -> AnyPublisher<Void, Error>
     func signInWithEmail(email: String, pass: String) -> AnyPublisher<AppUser, Error>
@@ -28,7 +29,9 @@ final class AuthenticationService: BaseAuthenticationService {
 
     private var handle: AuthStateDidChangeListenerHandle?
 
-    init() {}
+    init() {
+        Auth.auth().languageCode = "ja_JP"
+    }
 
     func convertToPermanentAccount(with email: String, pass: String) -> AnyPublisher<AppUser, Error> {
 
@@ -47,6 +50,10 @@ final class AuthenticationService: BaseAuthenticationService {
                 promise(.failure(AuthenticationServiceError.other))
             }.eraseToAnyPublisher()
         }
+    }
+
+    func resetPassword(email: String) -> AnyPublisher<Void, Error> {
+        Auth.auth().sendPasswordReset(withEmail: email)
     }
 
     func setup() {

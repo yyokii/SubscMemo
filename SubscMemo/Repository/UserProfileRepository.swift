@@ -18,6 +18,7 @@ class BaseUserProfileRepository {
 /// ユーザーのプロフィール情報を操作する
 protocol UserProfileRepository: BaseUserProfileRepository {
     func loginWithEmail(email: String, pass: String) -> AnyPublisher<AppUser, Error>
+    func resetPassword(email: String) -> AnyPublisher<Void, Error>
     func signUpWithEmail(email: String, pass: String) -> AnyPublisher<AppUser, Error>
     func signOut() -> AnyPublisher<Void, Error>
 }
@@ -48,6 +49,10 @@ final class FirestoreUserProfileRepository: BaseUserProfileRepository, UserProfi
     func loginWithEmail(email: String, pass: String) -> AnyPublisher<AppUser, Error> {
         return authenticationService.signInWithEmail(email: email, pass: pass)
             .eraseToAnyPublisher()
+    }
+
+    func resetPassword(email: String) -> AnyPublisher<Void, Error> {
+        authenticationService.resetPassword(email: email)
     }
 
     func signUpWithEmail(email: String, pass: String) -> AnyPublisher<AppUser, Error> {

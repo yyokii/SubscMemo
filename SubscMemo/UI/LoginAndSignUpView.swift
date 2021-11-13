@@ -43,52 +43,54 @@ struct LoginAndSignUpView: View {
     }
 
     var body: some View {
-        VStack {
-            HStack {
-                Button(action: {
-                    withAnimation(.spring()) {
-                        index = 0
-                    }
-                }, label: {
-                    VStack {
-                        Text("ログイン")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(index == 0 ? .adaptiveBlack : .gray)
-
-                        ZStack {
-                            Capsule()
-                                .fill( index == 0 ? Color.blue : Color.gray)
-                                .frame(height: 4)
+        NavigationView {
+            VStack {
+                HStack {
+                    Button(action: {
+                        withAnimation(.spring()) {
+                            index = 0
                         }
-                    }
-                })
+                    }, label: {
+                        VStack {
+                            Text("ログイン")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(index == 0 ? .adaptiveBlack : .gray)
 
-                Button(action: {
-                    withAnimation(.spring()) {
-                        index = 1
-                    }
-                }, label: {
-                    VStack {
-                        Text("新規登録")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(index == 1 ? .adaptiveBlack : .gray)
-
-                        ZStack {
-                            Capsule()
-                                .fill( index == 1 ? Color.blue : Color.gray)
-                                .frame(height: 4)
+                            ZStack {
+                                Capsule()
+                                    .fill( index == 0 ? Color.blue : Color.gray)
+                                    .frame(height: 4)
+                            }
                         }
-                    }
-                })
-            }
-            .padding()
+                    })
 
-            if index == 0 {
-                LoginView(parentPresentationMode: presentationMode)
-            } else {
-                SignUpView(parentPresentationMode: presentationMode)
+                    Button(action: {
+                        withAnimation(.spring()) {
+                            index = 1
+                        }
+                    }, label: {
+                        VStack {
+                            Text("新規登録")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(index == 1 ? .adaptiveBlack : .gray)
+
+                            ZStack {
+                                Capsule()
+                                    .fill( index == 1 ? Color.blue : Color.gray)
+                                    .frame(height: 4)
+                            }
+                        }
+                    })
+                }
+                .padding()
+
+                if index == 0 {
+                    LoginView(parentPresentationMode: presentationMode)
+                } else {
+                    SignUpView(parentPresentationMode: presentationMode)
+                }
             }
         }
     }
@@ -118,6 +120,13 @@ struct LoginView: View {
                 }
                 LoginAndSignUpView.InputTextField(placeholder: "6文字以上",
                                                   text: $vm.userLoginAuthData.password)
+
+                NavigationLink(destination: ResetPasswordView(),
+                               label: {
+                                Text("パスワードを再設定する")
+                                    .foregroundColor(.blue)
+                                    .adaptiveFont(.matter, size: 10)
+                               })
             })
             .padding()
 
@@ -187,9 +196,7 @@ struct SignUpView: View {
 struct LoginAndSignUpView_Previews: PreviewProvider {
 
     static var content: some View {
-        NavigationView {
-            LoginAndSignUpView()
-        }
+        LoginAndSignUpView()
     }
 
     static var previews: some View {

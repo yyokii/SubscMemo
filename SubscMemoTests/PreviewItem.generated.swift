@@ -22,7 +22,6 @@ let previewItems: [PreviewItem] = [
     .init(name: "LoginAndSignUpView_Previews", previews: LoginAndSignUpView_Previews._allPreviews),
     .init(name: "MainTabView_Previews", previews: MainTabView_Previews._allPreviews),
     .init(name: "OptionalablePickerView_Previews", previews: OptionalablePickerView_Previews._allPreviews),
-    .init(name: "PagingBanner_Previews", previews: PagingBanner_Previews._allPreviews),
     .init(name: "PaymentCyclePickerView_Previews", previews: PaymentCyclePickerView_Previews._allPreviews),
     .init(name: "PaymentPerCategoryPieChartView_Previews", previews: PaymentPerCategoryPieChartView_Previews._allPreviews),
     .init(name: "PaymentSummaryView_Previews", previews: PaymentSummaryView_Previews._allPreviews),

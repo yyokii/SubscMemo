@@ -30,7 +30,6 @@ final class ResetPasswordViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     init() {
-        print("初期化されたよ")
 
         #if DEBUG
         email = "yyokii.h@gmail.com"

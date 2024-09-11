@@ -23,7 +23,7 @@ protocol BaseAuthenticationService {
     func signOut() -> AnyPublisher<Void, Error>
 }
 
-final class AuthenticationService: BaseAuthenticationService {
+final class AuthenticationService: BaseAuthenticationService, ObservableObject {
 
     @Published var user: AppUser!
 
